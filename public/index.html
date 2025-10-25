@@ -160,17 +160,17 @@
         }
 
         .service-overlay h3 {
-            color: #25b0a2; /* Green accent for title */
+            color: #ffffff; /* Revert to white for title */
             margin: 0;
             font-size: 1.5em;
             text-align: center;
         }
 
         .service-overlay p.details {
-            color: #333; /* Black text for visibility */
+            color: #ffffff; /* Revert to white for details */
             margin: 10px;
             font-size: 0.9em;
-            opacity: 0; /* Hidden initially */
+            opacity: 0;
             max-height: 0;
             overflow: hidden;
             transition: opacity 0.3s ease, max-height 0.3s ease;
@@ -191,6 +191,10 @@
 
         h1, h2 {
             color: #25b0a2; /* Lighter blue from gradient */
+            text-align: center; /* Center main headings */
+        }
+        section p {
+            color: #333; /* Black text for section paragraphs */
         }
         footer {
             background-color: rgba(0, 0, 0, 0.8); /* Darker translucent for footer */
