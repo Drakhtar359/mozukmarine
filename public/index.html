@@ -45,15 +45,16 @@
         .hero-section {
             position: relative;
             height: 400px; /* Adjust as needed */
-            background: url('./images/hero-bg.jpg') no-repeat center center/cover;
+            /* background: url('./images/hero-bg.jpg') no-repeat center center/cover; */
             color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             margin-bottom: 20px;
+            overflow: hidden; /* Ensure blur doesn't bleed */
         }
-        .hero-section::before {
+        /* .hero-section::before {
             content: '';
             position: absolute;
             top: 0;
@@ -61,7 +62,17 @@
             right: 0;
             bottom: 0;
             /* background: rgba(0, 0, 0, 0.5); */ /* Overlay for readability */
-            filter: blur(2px); /* Added filter for blur effect */
+            /* filter: blur(2px); */ /* Added filter for blur effect */
+        } */
+        .hero-background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('./images/hero-bg.jpg') no-repeat center center/cover;
+            filter: blur(5px); /* Apply blur to the background image */
+            z-index: -1; /* Ensure it's behind other content */
         }
         .hero-content {
             position: relative;
@@ -246,6 +257,7 @@
         <img src="./images/logo.png" alt="Mozuk Marine Logo" style="max-width: 150px; height: auto;">
     </div>
     <div class="hero-section">
+        <div class="hero-background-image"></div>
         <div class="hero-content">
             <h2>Reliable Ballast Water Treatment System Services</h2>
             <p>Ensuring maritime compliance and operational efficiency worldwide.</p>
