@@ -11,12 +11,23 @@
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-            background: url('./images/hero-bg.jpg') no-repeat center center fixed;
-            background-size: cover;
-            filter: blur(5px); /* Apply blur to the background image */
+            background: linear-gradient(to right, #25b0a2, #2f5294); /* Gradient background for the whole page */
             color: #ffffff; /* White text for contrast */
             line-height: 1.6;
         }
+
+        .static-blurred-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('./images/hero-bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(5px);
+            z-index: -2; /* Ensure it's behind all content and the body gradient */
+        }
+
         .top-menu-bar {
             background-color: #ffffff;
             height: 60px; /* Adjust height for content */
@@ -247,6 +258,7 @@
     </style>
 </head>
 <body>
+    <div class="static-blurred-background"></div>
     <div class="top-menu-bar">
         <img src="./images/logo.png" alt="Mozuk Marine Logo" style="max-width: 150px; height: auto;">
     </div>
