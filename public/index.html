@@ -11,8 +11,8 @@
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+            background: linear-gradient(to right, #25b0a2, #2f5294); /* Gradient background for the whole page */
+            color: #ffffff; /* White text for contrast */
             line-height: 1.6;
         }
         header {
@@ -88,7 +88,7 @@
             padding: 20px 0;
         }
         section {
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly translucent white for sections */
             margin-bottom: 20px;
             padding: 20px;
             border-radius: 8px;
@@ -121,7 +121,7 @@
             overflow: hidden;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            background-color: #e9f7ff; /* Fallback */
+            background-color: rgba(255, 255, 255, 0.1); /* Translucent white to show gradient */
         }
 
         .service-content {
@@ -187,11 +187,12 @@
         .service-item:hover .service-overlay {
             background: rgba(0, 0, 0, 0.7); /* Darker overlay on hover */
         }
+
         h1, h2 {
             color: #25b0a2; /* Lighter blue from gradient */
         }
         footer {
-            background-color: #333;
+            background-color: rgba(0, 0, 0, 0.8); /* Darker translucent for footer */
             color: #ffffff;
             text-align: center;
             padding: 1.5rem 0;
