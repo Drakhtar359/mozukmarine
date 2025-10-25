@@ -113,15 +113,75 @@
             margin-top: 20px;
         }
         .service-item {
-            background-color: #e9f7ff;
-            padding: 20px;
+            position: relative;
+            overflow: hidden;
             border-radius: 8px;
-            text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            background-color: #e9f7ff; /* Fallback */
         }
-        .service-item h3 {
-            color: #2f5294; /* Darker blue from gradient */
-            margin-top: 0;
+
+        .service-content {
+            position: relative;
+            width: 100%;
+            height: 200px; /* Fixed height for service items */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(2px); /* Apply blur to service images */
+            transition: filter 0.3s ease, transform 0.3s ease;
+        }
+
+        .service-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* Overlay for text readability */
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            opacity: 1; /* Initially visible for title */
+            transition: opacity 0.3s ease;
+        }
+
+        .service-overlay h3 {
+            color: #ffffff;
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .service-overlay p.details {
+            color: #ffffff;
+            margin: 10px;
+            font-size: 0.9em;
+            opacity: 0; /* Hidden initially */
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 0.3s ease, max-height 0.3s ease;
+        }
+
+        .service-item:hover .service-content img {
+            transform: scale(1.05); /* Slight zoom on hover */
+        }
+
+        .service-item:hover .service-overlay p.details {
+            opacity: 1;
+            max-height: 100px; /* Adjust as needed to reveal text */
+        }
+
+        .service-item:hover .service-overlay {
+            background: rgba(0, 0, 0, 0.7); /* Darker overlay on hover */
         }
         h1, h2 {
             color: #25b0a2; /* Lighter blue from gradient */
@@ -183,29 +243,49 @@
             <h2>Our Services</h2>
             <div class="services-grid">
                 <div class="service-item">
-                    <h3>BWTS Installation</h3>
-                    <img src="./images/installation.png" alt="BWTS Installation" width="200">
-                    <p>Professional installation of new Ballast Water Treatment Systems tailored to your vessel's specifications.</p>
+                    <div class="service-content">
+                        <img src="./images/installation.png" alt="BWTS Installation">
+                        <div class="service-overlay">
+                            <h3>BWTS Installation</h3>
+                            <p class="details">Professional installation of new Ballast Water Treatment Systems tailored to your vessel's specifications.</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="service-item">
-                    <h3>Maintenance & Repair</h3>
-                    <img src="./images/maintenance.png" alt="BWTS Maintenance and Repair" width="200">
-                    <p>Routine maintenance, troubleshooting, and emergency repair services for all major BWTS brands.</p>
+                    <div class="service-content">
+                        <img src="./images/maintenance.png" alt="BWTS Maintenance and Repair">
+                        <div class="service-overlay">
+                            <h3>Maintenance & Repair</h3>
+                            <p class="details">Routine maintenance, troubleshooting, and emergency repair services for all major BWTS brands.</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="service-item">
-                    <h3>Commissioning & Testing</h3>
-                    <img src="./images/testing.png" alt="BWTS Commissioning and Testing" width="200">
-                    <p>Ensuring your BWTS is fully operational and compliant with all regulatory requirements.</p>
+                    <div class="service-content">
+                        <img src="./images/testing.png" alt="BWTS Commissioning and Testing">
+                        <div class="service-overlay">
+                            <h3>Commissioning & Testing</h3>
+                            <p class="details">Ensuring your BWTS is fully operational and compliant with all regulatory requirements.</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="service-item">
-                    <h3>Spare Parts & Support</h3>
-                    <img src="./images/spare-parts.png" alt="BWTS Spare Parts and Support" width="200">
-                    <p>Access to genuine spare parts and 24/7 technical support.</p>
+                    <div class="service-content">
+                        <img src="./images/spare-parts.png" alt="BWTS Spare Parts and Support">
+                        <div class="service-overlay">
+                            <h3>Spare Parts & Support</h3>
+                            <p class="details">Access to genuine spare parts and 24/7 technical support.</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="service-item">
-                    <h3>Crew Training</h3>
-                    <img src="./images/training.png" alt="Crew Training" width="200">
-                    <p>Comprehensive training programs for your crew on BWTS operation and maintenance.</p>
+                    <div class="service-content">
+                        <img src="./images/training.png" alt="Crew Training">
+                        <div class="service-overlay">
+                            <h3>Crew Training</h3>
+                            <p class="details">Comprehensive training programs for your crew on BWTS operation and maintenance.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
