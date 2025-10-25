@@ -11,7 +11,9 @@
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to right, #25b0a2, #2f5294); /* Gradient background for the whole page */
+            background: url('./images/hero-bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(5px); /* Apply blur to the background image */
             color: #ffffff; /* White text for contrast */
             line-height: 1.6;
         }
@@ -42,7 +44,7 @@
             flex-direction: column;
             align-items: center;
         } */
-        .hero-section {
+        /* .hero-section {
             position: relative;
             height: 400px; /* Adjust as needed */
             /* background: url('./images/hero-bg.jpg') no-repeat center center/cover; */
@@ -55,9 +57,8 @@
             margin-bottom: 20px;
             overflow: hidden; /* Ensure blur doesn't bleed */
             z-index: 0; /* Ensure hero section is above body gradient */
-        }
-
-        .hero-bg-image {
+        } */
+        /* .hero-bg-image {
             position: absolute;
             top: 0;
             left: 0;
@@ -65,10 +66,9 @@
             height: 100%;
             object-fit: cover;
             filter: blur(5px); /* Apply blur to the background image */
-            z-index: -1; /* Place behind hero-content */
-        }
-
-        .hero-content {
+            /* z-index: -1; */ /* Place behind hero-content */
+        } */
+        /* .hero-content {
             position: relative;
             z-index: 1;
         }
@@ -79,7 +79,7 @@
         }
         .hero-content p {
             font-size: 1.2em;
-        }
+        } */
         nav ul {
             list-style: none;
             padding: 0;
@@ -249,13 +249,6 @@
 <body>
     <div class="top-menu-bar">
         <img src="./images/logo.png" alt="Mozuk Marine Logo" style="max-width: 150px; height: auto;">
-    </div>
-    <div class="hero-section">
-        <img src="./images/hero-bg.jpg" alt="Hero Background" class="hero-bg-image">
-        <div class="hero-content">
-            <h2>Reliable Ballast Water Treatment System Services</h2>
-            <p>Ensuring maritime compliance and operational efficiency worldwide.</p>
-        </div>
     </div>
     <nav>
         <ul>
