@@ -239,6 +239,23 @@
             width: 100%;
             margin-top: 20px;
         }
+
+        .quote-button {
+            background-color: #25b0a2; /* Green accent */
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .quote-button:hover {
+            background-color: #2f5294; /* Darker blue on hover */
+        }
+
         @media (max-width: 768px) {
             .hero-content h2 {
                 font-size: 2em;
@@ -268,7 +285,8 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#about">About Us</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#request-quote">Request a Quote</a></li>
+            <li><a href="#contact-us">Contact Us</a></li>
         </ul>
     </nav>
     <div class="container">
@@ -342,13 +360,17 @@
             <p>Mozuk Marine is a leading service provider in the maritime industry, specializing in Ballast Water Treatment Systems. With years of experience and a deep understanding of marine engineering, we pride ourselves on delivering high-quality, reliable, and efficient services to ship owners and operators worldwide.</p>
             <p>Our mission is to support the global maritime community in achieving environmental compliance and operational excellence through our dedicated BWTS expertise.</p>
         </section>
-        <section id="contact">
-            <h2>Request a quote</h2>
-            <!-- <img src="./images/contact.jpg" alt="Contact Us" width="400" style="display: block; margin: 20px auto;"> -->
-            <p style="text-align: center;">Ready to discuss your BWTS needs? Contact us today for a consultation or emergency support.</p>
-            <p style="text-align: center;">Email: sales@mozukmarine.com</p>
-            <p style="text-align: center;">Phone: +7884 7997</p>
-            <p style="text-align: center;">Address: Beirut, Lebanon</p>
+        <section id="request-quote" style="text-align: center;">
+            <h2>Request a Quote</h2>
+            <p>Ready to discuss your BWTS needs? Contact us today for a consultation or emergency support.</p>
+            <button class="quote-button">Request a Quote</button>
+        </section>
+
+        <section id="contact-us" style="text-align: center;">
+            <h2>Contact Us</h2>
+            <p>Email: sales@mozukmarine.com</p>
+            <p>Phone: +7884 7997</p>
+            <p>Address: Beirut, Lebanon</p>
         </section>
     </div>
     <footer>
