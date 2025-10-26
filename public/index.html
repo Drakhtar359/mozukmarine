@@ -218,6 +218,81 @@
             justify-content: center; /* Center grid items */
         }
 
+        /* Services Gallery Styles */
+        .services-gallery-container {
+            position: relative;
+            width: 100%;
+            max-width: 100vw; /* Ensure it takes full viewport width */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 3vh;
+            height: 40vh; /* Responsive height for the gallery */
+        }
+
+        .services-gallery {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 100%;
+            height: 100%;
+            justify-content: center; /* Center items in the gallery */
+            align-items: center;
+        }
+
+        .services-gallery .service-item {
+            min-width: 30vw; /* Smaller width for side items */
+            height: 30vh; /* Smaller height for side items */
+            margin: 0 1vw; /* Space between items */
+            opacity: 0.5; /* Dim side items */
+            transform: scale(0.8); /* Scale down side items */
+            transition: all 0.5s ease-in-out;
+            cursor: pointer;
+        }
+
+        .services-gallery .service-item.active {
+            min-width: 60vw; /* Larger width for active item */
+            height: 35vh; /* Larger height for active item */
+            opacity: 1; /* Full opacity for active item */
+            transform: scale(1); /* Original size for active item */
+            box-shadow: 0 1vh 2vh rgba(0, 0, 0, 0.2); /* More prominent shadow */
+        }
+
+        .services-gallery .service-item .service-content img {
+            filter: blur(0px); /* Remove blur from images in gallery */
+        }
+        .services-gallery .service-item.active .service-content img {
+            filter: blur(0px); /* Ensure no blur on active image */
+        }
+
+        .gallery-nav-button {
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            color: #ffffff;
+            border: none;
+            padding: 1.5vh 1vw;
+            cursor: pointer;
+            font-size: 4vw;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            border-radius: 0.5vw;
+            transition: background-color 0.3s ease;
+        }
+
+        .gallery-nav-button.prev {
+            left: 1vw;
+        }
+
+        .gallery-nav-button.next {
+            right: 1vw;
+        }
+
+        .gallery-nav-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Ensure previous service-item styles are compatible or overridden */
         .service-item {
             position: relative;
             overflow: hidden;
@@ -230,6 +305,54 @@
             justify-content: center;
             padding: 0; /* Reset padding to ensure image fills */
             box-sizing: border-box;
+        }
+        
+        /* Responsive Adjustments for Gallery */
+        @media (max-width: 768px) {
+            .services-gallery-container {
+                height: 35vh; /* Adjust height for mobile */
+            }
+            .services-gallery .service-item {
+                min-width: 40vw; /* Adjust width for mobile side items */
+                height: 25vh; /* Adjust height for mobile side items */
+            }
+            .services-gallery .service-item.active {
+                min-width: 70vw; /* Adjust width for mobile active item */
+                height: 30vh; /* Adjust height for mobile active item */
+            }
+            .gallery-nav-button {
+                padding: 1.5vh 3vw;
+                font-size: 5vw;
+            }
+        }
+
+        @media (min-width: 769px) {
+            /* Override service grid styles that are no longer applicable */
+            .services-grid {
+                display: none; /* Hide old grid layout */
+            }
+            .services-gallery-container {
+                height: 400px; /* Fixed height for desktop gallery */
+                max-width: 100%;
+            }
+            .services-gallery .service-item {
+                min-width: 300px;
+                height: 300px;
+                margin: 0 10px;
+            }
+            .services-gallery .service-item.active {
+                min-width: 600px;
+                height: 350px;
+            }
+            .gallery-nav-button {
+                padding: 10px 15px;
+                font-size: 2em;
+                border-radius: 5px;
+                left: 10px;
+            }
+            .gallery-nav-button.next {
+                right: 10px;
+            }
         }
 
         .service-content {
@@ -567,61 +690,65 @@
         <div class="container">
             <section id="services">
                 <h2>Our Services</h2>
-                <div class="services-grid">
-                    <div class="service-item">
-                        <div class="service-content">
-                            <img src="./images/installation.png" alt="BWTS Installation">
-                            <div class="service-overlay">
-                                <h3>BWTS Installation</h3>
-                                <p class="details">Professional installation of new Ballast Water Treatment Systems tailored to your vessel's specifications.</p>
+                <div class="services-gallery-container">
+                    <button class="gallery-nav-button prev">&lt;</button>
+                    <div class="services-gallery">
+                        <div class="service-item active">
+                            <div class="service-content">
+                                <img src="./images/installation.png" alt="BWTS Installation">
+                                <div class="service-overlay">
+                                    <h3>BWTS Installation</h3>
+                                    <p class="details">Professional installation of new Ballast Water Treatment Systems tailored to your vessel's specifications.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-content">
+                                <img src="./images/maintenance.png" alt="BWTS Maintenance and Repair">
+                                <div class="service-overlay">
+                                    <h3>Maintenance & Repair</h3>
+                                    <p class="details">Routine maintenance, troubleshooting, and emergency repair services for all major BWTS brands.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-content">
+                                <img src="./images/testing.png" alt="BWTS Commissioning and Testing">
+                                <div class="service-overlay">
+                                    <h3>Commissioning & Testing</h3>
+                                    <p class="details">Ensuring your BWTS is fully operational and compliant with all regulatory requirements.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-content">
+                                <img src="./images/spare-parts.png" alt="BWTS Spare Parts and Support">
+                                <div class="service-overlay">
+                                    <h3>Spare Parts & Support</h3>
+                                    <p class="details">Access to genuine spare parts and 24/7 technical support.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-content">
+                                <img src="./images/training.png" alt="Crew Training">
+                                <div class="service-overlay">
+                                    <h3>Crew Training</h3>
+                                    <p class="details">Comprehensive training programs for your crew on BWTS operation and maintenance.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-content">
+                                <img src="./images/documents.png" alt="Documentation Updates">
+                                <div class="service-overlay">
+                                    <h3>Documentation updates</h3>
+                                    <p class="details">Digitilization services for existing diagrams and technical drawings. BWMP updates for the latest revisions according to the newest IMO regulations.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="service-item">
-                        <div class="service-content">
-                            <img src="./images/maintenance.png" alt="BWTS Maintenance and Repair">
-                            <div class="service-overlay">
-                                <h3>Maintenance & Repair</h3>
-                                <p class="details">Routine maintenance, troubleshooting, and emergency repair services for all major BWTS brands.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="service-item">
-                        <div class="service-content">
-                            <img src="./images/testing.png" alt="BWTS Commissioning and Testing">
-                            <div class="service-overlay">
-                                <h3>Commissioning & Testing</h3>
-                                <p class="details">Ensuring your BWTS is fully operational and compliant with all regulatory requirements.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="service-item">
-                        <div class="service-content">
-                            <img src="./images/spare-parts.png" alt="BWTS Spare Parts and Support">
-                            <div class="service-overlay">
-                                <h3>Spare Parts & Support</h3>
-                                <p class="details">Access to genuine spare parts and 24/7 technical support.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="service-item">
-                        <div class="service-content">
-                            <img src="./images/training.png" alt="Crew Training">
-                            <div class="service-overlay">
-                                <h3>Crew Training</h3>
-                                <p class="details">Comprehensive training programs for your crew on BWTS operation and maintenance.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="service-item">
-                        <div class="service-content">
-                            <img src="./images/documents.png" alt="Documentation Updates">
-                            <div class="service-overlay">
-                                <h3>Documentation updates</h3>
-                                <p class="details">Digitilization services for existing diagrams and technical drawings. BWMP updates for the latest revisions according to the newest IMO regulations.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <button class="gallery-nav-button next">&gt;</button>
                 </div>
             </section>
 
@@ -676,6 +803,53 @@
                 mobileMenu.classList.remove('active');
             });
         });
+    </script>
+    <script>
+        const gallery = document.querySelector('.services-gallery');
+        const serviceItems = document.querySelectorAll('.services-gallery .service-item');
+        const prevButton = document.querySelector('.gallery-nav-button.prev');
+        const nextButton = document.querySelector('.gallery-nav-button.next');
+        let currentIndex = 0;
+
+        function updateGallery() {
+            serviceItems.forEach((item, index) => {
+                item.classList.remove('active');
+                item.style.order = 0; // Reset order
+            });
+
+            // Calculate the order for each item to achieve the rotating effect
+            // Active item in the center
+            serviceItems[currentIndex].classList.add('active');
+            serviceItems[currentIndex].style.order = 1;
+
+            // Item to the right of the active item
+            const nextIndex = (currentIndex + 1) % serviceItems.length;
+            serviceItems[nextIndex].style.order = 2;
+
+            // Item to the left of the active item
+            const prevIndex = (currentIndex - 1 + serviceItems.length) % serviceItems.length;
+            serviceItems[prevIndex].style.order = 0; // Ensure it's before the active item
+
+            // Hide other items by placing them off-screen or setting display: none
+            serviceItems.forEach((item, index) => {
+                if (index !== currentIndex && index !== nextIndex && index !== prevIndex) {
+                    item.style.order = -1; // Place far away
+                }
+            });
+        }
+
+        prevButton.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + serviceItems.length) % serviceItems.length;
+            updateGallery();
+        });
+
+        nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % serviceItems.length;
+            updateGallery();
+        });
+
+        // Initial gallery setup
+        updateGallery();
     </script>
 </body>
 </html>
