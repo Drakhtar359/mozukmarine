@@ -212,49 +212,15 @@
         /* Service Grid */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80vw, 1fr)); /* Responsive grid */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted minmax for better card size */
             gap: 3vw; /* Responsive gap */
             margin-top: 3vh;
             justify-content: center; /* Center grid items */
-        }
-
-        /* Services Carousel Styles */
-        .services-carousel {
-            display: flex;
-            overflow-x: auto; /* Enable horizontal scrolling */
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            scroll-behavior: smooth;
-            margin-top: 3vh;
-            padding-bottom: 2vh; /* Add some padding for scrollbar visibility if needed */
-            width: 100%; /* Ensure it takes full width */
-            align-items: stretch; /* Stretch items to fill height */
+            width: 100%; /* Ensure grid takes full width */
             box-sizing: border-box;
+            padding: 0 1vw; /* Add some padding to the grid container */
         }
 
-        .services-carousel::-webkit-scrollbar {
-            display: none; /* Hide scrollbar for a cleaner look */
-        }
-
-        .services-carousel > .service-item {
-            flex: 0 0 calc(50% - 2vw); /* Two items per page with gap */
-            scroll-snap-align: start;
-            margin: 0 1vw; /* Gap between items */
-            min-width: unset; /* Override previous min-width */
-            height: auto; /* Allow height to adjust based on content */
-            box-sizing: border-box;
-        }
-
-        .services-carousel .service-item.active {
-            /* Remove active state styles as we're now just scrolling */
-            min-width: unset;
-            height: auto;
-            opacity: 1;
-            transform: scale(1);
-            box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.05); /* Revert to standard shadow */
-        }
-
-        /* Ensure previous service-item styles are compatible or overridden */
         .service-item {
             position: relative;
             overflow: hidden;
@@ -267,28 +233,7 @@
             justify-content: center;
             padding: 0; /* Reset padding to ensure image fills */
             box-sizing: border-box;
-        }
-        
-        /* Responsive Adjustments for Carousel */
-        @media (max-width: 768px) {
-            .services-carousel > .service-item {
-                flex: 0 0 calc(50% - 2vw); /* Two items per page with gap on mobile */
-            }
-        }
-
-        @media (min-width: 769px) {
-            /* Override service grid styles that are no longer applicable */
-            .services-grid {
-                display: none; /* Hide old grid layout */
-            }
-            .services-carousel {
-                height: 400px; /* Fixed height for desktop carousel */
-                max-width: 1200px; /* Max width for desktop */
-            }
-            .services-carousel > .service-item {
-                flex: 0 0 calc(50% - 20px); /* Two items per page with gap on desktop */
-                margin: 0 10px; /* Desktop gap */
-            }
+            text-align: center; /* Center content within the service item */
         }
 
         .service-content {
@@ -322,21 +267,21 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
+            text-align: center; /* Center all text within the overlay */
             opacity: 1; /* Initially visible for title */
             transition: opacity 0.3s ease, background 0.3s ease;
         }
 
         .service-overlay h3 {
             color: #ffffff; /* White for title */
-            margin: auto; /* Center the h3 itself within the flex container */
+            margin: 0; /* Reset margin */
             font-size: 4.5vw; /* Responsive font size */
             text-align: center; /* Center text within the h3 */
         }
 
         .service-overlay p.details {
             color: #ffffff; /* White for details */
-            margin: auto; /* Center the p itself within the flex container */
+            margin: 0; /* Reset margin */
             font-size: 2.8vw; /* Responsive font size */
             opacity: 0;
             max-height: 0;
@@ -356,6 +301,46 @@
         .service-item:hover .service-overlay p.details {
             opacity: 1;
             max-height: 10vh; /* Adjust as needed to reveal text */
+            margin-top: 1.5vh; /* Add margin after title appears */
+        }
+
+        /* Responsive Adjustments for Service Grid */
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust for mobile */
+                padding: 0 2vw;
+            }
+            .service-item {
+                border-radius: 4vw;
+            }
+            .service-overlay h3 {
+                font-size: 5.5vw;
+            }
+            .service-overlay p.details {
+                font-size: 3.5vw;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 20px;
+                margin-top: 30px;
+                padding: 0;
+            }
+            .service-item {
+                border-radius: 20px !important;
+            }
+            .service-content {
+                height: 200px;
+            }
+            .service-overlay h3 {
+                font-size: 1.6em;
+            }
+            .service-overlay p.details {
+                font-size: 0.9em;
+                margin-top: 10px;
+            }
         }
 
         .quote-button {
@@ -556,31 +541,6 @@
                 border-radius: 10px;
             }
 
-            .services-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 20px;
-                margin-top: 30px;
-            }
-            .service-item {
-                border-radius: 20px !important; /* Prominent rounded corners */
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-                padding: 0;
-            }
-            .service-content {
-                height: 200px;
-            }
-            .service-content img {
-                border-radius: 0;
-            }
-            .service-overlay h3 {
-                font-size: 1.6em;
-            }
-            .service-overlay p.details {
-                font-size: 0.9em;
-                margin: 10px;
-                max-height: 100px;
-            }
-
             .quote-button {
                 padding: 12px 25px;
                 border-radius: 8px;
@@ -626,7 +586,7 @@
         <div class="container">
             <section id="services">
                 <h2>Our Services</h2>
-                <div class="services-carousel">
+                <div class="services-grid">
                     <div class="service-item">
                         <div class="service-content">
                             <img src="./images/installation.png" alt="BWTS Installation">
@@ -735,41 +695,6 @@
                 mobileMenu.classList.remove('active');
             });
         });
-    </script>
-    <script>
-        const servicesCarousel = document.querySelector('.services-carousel');
-        const serviceItems = document.querySelectorAll('.services-carousel .service-item');
-
-        if (servicesCarousel && serviceItems.length > 0) {
-            let scrollInterval;
-
-            const startAutoScroll = () => {
-                scrollInterval = setInterval(() => {
-                    // Calculate the scroll amount (width of two service items + margin)
-                    const itemWidth = serviceItems[0].offsetWidth;
-                    const itemMargin = parseFloat(getComputedStyle(serviceItems[0]).marginRight) + parseFloat(getComputedStyle(serviceItems[0]).marginLeft);
-                    const scrollAmount = (itemWidth * 2) + (itemMargin * 2); 
-
-                    if (servicesCarousel.scrollLeft + servicesCarousel.clientWidth >= servicesCarousel.scrollWidth) {
-                        // If at the end, smoothly scroll back to the beginning
-                        servicesCarousel.scrollTo({ left: 0, behavior: 'smooth' });
-                    } else {
-                        servicesCarousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-                    }
-                }, 3000); // Scroll every 3 seconds
-            };
-
-            const stopAutoScroll = () => {
-                clearInterval(scrollInterval);
-            };
-
-            // Start scrolling when mouse enters the carousel, stop when leaves
-            servicesCarousel.addEventListener('mouseenter', stopAutoScroll);
-            servicesCarousel.addEventListener('mouseleave', startAutoScroll);
-
-            // Initial start of auto-scroll
-            startAutoScroll();
-        }
     </script>
 </body>
 </html>
