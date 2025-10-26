@@ -14,6 +14,7 @@
             background: linear-gradient(to right, #25b0a2, #2f5294); /* Gradient background for the whole page */
             color: #ffffff; /* White text for contrast */
             line-height: 1.6;
+            overflow-x: hidden; /* Lock horizontal scrolling on mobile */
         }
 
         .static-blurred-background {
@@ -85,6 +86,7 @@
         nav {
             background: linear-gradient(to right, #25b0a2, #2f5294); /* Gradient background */
             height: 8vh; /* Match top-menu-bar height */
+            width: 100%; /* Ensure full width */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -121,6 +123,9 @@
             margin: auto;
             overflow: hidden;
             padding: 3vh 0; /* Use vh for vertical padding */
+            display: flex; /* For vertical centering */
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
         }
         section {
             background-color: rgba(255, 255, 255, 0.9); /* Slightly translucent white for sections */
@@ -128,6 +133,8 @@
             padding: 3vh; /* Use vh for padding */
             border-radius: 2vw; /* Use vw for border-radius */
             box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.1);
+            width: 100%; /* Ensure sections take full width */
+            max-width: 100%; /* Ensure sections take full width */
         }
         section img {
             max-width: 100%;
@@ -330,7 +337,7 @@
             }
         }
 
-        /* Keep desktop styles for nav-list on larger screens */
+        /* Desktop specific styles */
         @media (min-width: 769px) {
             .nav-list {
                 display: flex !important; /* Always show on desktop */
@@ -338,11 +345,96 @@
             .menu-toggle {
                 display: none; /* Hide hamburger menu on desktop */
             }
+
+            .top-menu-bar {
+                height: 60px;
+                padding: 0 20px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            nav {
+                height: 60px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            nav ul li {
+                margin: 0 15px;
+            }
+
+            nav ul li a {
+                padding: 10px 0;
+            }
+
+            .container {
+                padding: 20px 0;
+                /* max-width remains 1200px */
+            }
+
+            section {
+                margin-bottom: 20px;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            h2 {
+                font-size: 2em;
+            }
+
+            section p {
+                font-size: 1em;
+            }
+
+            footer {
+                padding: 1.5rem 0;
+                margin-top: 20px;
+            }
+
+            .quote-button {
+                padding: 10px 20px;
+                border-radius: 5px;
+                font-size: 1.1em;
+            }
+
+            .menu-toggle {
+                display: none;
+            }
+
+            .hero-section {
+                height: 400px; /* Adjust as needed for desktop */
+            }
+            .hero-content h2 {
+                font-size: 3em;
+                margin-bottom: 10px;
+            }
+            .hero-content p {
+                font-size: 1.2em;
+            }
+            .services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 20px;
+                margin-top: 20px;
+            }
+            .service-item {
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            }
+            .service-content {
+                height: 200px; /* Fixed height for service items */
+            }
+            .service-overlay h3 {
+                font-size: 1.5em;
+            }
+            .service-overlay p.details {
+                margin: 10px;
+                font-size: 0.9em;
+            }
+            .service-item:hover .service-overlay p.details {
+                max-height: 100px; /* Adjust as needed to reveal text */
+            }
+
         }
 
-        @media (max-width: 480px) {
-            /* Remove previous 480px media query that stacked links */
-        }
     </style>
 </head>
 <body>
