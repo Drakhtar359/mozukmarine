@@ -29,27 +29,27 @@
 
         .top-menu-bar {
             background-color: #ffffff;
-            height: 60px; /* Adjust height for content */
+            height: 10vh; /* Adjust height for content */
             width: 100%;
             max-width: 100%; /* Ensure full width */
             margin: 0 auto; /* Center the bar */
             display: flex;
             align-items: center;
             justify-content: center; /* Center the logo */
-            padding: 0 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow */
+            padding: 0 5vw; /* Use vw for horizontal padding */
+            box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.1); /* Optional shadow */
             margin-bottom: 0; /* Remove space below top-menu-bar */
         }
 
         nav {
             background: linear-gradient(to right, #25b0a2, #2f5294); /* Gradient background */
-            height: 60px; /* Match top-menu-bar height */
+            height: 8vh; /* Match top-menu-bar height */
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0; /* Ensure no external margins */
             padding: 0; /* Ensure no internal padding */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow, matching top-menu-bar */
+            box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.1); /* Optional shadow, matching top-menu-bar */
         }
 
         nav ul {
@@ -61,12 +61,12 @@
             flex-wrap: wrap;
         }
         nav ul li {
-            margin: 0 15px;
+            margin: 0 2vw; /* Use vw for horizontal margin */
         }
         nav ul li a {
             color: #ffffff;
             text-decoration: none;
-            padding: 10px 0;
+            padding: 2vh 0; /* Use vh for vertical padding */
             display: inline-block;
             transition: color 0.3s ease;
             font-weight: bold;
@@ -79,76 +79,77 @@
             max-width: 1200px;
             margin: auto;
             overflow: hidden;
-            padding: 20px 0;
+            padding: 3vh 0; /* Use vh for vertical padding */
         }
         section {
             background-color: rgba(255, 255, 255, 0.9); /* Slightly translucent white for sections */
-            margin-bottom: 20px;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2vh; /* Use vh for vertical margin */
+            padding: 3vh; /* Use vh for padding */
+            border-radius: 2vw; /* Use vw for border-radius */
+            box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.1);
         }
         h2 {
             color: #25b0a2; /* Lighter blue from gradient */
             text-align: center; /* Center main headings */
+            font-size: 5vw;
         }
         section p {
             color: #333; /* Black text for section paragraphs */
             text-align: center;
+            font-size: 3vw;
         }
         footer {
             background-color: rgba(0, 0, 0, 0.8); /* Darker translucent for footer */
             color: #ffffff;
             text-align: center;
-            padding: 1.5rem 0;
+            padding: 2vh 0; /* Use vh for vertical padding */
             width: 100%;
-            margin-top: 20px;
+            margin-top: 2vh; /* Use vh for vertical margin */
         }
         /* Form specific styles */
         .form-container {
             background-color: #ffffff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: 20px auto;
+            padding: 4vh; /* Use vh for padding */
+            border-radius: 2vw; /* Use vw for border-radius */
+            box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.1);
+            max-width: 90%; /* Use percentage for max-width */
+            margin: 3vh auto; /* Use vh for vertical margin */
         }
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 2vh; /* Use vh for vertical margin */
         }
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 1vh; /* Use vh for vertical margin */
             color: #333;
             font-weight: bold;
+            font-size: 3.5vw;
         }
         .form-group input[type="text"],
         .form-group input[type="email"],
         .form-group textarea {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 1.5vh; /* Use vh for padding */
+            border: 0.2vw solid #ddd; /* Use vw for border */
+            border-radius: 1vw; /* Use vw for border-radius */
             box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            font-size: 3vw;
         }
         .form-group textarea {
             resize: vertical;
-            min-height: 100px;
+            min-height: 15vh; /* Use vh for min-height */
         }
         .submit-button {
             background-color: #25b0a2;
             color: #ffffff;
-            padding: 12px 25px;
+            padding: 2vh 4vw; /* Use vh and vw for padding */
             border: none;
-            border-radius: 5px;
-            font-size: 1.1em;
+            border-radius: 1vw; /* Use vw for border-radius */
+            font-size: 3.5vw;
             cursor: pointer;
             transition: background-color 0.3s ease;
             display: block;
             width: 100%;
-        }
-        .submit-button:hover {
-            background-color: #2f5294;
         }
 
         /* Pop-up styles */
@@ -168,22 +169,23 @@
         .popup-content {
             background-color: #ffffff;
             margin: auto;
-            padding: 40px;
-            border-radius: 10px;
+            padding: 6vh; /* Use vh for padding */
+            border-radius: 2vw; /* Use vw for border-radius */
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            max-width: 500px;
+            box-shadow: 0 0.5vw 1.5vw rgba(0,0,0,0.3); /* Scale with vw */
+            max-width: 80%; /* Use percentage for max-width */
             color: #333;
         }
 
         .popup-content h2 {
             color: #25b0a2; /* Green accent for title */
-            margin-bottom: 20px;
+            margin-bottom: 3vh; /* Use vh for vertical margin */
+            font-size: 5vw;
         }
 
         .popup-content p {
-            margin-bottom: 30px;
-            font-size: 1.1em;
+            margin-bottom: 4vh; /* Use vh for vertical margin */
+            font-size: 3.5vw;
             line-height: 1.5;
         }
 
@@ -192,19 +194,19 @@
             display: none; /* Hidden by default, shown only on mobile */
             flex-direction: column;
             justify-content: space-between;
-            width: 30px;
-            height: 20px;
+            width: 6vw; /* Use vw for width */
+            height: 4vw; /* Use vw for height */
             cursor: pointer;
             position: absolute;
-            right: 20px;
+            right: 5vw; /* Use vw for right positioning */
             z-index: 100;
         }
 
         .menu-toggle .bar {
-            height: 3px;
+            height: 0.5vh; /* Use vh for height */
             width: 100%;
             background-color: #ffffff;
-            border-radius: 10px;
+            border-radius: 1vh; /* Use vh for border-radius */
             transition: all 0.3s ease-in-out;
         }
 
@@ -213,22 +215,22 @@
             display: flex; /* Show menu when active */
             flex-direction: column;
             position: absolute;
-            top: 60px; /* Below the nav bar */
+            top: 8vh; /* Below the nav bar */
             left: 0;
             width: 100%;
             background: linear-gradient(to bottom, #2f5294, #25b0a2); /* Gradient background */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            padding: 10px 0;
+            box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.2); /* Scale with vw */
+            padding: 1.5vh 0; /* Use vh for padding */
             z-index: 99;
         }
 
         .nav-list.active li {
-            margin: 10px 0;
+            margin: 1.5vh 0; /* Use vh for vertical margin */
             text-align: center;
         }
 
         .nav-list.active li a {
-            padding: 10px;
+            padding: 1.5vh; /* Use vh for padding */
             width: 100%;
             display: block;
         }
@@ -236,7 +238,7 @@
         @media (max-width: 768px) {
             nav {
                 justify-content: space-between; /* Adjust alignment when menu toggle is present */
-                padding: 0 20px;
+                padding: 0 5vw; /* Use vw for horizontal padding */
             }
 
             .menu-toggle {
@@ -249,9 +251,9 @@
                 width: 100%;
                 background-color: #2f5294; /* Fallback color */
                 position: absolute;
-                top: 60px;
+                top: 8vh;
                 left: 0;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                box-shadow: 0 0.5vw 1vw rgba(0,0,0,0.2);
             }
 
             .nav-list li {
@@ -260,12 +262,8 @@
             }
 
             .nav-list li a {
-                padding: 15px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            .nav-list li:last-child a {
-                border-bottom: none;
+                padding: 2vh; /* Use vh for padding */
+                border-bottom: 0.2vh solid rgba(255, 255, 255, 0.1); /* Use vh for border */
             }
         }
 
