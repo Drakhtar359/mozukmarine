@@ -7,6 +7,7 @@
     <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Global Styles */
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
@@ -14,8 +15,12 @@
             background: linear-gradient(to right, #25b0a2, #2f5294); /* Gradient background for the whole page */
             color: #ffffff; /* White text for contrast */
             line-height: 1.6;
-            overflow-x: hidden; /* Lock horizontal scrolling on mobile */
+            overflow-x: hidden; /* Prevent horizontal scrolling on mobile */
+            min-height: 100vh; /* Ensure body takes full viewport height */
+            display: flex;
+            flex-direction: column;
         }
+
         .static-blurred-background {
             position: fixed;
             top: 0;
@@ -28,147 +33,207 @@
             z-index: -2; /* Ensure it's behind all content and the body gradient */
         }
 
+        .content-wrapper {
+            flex: 1; /* Allows content to grow and push footer down */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
+            width: 100%;
+        }
+
         .top-menu-bar {
             background-color: #ffffff;
-            height: 10vh; /* Adjust height for content */
+            height: 10vh; /* Responsive height */
             width: 100%;
-            max-width: 100%; /* Ensure full width */
-            margin: 0 auto; /* Center the bar */
             display: flex;
             align-items: center;
             justify-content: center; /* Center the logo */
-            padding: 0 5vw; /* Use vw for horizontal padding */
-            box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.1); /* Optional shadow, scale with vw */
-            margin-bottom: 0; /* Remove space below top-menu-bar */
+            padding: 0 2vw; /* Responsive horizontal padding */
+            box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-menu-bar img {
+            max-width: 30vw; /* Responsive logo size */
+            height: auto;
         }
 
         nav {
             background: linear-gradient(to right, #25b0a2, #2f5294); /* Gradient background */
-            height: 8vh; /* Match top-menu-bar height */
-            width: 100%; /* Ensure full width */
+            height: 8vh; /* Responsive height */
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0; /* Ensure no external margins */
-            padding: 0; /* Ensure no internal padding */
-            box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.1); /* Optional shadow, scale with vw */
+            padding: 0 2vw; /* Responsive horizontal padding */
+            box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 10vh; /* Below the top-menu-bar */
+            z-index: 999;
         }
 
-        nav ul {
+        .nav-list {
             list-style: none;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
+            width: 100%;
         }
-        nav ul li {
-            margin: 0 2vw; /* Use vw for horizontal margin */
+
+        .nav-list li {
+            margin: 0 2vw; /* Responsive horizontal margin */
         }
-        nav ul li a {
+
+        .nav-list li a {
             color: #ffffff;
             text-decoration: none;
-            padding: 2vh 0; /* Use vh for vertical padding */
+            padding: 2vh 0; /* Responsive vertical padding */
             display: inline-block;
             transition: color 0.3s ease;
             font-weight: bold;
+            font-size: 3vw; /* Responsive font size */
+            white-space: nowrap; /* Prevent links from wrapping */
         }
-        nav ul li a:hover {
-            color: #f8f8f8; /* Light grey for hover */
+
+        .nav-list li a:hover {
+            color: #f8f8f8;
         }
+
+        .menu-toggle {
+            display: none; /* Hidden on desktop */
+            flex-direction: column;
+            justify-content: space-between;
+            width: 6vw; /* Responsive width */
+            height: 4vw; /* Responsive height */
+            cursor: pointer;
+            position: absolute;
+            right: 4vw; /* Responsive positioning */
+            z-index: 100; /* Ensure it's above other content */
+        }
+
+        .menu-toggle .bar {
+            height: 0.5vh; /* Responsive height */
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 1vh; /* Responsive border-radius */
+            transition: all 0.3s ease-in-out;
+        }
+
         .container {
             width: 90%;
-            max-width: 1200px;
-            margin: auto;
+            max-width: 1200px; /* Max width for desktop */
+            margin: 3vh auto; /* Responsive vertical margin */
             overflow: hidden;
-            padding: 3vh 0; /* Use vh for vertical padding */
-            display: flex; /* For vertical centering */
+            padding: 0;
+            display: flex;
             flex-direction: column;
-            align-items: center; /* Center content horizontally */
+            align-items: center;
         }
+
         section {
-            background-color: rgba(255, 255, 255, 0.9); /* Slightly translucent white for sections */
-            margin-bottom: 2vh; /* Use vh for vertical margin */
-            padding: 3vh; /* Use vh for padding */
-            border-radius: 2vw; /* Use vw for border-radius */
-            box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.1);
-            width: 100%; /* Ensure sections take full width */
-            max-width: 100%; /* Ensure sections take full width */
-        }
-        h2 {
-            color: #25b0a2; /* Lighter blue from gradient */
-            text-align: center; /* Center main headings */
-            font-size: 5vw;
-        }
-        section p {
-            color: #333; /* Black text for section paragraphs */
-            text-align: center;
-            font-size: 3vw;
-        }
-        footer {
-            background-color: rgba(0, 0, 0, 0.8); /* Darker translucent for footer */
-            color: #ffffff;
-            text-align: center;
-            padding: 2vh 0; /* Use vh for vertical padding */
+            background-color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3vh; /* Responsive vertical margin */
+            padding: 4vh 4vw;
+            border-radius: 3vw; /* Responsive rounded corners */
+            box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
             width: 100%;
-            margin-top: 2vh; /* Use vh for vertical margin */
+            box-sizing: border-box;
+            color: #333;
+            text-align: center;
         }
+
+        h1, h2 {
+            color: #2f5294;
+            text-align: center;
+            font-size: 6vw; /* Responsive font size */
+            margin-bottom: 2vh;
+        }
+
+        h3 {
+            color: #25b0a2;
+            font-size: 4.5vw;
+            margin-bottom: 1vh;
+        }
+
+        section p {
+            font-size: 3vw;
+            margin-bottom: 1vh;
+        }
+
         /* Form specific styles */
         .form-container {
             background-color: #ffffff;
-            padding: 4vh; /* Use vh for padding */
-            border-radius: 2vw; /* Use vw for border-radius */
-            box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.1);
-            max-width: 90%; /* Use percentage for max-width */
-            margin: 3vh auto; /* Use vh for vertical margin */
+            padding: 4vh; /* Responsive padding */
+            border-radius: 3vw; /* Responsive rounded corners */
+            box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            margin: 3vh auto;
+            box-sizing: border-box;
         }
+
         .form-group {
-            margin-bottom: 2vh; /* Use vh for vertical margin */
+            margin-bottom: 2vh;
+            text-align: left;
         }
+
         .form-group label {
             display: block;
-            margin-bottom: 1vh; /* Use vh for vertical margin */
+            margin-bottom: 1vh;
             color: #333;
             font-weight: bold;
             font-size: 3.5vw;
         }
+
         .form-group input[type="text"],
         .form-group input[type="email"],
         .form-group textarea {
             width: 100%;
-            padding: 1.5vh; /* Use vh for padding */
-            border: 0.2vw solid #ddd; /* Use vw for border */
-            border-radius: 1vw; /* Use vw for border-radius */
-            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            padding: 1.5vh; /* Responsive padding */
+            border: 0.2vw solid #ddd;
+            border-radius: 1vw;
+            box-sizing: border-box;
             font-size: 3vw;
         }
+
         .form-group textarea {
             resize: vertical;
-            min-height: 15vh; /* Use vh for min-height */
+            min-height: 15vh;
         }
+
         .submit-button {
             background-color: #25b0a2;
             color: #ffffff;
-            padding: 2vh 4vw; /* Use vh and vw for padding */
+            padding: 2vh 4vw; /* Responsive padding */
             border: none;
-            border-radius: 1vw; /* Use vw for border-radius */
+            border-radius: 1.5vw; /* Responsive rounded corners */
             font-size: 3.5vw;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 2vh;
             display: block;
             width: 100%;
+        }
+
+        .submit-button:hover {
+            background-color: #2f5294;
+            transform: translateY(-0.2vh);
         }
 
         /* Pop-up styles */
         .popup {
             display: none; /* Hidden by default */
             position: fixed;
-            z-index: 1000; /* Sit on top */
+            z-index: 10000; /* Ensure it's on top of everything */
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(0,0,0,0.7); /* Semi-transparent black background */
+            display: flex; /* Ensure it's a flex container for centering */
             align-items: center;
             justify-content: center;
         }
@@ -176,225 +241,293 @@
         .popup-content {
             background-color: #ffffff;
             margin: auto;
-            padding: 6vh; /* Use vh for padding */
-            border-radius: 2vw; /* Use vw for border-radius */
+            padding: 6vh; /* Responsive padding */
+            border-radius: 3vw; /* Responsive rounded corners */
             text-align: center;
-            box-shadow: 0 0.5vw 1.5vw rgba(0,0,0,0.3); /* Scale with vw */
-            max-width: 80%; /* Use percentage for max-width */
+            box-shadow: 0 0.5vh 1.5vh rgba(0,0,0,0.3);
+            max-width: 80%;
             color: #333;
+            box-sizing: border-box;
         }
 
         .popup-content h2 {
-            color: #25b0a2; /* Green accent for title */
-            margin-bottom: 3vh; /* Use vh for vertical margin */
-            font-size: 5vw;
+            color: #2f5294;
+            margin-bottom: 3vh;
+            font-size: 6vw;
         }
 
         .popup-content p {
-            margin-bottom: 4vh; /* Use vh for vertical margin */
+            margin-bottom: 4vh;
             font-size: 3.5vw;
             line-height: 1.5;
         }
 
-        /* Mobile Menu Styles */
-        .menu-toggle {
-            display: none; /* Hidden by default, shown only on mobile */
-            flex-direction: column;
-            justify-content: space-between;
-            width: 6vw; /* Use vw for width */
-            height: 4vw; /* Use vw for height */
+        .quote-button {
+            background-color: #25b0a2;
+            color: #ffffff;
+            padding: 1.5vh 4vw;
+            border: none;
+            border-radius: 1.5vw;
+            font-size: 3.5vw;
             cursor: pointer;
-            position: absolute;
-            right: 5vw; /* Use vw for right positioning */
-            z-index: 100;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 2vh;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .menu-toggle .bar {
-            height: 0.5vh; /* Use vh for height */
-            width: 100%;
-            background-color: #ffffff;
-            border-radius: 1vh; /* Use vh for border-radius */
-            transition: all 0.3s ease-in-out;
+        .quote-button:hover {
+            background-color: #2f5294;
+            transform: translateY(-0.2vh);
         }
 
-        /* Styles for when menu is open */
-        .nav-list.active {
-            display: flex; /* Show menu when active */
-            flex-direction: column;
-            position: absolute;
-            top: 8vh; /* Below the nav bar */
-            left: 0;
-            width: 100%;
-            background: linear-gradient(to bottom, #2f5294, #25b0a2); /* Gradient background */
-            box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.2); /* Scale with vw */
-            padding: 1.5vh 0; /* Use vh for padding */
-            z-index: 99;
-        }
-
-        .nav-list.active li {
-            margin: 1.5vh 0; /* Use vh for vertical margin */
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
             text-align: center;
-        }
-
-        .nav-list.active li a {
-            padding: 1.5vh; /* Use vh for padding */
+            padding: 2vh 0;
             width: 100%;
-            display: block;
+            margin-top: auto;
+            font-size: 2.5vw;
         }
 
+        /* Responsive Adjustments */
         @media (max-width: 768px) {
             nav {
-                justify-content: space-between; /* Adjust alignment when menu toggle is present */
-                padding: 0 5vw; /* Use vw for horizontal padding */
-            }
-
-            .menu-toggle {
-                display: flex; /* Show hamburger menu on mobile */
+                justify-content: space-between;
+                padding: 0 4vw;
+                top: 10vh;
             }
 
             .nav-list {
-                display: none; /* Hide navigation links by default on mobile */
+                display: none;
                 flex-direction: column;
-                width: 100%;
-                background-color: #2f5294; /* Fallback color */
-                position: absolute;
-                top: 8vh;
+                position: fixed;
+                top: 18vh;
                 left: 0;
-                box-shadow: 0 0.5vw 1vw rgba(0,0,0,0.2);
+                width: 100%;
+                background: linear-gradient(to bottom, #2f5294, #25b0a2);
+                box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.2);
+                padding: 2vh 0;
+                z-index: 998;
+                height: calc(100vh - 18vh);
+                overflow-y: auto;
+                align-items: center;
+            }
+
+            .nav-list.active {
+                display: flex;
             }
 
             .nav-list li {
-                text-align: center;
-                margin: 0;
+                margin: 1.5vh 0;
+                width: 100%;
             }
 
             .nav-list li a {
-                padding: 2vh; /* Use vh for padding */
-                border-bottom: 0.2vh solid rgba(255, 255, 255, 0.1); /* Use vh for border */
+                font-size: 5vw;
+                padding: 2vh 0;
+                border-bottom: 0.1vh solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-list li:last-child a {
+                border-bottom: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+            
+            h1, h2 {
+                font-size: 8vw;
+            }
+
+            h3 {
+                font-size: 6vw;
+            }
+
+            section p {
+                font-size: 4vw;
+            }
+
+            .form-group label {
+                font-size: 4.5vw;
+            }
+
+            .form-group input[type="text"],
+            .form-group input[type="email"],
+            .form-group textarea {
+                font-size: 4vw;
+            }
+
+            .submit-button {
+                font-size: 5vw;
+                padding: 2vh 6vw;
+            }
+
+            .popup-content h2 {
+                font-size: 8vw;
+            }
+
+            .popup-content p {
+                font-size: 4.5vw;
+            }
+
+            .quote-button {
+                font-size: 5vw;
+                padding: 2vh 6vw;
+            }
+
+            footer {
+                font-size: 3.5vw;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-menu-bar img {
+                max-width: 40vw;
             }
         }
 
         /* Desktop specific styles */
         @media (min-width: 769px) {
-            .nav-list {
-                display: flex !important; /* Always show on desktop */
-            }
-            .menu-toggle {
-                display: none; /* Hide hamburger menu on desktop */
-            }
-
             .top-menu-bar {
                 height: 60px;
                 padding: 0 20px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
 
+            .top-menu-bar img {
+                max-width: 150px;
+            }
+
             nav {
                 height: 60px;
+                padding: 0 20px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                top: 60px;
             }
 
-            nav ul li {
+            .nav-list {
+                display: flex !important;
+                position: static;
+                height: auto;
+                overflow-y: visible;
+                background: none;
+                box-shadow: none;
+                padding: 0;
+                z-index: auto;
+            }
+
+            .nav-list li {
                 margin: 0 15px;
+                width: auto;
             }
 
-            nav ul li a {
+            .nav-list li a {
+                font-size: 1.1em;
                 padding: 10px 0;
-            }
-
-            .container {
-                padding: 20px 0;
-                /* max-width remains 1200px */
-            }
-
-            section {
-                margin-bottom: 20px;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-
-            h2 {
-                font-size: 2em;
-            }
-
-            section p {
-                font-size: 1em;
-            }
-
-            footer {
-                padding: 1.5rem 0;
-                margin-top: 20px;
-            }
-
-            .form-container {
-                padding: 30px;
-                border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                max-width: 600px;
-                margin: 20px auto;
-            }
-
-            .form-group {
-                margin-bottom: 15px;
-            }
-
-            .form-group label {
-                margin-bottom: 5px;
-                font-size: 1em;
-            }
-
-            .form-group input[type="text"],
-            .form-group input[type="email"],
-            .form-group textarea {
-                padding: 10px;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-                font-size: 1em;
-            }
-
-            .form-group textarea {
-                min-height: 100px;
-            }
-
-            .submit-button {
-                padding: 12px 25px;
-                border-radius: 5px;
-                font-size: 1.1em;
-            }
-
-            .popup-content {
-                padding: 40px;
-                border-radius: 10px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-                max-width: 500px;
-            }
-
-            .popup-content h2 {
-                margin-bottom: 20px;
-                font-size: 2em;
-            }
-
-            .popup-content p {
-                margin-bottom: 30px;
-                font-size: 1.1em;
+                border-bottom: none;
             }
 
             .menu-toggle {
                 display: none;
             }
 
-        }
+            .container {
+                margin: 20px auto;
+                max-width: 1200px;
+            }
 
+            section {
+                margin-bottom: 20px;
+                padding: 30px;
+                border-radius: 20px !important;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                text-align: left;
+            }
+
+            h1, h2 {
+                font-size: 2.5em;
+                margin-bottom: 20px;
+            }
+
+            h3 {
+                font-size: 1.5em;
+                margin-bottom: 10px;
+            }
+
+            section p {
+                font-size: 1em;
+            }
+
+            .form-container {
+                padding: 40px;
+                border-radius: 20px !important;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                max-width: 600px;
+                margin: 30px auto;
+            }
+
+            .form-group label {
+                font-size: 1em;
+            }
+
+            .form-group input[type="text"],
+            .form-group input[type="email"],
+            .form-group textarea {
+                font-size: 1em;
+            }
+
+            .submit-button {
+                padding: 12px 25px;
+                border-radius: 8px;
+                font-size: 1.1em;
+                margin-top: 20px;
+            }
+
+            .popup-content {
+                padding: 40px;
+                border-radius: 20px !important;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                max-width: 500px;
+            }
+
+            .popup-content h2 {
+                font-size: 2.5em;
+            }
+
+            .popup-content p {
+                font-size: 1.1em;
+            }
+
+            .quote-button {
+                padding: 12px 25px;
+                border-radius: 8px;
+                font-size: 1.1em;
+                margin-top: 20px;
+            }
+
+            footer {
+                padding: 1.5rem 0;
+                font-size: 0.9em;
+                margin-top: 30px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="static-blurred-background"></div>
     <div class="top-menu-bar">
-        <img src="./images/logo.png" alt="Mozuk Marine Logo" style="max-width: 150px; height: auto;">
+        <img src="./images/logo.png" alt="Mozuk Marine Logo">
     </div>
     <nav>
-        <ul>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="nav-list">
             <li><a href="index.html#home">Home</a></li>
             <li><a href="index.html#services">Services</a></li>
             <li><a href="index.html#about">About Us</a></li>
@@ -402,53 +535,59 @@
             <li><a href="contact.html#contact-us">Contact Us</a></li>
         </ul>
     </nav>
-    <div class="container">
-        <section>
-            <h2>Request a Quote</h2>
-            <div class="form-container">
-                <form action="https://formspree.io/f/xyzbyggp" method="POST" id="quote-form">
-                    <div id="form-messages"></div> <!-- Message display area -->
-                    <input type="hidden" name="_replyto" id="replyto-email">
-                    <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number:</label>
-                        <input type="text" id="phone" name="phone" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="company">Company (Optional):</label>
-                        <input type="text" id="company" name="company">
-                    </div>
-                    <div class="form-group">
-                        <label for="ship-name">Ship Name (Optional):</label>
-                        <input type="text" id="ship-name" name="ship-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="imo">IMO (Optional):</label>
-                        <input type="text" id="imo" name="imo">
-                    </div>
-                    <div class="form-group">
-                        <label for="bwts-size">BWTS Size (Optional):</label>
-                        <input type="text" id="bwts-size" name="bwts-size">
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Subject:</label>
-                        <input type="text" id="subject" name="subject">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message:</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-button">Submit Request</button>
-                </form>
-            </div>
-        </section>
+    <div class="content-wrapper">
+        <div class="container">
+            <section>
+                <h2>Request a Quote</h2>
+                <div class="form-container">
+                    <form action="https://formspree.io/f/xyzbyggp" method="POST" id="quote-form">
+                        <div id="form-messages"></div> <!-- Message display area -->
+                        <input type="hidden" name="_replyto" id="replyto-email">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number:</label>
+                            <input type="text" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company (Optional):</label>
+                            <input type="text" id="company" name="company">
+                        </div>
+                        <div class="form-group">
+                            <label for="ship-name">Ship Name (Optional):</label>
+                            <input type="text" id="ship-name" name="ship-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="imo">IMO (Optional):</label>
+                            <input type="text" id="imo" name="imo">
+                        </div>
+                        <div class="form-group">
+                            <label for="bwts-model">BWTS Model (Optional):</label>
+                            <input type="text" id="bwts-model" name="bwts-model">
+                        </div>
+                        <div class="form-group">
+                            <label for="bwts-size">BWTS Size (Optional):</label>
+                            <input type="text" id="bwts-size" name="bwts-size">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject:</label>
+                            <input type="text" id="subject" name="subject">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message:</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-button">Submit Request</button>
+                    </form>
+                </div>
+            </section>
+        </div>
     </div>
     <div id="success-popup" class="popup">
         <div class="popup-content">
@@ -461,6 +600,7 @@
     <footer>
         <p>&copy; 2025 Mozuk Marine. All rights reserved.</p>
     </footer>
+
     <script>
         window.onload = function() {
             setTimeout(function() {
@@ -474,7 +614,7 @@
         const homeButton = document.getElementById('home-button');
 
         form.addEventListener('submit', async function(event) {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault();
 
             const formData = new FormData(form);
             const response = await fetch(form.action, {
@@ -486,14 +626,13 @@
             });
 
             if (response.ok) {
-                form.reset(); // Clear all form fields
-                formMessages.style.display = 'none'; // Hide inline message
-                successPopup.style.display = 'flex'; // Show the pop-up
+                form.reset();
+                formMessages.style.display = 'none';
+                successPopup.style.display = 'flex';
             } else {
                 formMessages.style.color = 'red';
                 formMessages.textContent = 'Oops! There was a problem submitting your form.';
-                formMessages.style.display = 'block'; // Ensure message is visible
-                // Clear error message after 5 seconds
+                formMessages.style.display = 'block';
                 setTimeout(() => {
                     formMessages.textContent = '';
                     formMessages.style.display = 'none';
@@ -502,10 +641,9 @@
         });
 
         homeButton.addEventListener('click', function() {
-            window.location.href = 'index.html'; // Redirect to home page
+            window.location.href = 'index.html';
         });
 
-        // Set _replyto field with the user's email if available
         const emailInput = document.getElementById('email');
         const replytoHiddenInput = document.getElementById('replyto-email');
         if (emailInput && replytoHiddenInput) {
@@ -514,16 +652,14 @@
             });
         }
 
-        // Mobile menu toggle
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.querySelector('.nav-list');
 
         mobileMenu.addEventListener('click', () => {
             navList.classList.toggle('active');
-            mobileMenu.classList.toggle('active'); // Optional: for animating the hamburger icon
+            mobileMenu.classList.toggle('active');
         });
 
-        // Close mobile menu when a link is clicked
         document.querySelectorAll('.nav-list a').forEach(item => {
             item.addEventListener('click', () => {
                 navList.classList.remove('active');

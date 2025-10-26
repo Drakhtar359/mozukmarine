@@ -7,6 +7,7 @@
     <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Global Styles */
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
@@ -14,7 +15,10 @@
             background: linear-gradient(to right, #25b0a2, #2f5294); /* Gradient background for the whole page */
             color: #ffffff; /* White text for contrast */
             line-height: 1.6;
-            overflow-x: hidden; /* Lock horizontal scrolling on mobile */
+            overflow-x: hidden; /* Prevent horizontal scrolling on mobile */
+            min-height: 100vh; /* Ensure body takes full viewport height */
+            display: flex;
+            flex-direction: column;
         }
 
         .static-blurred-background {
@@ -29,147 +33,205 @@
             z-index: -2; /* Ensure it's behind all content and the body gradient */
         }
 
+        .content-wrapper {
+            flex: 1; /* Allows content to grow and push footer down */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
+            width: 100%;
+        }
+
         .top-menu-bar {
             background-color: #ffffff;
-            height: 10vh; /* Adjust height for content */
+            height: 10vh; /* Responsive height */
             width: 100%;
-            max-width: 100%; /* Ensure full width */
-            margin: 0 auto; /* Center the bar */
             display: flex;
             align-items: center;
             justify-content: center; /* Center the logo */
-            padding: 0 5vw; /* Use vw for horizontal padding */
-            box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.1); /* Optional shadow, scale with vw */
-            margin-bottom: 0; /* Remove space below top-menu-bar */
+            padding: 0 2vw; /* Responsive horizontal padding */
+            box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        /* .top-contact-info span a {
-            margin-left: 15px;
-            font-size: 0.9em;
-        } */
+        .top-menu-bar img {
+            max-width: 30vw; /* Responsive logo size */
+            height: auto;
+        }
 
-        /* header {
-            background-color: transparent; /* Make header background transparent */
-            color: #ffffff;
-            padding: 1rem 0;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        } */
-        .hero-section {
-            position: relative;
-            height: 50vh; /* Adjust as needed */
-            /* background: url('./images/hero-bg.jpg') no-repeat center center/cover; */
-            /* filter: blur(5px); */ /* Apply blur directly to the hero section */
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            margin-bottom: 0; /* Remove space below hero section */
-            overflow: hidden; /* Ensure blur doesn't bleed */
-            z-index: 0; /* Ensure hero section is above body gradient */
-        }
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-        .hero-content h2 {
-            font-size: 8vw; /* Use vw for font size */
-            margin-bottom: 1vh; /* Use vh for vertical margin */
-            color: #ffffff;
-        }
-        .hero-content p {
-            font-size: 3vw; /* Use vw for font size */
-        }
         nav {
             background: linear-gradient(to right, #25b0a2, #2f5294); /* Gradient background */
-            height: 8vh; /* Match top-menu-bar height */
-            width: 100%; /* Ensure full width */
+            height: 8vh; /* Responsive height */
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0; /* Ensure no external margins */
-            padding: 0; /* Ensure no internal padding */
-            box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.1); /* Optional shadow, scale with vw */
+            padding: 0 2vw; /* Responsive horizontal padding */
+            box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 10vh; /* Below the top-menu-bar */
+            z-index: 999;
         }
 
-        nav ul {
+        .nav-list {
             list-style: none;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
+            width: 100%;
         }
-        nav ul li {
-            margin: 0 2vw; /* Use vw for horizontal margin */
+
+        .nav-list li {
+            margin: 0 2vw; /* Responsive horizontal margin */
         }
-        nav ul li a {
+
+        .nav-list li a {
             color: #ffffff;
             text-decoration: none;
-            padding: 2vh 0; /* Use vh for vertical padding */
+            padding: 2vh 0; /* Responsive vertical padding */
             display: inline-block;
             transition: color 0.3s ease;
             font-weight: bold;
+            font-size: 3vw; /* Responsive font size */
+            white-space: nowrap; /* Prevent links from wrapping */
         }
-        nav ul li a:hover {
-            color: #f8f8f8; /* Light grey for hover */
+
+        .nav-list li a:hover {
+            color: #f8f8f8;
         }
+
+        .menu-toggle {
+            display: none; /* Hidden on desktop */
+            flex-direction: column;
+            justify-content: space-between;
+            width: 6vw; /* Responsive width */
+            height: 4vw; /* Responsive height */
+            cursor: pointer;
+            position: absolute;
+            right: 4vw; /* Responsive positioning */
+            z-index: 100; /* Ensure it's above other content */
+        }
+
+        .menu-toggle .bar {
+            height: 0.5vh; /* Responsive height */
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 1vh; /* Responsive border-radius */
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            height: 50vh; /* Responsive height */
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 5vh 5vw; /* Responsive padding */
+            box-sizing: border-box;
+            z-index: 1; /* Ensure hero content is above blurred background */
+            width: 100%;
+            background-color: rgba(0,0,0,0.3); /* Slight overlay for readability */
+        }
+
+        .hero-content h2 {
+            font-size: 8vw; /* Responsive font size */
+            margin-bottom: 1vh;
+            color: #ffffff;
+        }
+
+        .hero-content p {
+            font-size: 3vw; /* Responsive font size */
+            max-width: 80vw;
+            margin: 0 auto;
+        }
+
         .container {
             width: 90%;
-            max-width: 1200px;
-            margin: auto;
+            max-width: 1200px; /* Max width for desktop */
+            margin: 3vh auto; /* Responsive vertical margin */
             overflow: hidden;
-            padding: 3vh 0; /* Use vh for vertical padding */
-            display: flex; /* For vertical centering */
+            padding: 0;
+            display: flex;
             flex-direction: column;
-            align-items: center; /* Center content horizontally */
+            align-items: center;
         }
+
         section {
             background-color: rgba(255, 255, 255, 0.9); /* Slightly translucent white for sections */
-            margin-bottom: 2vh; /* Use vh for vertical margin */
-            padding: 3vh; /* Use vh for padding */
-            border-radius: 2vw; /* Use vw for border-radius */
-            box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.1);
-            width: 100%; /* Ensure sections take full width */
-            max-width: 100%; /* Ensure sections take full width */
+            margin-bottom: 3vh; /* Responsive vertical margin */
+            padding: 4vh 4vw; /* Responsive padding */
+            border-radius: 3vw; /* Responsive rounded corners */
+            box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
+            width: 100%;
+            box-sizing: border-box;
+            color: #333; /* Default text color for sections */
+            text-align: center;
         }
+
+        h1, h2 {
+            color: #2f5294; /* Darker blue from gradient */
+            text-align: center;
+            font-size: 6vw; /* Responsive font size */
+            margin-bottom: 2vh;
+        }
+
+        h3 {
+            color: #25b0a2; /* Green accent for titles */
+            font-size: 4.5vw; /* Responsive font size */
+            margin-bottom: 1vh;
+        }
+
+        section p {
+            font-size: 3vw; /* Responsive font size */
+            margin-bottom: 1vh;
+        }
+
         section img {
-            max-width: 100%;
+            max-width: 90%; /* Responsive image width */
             height: auto;
             display: block;
-            margin: 3vh auto; /* Use vh for vertical margin */
-            border-radius: 2vw; /* Use vw for border-radius */
+            margin: 3vh auto; /* Responsive vertical margin */
+            border-radius: 2vw; /* Responsive rounded corners */
             filter: blur(0.5px); /* Subtle blur for section images */
         }
 
         section#about img {
             filter: none; /* Remove blur for about-us image */
         }
-        /* Override blur for logo */
-        header img {
-            filter: none;
-        }
+        
+        /* Service Grid */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80vw, 1fr)); /* Use vw for minmax */
-            gap: 3vw; /* Use vw for gap */
-            margin-top: 3vh; /* Use vh for vertical margin */
+            grid-template-columns: repeat(auto-fit, minmax(80vw, 1fr)); /* Responsive grid */
+            gap: 3vw; /* Responsive gap */
+            margin-top: 3vh;
+            justify-content: center; /* Center grid items */
         }
+
         .service-item {
             position: relative;
             overflow: hidden;
-            border-radius: 2vw; /* Use vw for border-radius */
-            box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.05);
+            border-radius: 3vw; /* Responsive rounded corners */
+            box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.05);
             background-color: rgba(255, 255, 255, 0.1); /* Translucent white to show gradient */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0; /* Reset padding to ensure image fills */
+            box-sizing: border-box;
         }
 
         .service-content {
             position: relative;
             width: 100%;
-            height: 25vh; /* Fixed height for service items */
+            height: 25vh; /* Fixed height for service items (responsive to viewport) */
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -182,6 +244,7 @@
             object-fit: cover;
             filter: blur(2px); /* Apply blur to service images */
             transition: filter 0.3s ease, transform 0.3s ease;
+            border-radius: 0; /* Remove border-radius on image itself to fit parent */
         }
 
         .service-overlay {
@@ -198,20 +261,19 @@
             justify-content: center;
             text-align: center;
             opacity: 1; /* Initially visible for title */
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease, background 0.3s ease;
         }
 
         .service-overlay h3 {
-            color: #ffffff; /* Revert to white for title */
+            color: #ffffff; /* White for title */
             margin: 0;
-            font-size: 4vw; /* Use vw for font size */
-            text-align: center;
+            font-size: 4.5vw; /* Responsive font size */
         }
 
         .service-overlay p.details {
-            color: #ffffff; /* Revert to white for details */
-            margin: 1.5vh; /* Use vh for vertical margin */
-            font-size: 2.5vw; /* Use vw for font size */
+            color: #ffffff; /* White for details */
+            margin: 1.5vh;
+            font-size: 2.8vw; /* Responsive font size */
             opacity: 0;
             max-height: 0;
             overflow: hidden;
@@ -222,225 +284,257 @@
             transform: scale(1.05); /* Slight zoom on hover */
         }
 
-        .service-item:hover .service-overlay p.details {
-            opacity: 1;
-            max-height: 15vh; /* Adjust as needed to reveal text */
-        }
-
         .service-item:hover .service-overlay {
             background: rgba(0, 0, 0, 0.7); /* Darker overlay on hover */
         }
 
-        h1, h2 {
-            color: #25b0a2; /* Lighter blue from gradient */
-            text-align: center; /* Center main headings */
-        }
-        section p {
-            color: #333; /* Black text for section paragraphs */
-        }
-        footer {
-            background-color: rgba(0, 0, 0, 0.8); /* Darker translucent for footer */
-            color: #ffffff;
-            text-align: center;
-            padding: 2vh 0; /* Use vh for vertical padding */
-            width: 100%;
-            margin-top: 2vh; /* Use vh for vertical margin */
+        .service-item:hover .service-overlay p.details {
+            opacity: 1;
+            max-height: 10vh; /* Adjust as needed to reveal text */
         }
 
         .quote-button {
             background-color: #25b0a2; /* Green accent */
             color: #ffffff;
-            padding: 1.5vh 3vw; /* Use vh and vw for padding */
+            padding: 1.5vh 4vw; /* Responsive padding */
             border: none;
-            border-radius: 1vw; /* Use vw for border-radius */
-            font-size: 3vw; /* Use vw for font size */
+            border-radius: 1.5vw; /* Responsive rounded corners */
+            font-size: 3.5vw; /* Responsive font size */
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 2vh; /* Use vh for vertical margin */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 2vh;
+            text-decoration: none; /* Remove underline for anchor tag */
+            display: inline-block; /* Allows padding and margin */
         }
 
-        /* Mobile Menu Styles */
-        .menu-toggle {
-            display: none; /* Hidden by default, shown only on mobile */
-            flex-direction: column;
-            justify-content: space-between;
-            width: 6vw; /* Use vw for width */
-            height: 4vw; /* Use vw for height */
-            cursor: pointer;
-            position: absolute;
-            right: 5vw; /* Use vw for right positioning */
-            z-index: 100;
+        .quote-button:hover {
+            background-color: #2f5294; /* Darker blue on hover */
+            transform: translateY(-0.2vh);
         }
 
-        .menu-toggle .bar {
-            height: 0.5vh; /* Use vh for height */
-            width: 100%;
-            background-color: #ffffff;
-            border-radius: 1vh; /* Use vh for border-radius */
-            transition: all 0.3s ease-in-out;
-        }
-
-        /* Styles for when menu is open */
-        .nav-list.active {
-            display: flex; /* Show menu when active */
-            flex-direction: column;
-            position: absolute;
-            top: 8vh; /* Below the nav bar */
-            left: 0;
-            width: 100%;
-            background: linear-gradient(to bottom, #2f5294, #25b0a2); /* Gradient background */
-            box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.2); /* Scale with vw */
-            padding: 1.5vh 0; /* Use vh for padding */
-            z-index: 99;
-        }
-
-        .nav-list.active li {
-            margin: 1.5vh 0; /* Use vh for vertical margin */
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
             text-align: center;
-        }
-
-        .nav-list.active li a {
-            padding: 1.5vh; /* Use vh for padding */
+            padding: 2vh 0; /* Responsive vertical padding */
             width: 100%;
-            display: block;
+            margin-top: auto; /* Push footer to the bottom */
+            font-size: 2.5vw; /* Responsive font size */
         }
 
+        /* Responsive Adjustments */
         @media (max-width: 768px) {
             nav {
-                justify-content: space-between; /* Adjust alignment when menu toggle is present */
-                padding: 0 5vw; /* Use vw for horizontal padding */
+                justify-content: space-between;
+                padding: 0 4vw;
+                top: 10vh; /* Stick below top bar */
+            }
+
+            .nav-list {
+                display: none; /* Hide navigation links by default on mobile */
+                flex-direction: column;
+                position: fixed; /* Use fixed to ensure it covers the screen */
+                top: 18vh; /* Below top menu bar and nav bar */
+                left: 0;
+                width: 100%;
+                background: linear-gradient(to bottom, #2f5294, #25b0a2);
+                box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.2);
+                padding: 2vh 0;
+                z-index: 998; /* Below nav but above other content */
+                height: calc(100vh - 18vh); /* Fill remaining viewport height */
+                overflow-y: auto; /* Allow scrolling if menu is long */
+                align-items: center;
+            }
+
+            .nav-list.active {
+                display: flex; /* Show menu when active */
+            }
+
+            .nav-list li {
+                margin: 1.5vh 0; /* Responsive vertical margin */
+                width: 100%;
+            }
+
+            .nav-list li a {
+                font-size: 5vw; /* Larger font for mobile menu */
+                padding: 2vh 0;
+                border-bottom: 0.1vh solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-list li:last-child a {
+                border-bottom: none;
             }
 
             .menu-toggle {
                 display: flex; /* Show hamburger menu on mobile */
             }
 
-            .nav-list {
-                display: none; /* Hide navigation links by default on mobile */
-                flex-direction: column;
-                width: 100%;
-                background-color: #2f5294; /* Fallback color */
-                position: absolute;
-                top: 8vh;
-                left: 0;
-                box-shadow: 0 0.5vw 1vw rgba(0,0,0,0.2);
+            .hero-section {
+                height: 40vh; /* Shorter hero on mobile */
+                padding: 3vh 5vw;
             }
 
-            .nav-list li {
-                text-align: center;
-                margin: 0;
+            .hero-content h2 {
+                font-size: 10vw;
             }
 
-            .nav-list li a {
-                padding: 2vh; /* Use vh for padding */
-                border-bottom: 0.2vh solid rgba(255, 255, 255, 0.1); /* Use vh for border */
+            .hero-content p {
+                font-size: 4vw;
+            }
+            
+            h1, h2 {
+                font-size: 8vw; /* Adjust heading size for mobile */
+            }
+
+            h3 {
+                font-size: 6vw; /* Adjust heading size for mobile */
+            }
+
+            section p {
+                font-size: 4vw; /* Adjust paragraph size for mobile */
+            }
+
+            .quote-button {
+                font-size: 5vw; /* Adjust button text size for mobile */
+                padding: 2vh 6vw;
+            }
+
+            footer {
+                font-size: 3.5vw; /* Adjust footer font size for mobile */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-menu-bar img {
+                max-width: 40vw; /* Smaller logo on very small screens */
             }
         }
 
         /* Desktop specific styles */
         @media (min-width: 769px) {
-            .nav-list {
-                display: flex !important; /* Always show on desktop */
-            }
-            .menu-toggle {
-                display: none; /* Hide hamburger menu on desktop */
-            }
-
             .top-menu-bar {
                 height: 60px;
                 padding: 0 20px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
 
-            nav {
-                height: 60px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            .top-menu-bar img {
+                max-width: 150px;
             }
 
-            nav ul li {
+            nav {
+                height: 60px;
+                padding: 0 20px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                top: 60px; /* Below desktop top-menu-bar */
+            }
+
+            .nav-list li {
                 margin: 0 15px;
             }
 
-            nav ul li a {
+            .nav-list li a {
+                font-size: 1.1em;
                 padding: 10px 0;
             }
 
-            .container {
-                padding: 20px 0;
-                /* max-width remains 1200px */
-            }
-
-            section {
-                margin-bottom: 20px;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-
-            h2 {
-                font-size: 2em;
-            }
-
-            section p {
-                font-size: 1em;
-            }
-
-            footer {
-                padding: 1.5rem 0;
-                margin-top: 20px;
-            }
-
-            .quote-button {
-                padding: 10px 20px;
-                border-radius: 5px;
-                font-size: 1.1em;
-            }
-
             .menu-toggle {
-                display: none;
+                display: none; /* Ensure hamburger is hidden on desktop */
             }
 
             .hero-section {
-                height: 400px; /* Adjust as needed for desktop */
+                height: 400px;
+                padding: 50px;
+                background-color: rgba(0,0,0,0.3); /* Ensure overlay remains */
             }
+
             .hero-content h2 {
                 font-size: 3em;
                 margin-bottom: 10px;
             }
+
             .hero-content p {
                 font-size: 1.2em;
+                max-width: 800px;
             }
+
+            .container {
+                margin: 20px auto;
+                max-width: 1200px;
+            }
+
+            section {
+                margin-bottom: 20px;
+                padding: 30px;
+                border-radius: 20px !important; /* Prominent rounded corners */
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                text-align: left; /* Revert text alignment for desktop sections if needed */
+            }
+
+            h1, h2 {
+                font-size: 2.5em; /* Adjust heading size for desktop */
+                margin-bottom: 20px;
+            }
+
+            h3 {
+                font-size: 1.5em; /* Adjust heading size for desktop */
+                margin-bottom: 10px;
+            }
+
+            section p {
+                font-size: 1em; /* Adjust paragraph size for desktop */
+            }
+
+            section img {
+                max-width: 500px; /* Max width for images on desktop */
+                margin: 30px auto;
+                border-radius: 10px;
+            }
+
             .services-grid {
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
                 gap: 20px;
-                margin-top: 20px;
+                margin-top: 30px;
             }
             .service-item {
-                border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+                border-radius: 20px !important; /* Prominent rounded corners */
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                padding: 0;
             }
             .service-content {
-                height: 200px; /* Fixed height for service items */
+                height: 200px;
+            }
+            .service-content img {
+                border-radius: 0;
             }
             .service-overlay h3 {
-                font-size: 1.5em;
+                font-size: 1.6em;
             }
             .service-overlay p.details {
-                margin: 10px;
                 font-size: 0.9em;
-            }
-            .service-item:hover .service-overlay p.details {
-                max-height: 100px; /* Adjust as needed to reveal text */
+                margin: 10px;
+                max-height: 100px;
             }
 
+            .quote-button {
+                padding: 12px 25px;
+                border-radius: 8px;
+                font-size: 1.1em;
+                margin-top: 20px;
+            }
+
+            footer {
+                padding: 1.5rem 0;
+                font-size: 0.9em;
+                margin-top: 30px;
+            }
         }
-
     </style>
 </head>
 <body>
     <div class="static-blurred-background"></div>
     <div class="top-menu-bar">
-        <img src="./images/logo.png" alt="Mozuk Marine Logo" style="max-width: 150px; height: auto;">
+        <img src="./images/logo.png" alt="Mozuk Marine Logo">
     </div>
     <nav>
         <div class="menu-toggle" id="mobile-menu">
@@ -456,92 +550,97 @@
             <li><a href="contact.html#contact-us">Contact Us</a></li>
         </ul>
     </nav>
-    <div class="container">
-        <section id="home">
-            <h2>Welcome to Mozuk Marine</h2>
-            <p>Your trusted partner for comprehensive Ballast Water Treatment System (BWTS) solutions. We provide expert installation, maintenance, and repair services to ensure your vessels comply with international maritime regulations.</p>
-            <p>Our team of highly skilled technicians is dedicated to keeping your BWTS operating efficiently and reliably, minimizing downtime and maximizing your operational readiness.</p>
-        </section>
-        <section id="services">
-            <h2>Our Services</h2>
-            <div class="services-grid">
-                <div class="service-item">
-                    <div class="service-content">
-                        <img src="./images/installation.png" alt="BWTS Installation">
-                        <div class="service-overlay">
-                            <h3>BWTS Installation</h3>
-                            <p class="details">Professional installation of new Ballast Water Treatment Systems tailored to your vessel's specifications.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="service-item">
-                    <div class="service-content">
-                        <img src="./images/maintenance.png" alt="BWTS Maintenance and Repair">
-                        <div class="service-overlay">
-                            <h3>Maintenance & Repair</h3>
-                            <p class="details">Routine maintenance, troubleshooting, and emergency repair services for all major BWTS brands.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="service-item">
-                    <div class="service-content">
-                        <img src="./images/testing.png" alt="BWTS Commissioning and Testing">
-                        <div class="service-overlay">
-                            <h3>Commissioning & Testing</h3>
-                            <p class="details">Ensuring your BWTS is fully operational and compliant with all regulatory requirements.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="service-item">
-                    <div class="service-content">
-                        <img src="./images/spare-parts.png" alt="BWTS Spare Parts and Support">
-                        <div class="service-overlay">
-                            <h3>Spare Parts & Support</h3>
-                            <p class="details">Access to genuine spare parts and 24/7 technical support.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="service-item">
-                    <div class="service-content">
-                        <img src="./images/training.png" alt="Crew Training">
-                        <div class="service-overlay">
-                            <h3>Crew Training</h3>
-                            <p class="details">Comprehensive training programs for your crew on BWTS operation and maintenance.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="service-item">
-                    <div class="service-content">
-                        <img src="./images/documents.png" alt="Documentation Updates">
-                        <div class="service-overlay">
-                            <h3>Documentation updates</h3>
-                            <p class="details">Digitilization services for existing diagrams and technical drawings. BWMP updates for the latest revisions according to the newest IMO regulations.</p>
-                        </div>
-                    </div>
-                </div>
+    <div class="content-wrapper">
+        <section class="hero-section" id="home">
+            <div class="hero-content">
+                <h2>Welcome to Mozuk Marine</h2>
+                <p>Your trusted partner for comprehensive Ballast Water Treatment System (BWTS) solutions. We provide expert installation, maintenance, and repair services to ensure your vessels comply with international maritime regulations. Our team of highly skilled technicians is dedicated to keeping your BWTS operating efficiently and reliably, minimizing downtime and maximizing your operational readiness.</p>
             </div>
         </section>
-        <section id="about">
-            <h2>About Us</h2>
-            <img src="./images/about-us.png" alt="About Us" width="400">
-            <p>Mozuk Marine is a leading service provider in the maritime industry, specializing in Ballast Water Treatment Systems. With years of experience and a deep understanding of marine engineering, we pride ourselves on delivering high-quality, reliable, and efficient services to ship owners and operators worldwide.</p>
-            <p>Our mission is to support the global maritime community in achieving environmental compliance and operational excellence through our dedicated BWTS expertise.</p>
-        </section>
 
-        <!-- Request a Quote Section -->
-        <section id="request-a-quote" style="text-align: center;">
-            <h2>Request a Quote</h2>
-            <p>Interested in our services? Click below to request a personalized quote.</p>
-            <a href="contact.html" class="quote-button">Request a Quote</a>
-        </section>
+        <div class="container">
+            <section id="services">
+                <h2>Our Services</h2>
+                <div class="services-grid">
+                    <div class="service-item">
+                        <div class="service-content">
+                            <img src="./images/installation.png" alt="BWTS Installation">
+                            <div class="service-overlay">
+                                <h3>BWTS Installation</h3>
+                                <p class="details">Professional installation of new Ballast Water Treatment Systems tailored to your vessel's specifications.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-content">
+                            <img src="./images/maintenance.png" alt="BWTS Maintenance and Repair">
+                            <div class="service-overlay">
+                                <h3>Maintenance & Repair</h3>
+                                <p class="details">Routine maintenance, troubleshooting, and emergency repair services for all major BWTS brands.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-content">
+                            <img src="./images/testing.png" alt="BWTS Commissioning and Testing">
+                            <div class="service-overlay">
+                                <h3>Commissioning & Testing</h3>
+                                <p class="details">Ensuring your BWTS is fully operational and compliant with all regulatory requirements.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-content">
+                            <img src="./images/spare-parts.png" alt="BWTS Spare Parts and Support">
+                            <div class="service-overlay">
+                                <h3>Spare Parts & Support</h3>
+                                <p class="details">Access to genuine spare parts and 24/7 technical support.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-content">
+                            <img src="./images/training.png" alt="Crew Training">
+                            <div class="service-overlay">
+                                <h3>Crew Training</h3>
+                                <p class="details">Comprehensive training programs for your crew on BWTS operation and maintenance.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-content">
+                            <img src="./images/documents.png" alt="Documentation Updates">
+                            <div class="service-overlay">
+                                <h3>Documentation updates</h3>
+                                <p class="details">Digitilization services for existing diagrams and technical drawings. BWMP updates for the latest revisions according to the newest IMO regulations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <!-- Contact Us Section -->
-        <section id="contact-us" style="text-align: center;">
-            <h2>Contact Us</h2>
-            <p>Email: sales@mozukmarine.com</p>
-            <p>Phone: +7884 7997</p>
-            <p>Address: Beirut, Lebanon</p>
-        </section>
+            <section id="about">
+                <h2>About Us</h2>
+                <img src="./images/about-us.png" alt="About Us">
+                <p>Mozuk Marine is a leading service provider in the maritime industry, specializing in Ballast Water Treatment Systems. With years of experience and a deep understanding of marine engineering, we pride ourselves on delivering high-quality, reliable, and efficient services to ship owners and operators worldwide.</p>
+                <p>Our mission is to support the global maritime community in achieving environmental compliance and operational excellence through our dedicated BWTS expertise.</p>
+            </section>
+
+            <!-- Request a Quote Section -->
+            <section id="request-a-quote">
+                <h2>Request a Quote</h2>
+                <p>Interested in our services? Click below to request a personalized quote.</p>
+                <a href="contact.html" class="quote-button">Request a Quote</a>
+            </section>
+
+            <!-- Contact Us Section -->
+            <section id="contact-us">
+                <h2>Contact Us</h2>
+                <p>Email: sales@mozukmarine.com</p>
+                <p>Phone: +7884 7997</p>
+                <p>Address: Beirut, Lebanon</p>
+            </section>
+        </div>
     </div>
     <footer>
         <p>&copy; 2025 Mozuk Marine. All rights reserved.</p>
@@ -574,3 +673,4 @@
     </script>
 </body>
 </html>
+
