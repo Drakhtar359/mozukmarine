@@ -374,6 +374,9 @@
 
         /* Responsive Adjustments */
         @media (max-width: 768px) {
+            .content-wrapper {
+                /* padding-top: 18vh; */ /* Removed as we are using margin-top on hero-section */
+            }
             nav {
                 justify-content: space-between;
                 padding: 0 4vw;
@@ -417,9 +420,11 @@
 
             .menu-toggle {
                 display: flex; /* Show hamburger menu on mobile */
+                right: 20px; /* Fixed position from right */
             }
 
             .hero-section {
+                margin-top: 18vh; /* Push hero section down below sticky header and nav */
                 height: 40vh; /* Shorter hero on mobile */
                 padding: 3vh 5vw;
             }
@@ -429,7 +434,10 @@
             }
 
             .hero-content p {
-                font-size: 4vw;
+                font-size: 2.8vw; /* Further reduced font size for better fit on mobile */
+                line-height: 1.4; /* Adjust line height for readability */
+                word-wrap: break-word; /* Ensure long words break and wrap */
+                overflow-wrap: break-word; /* Ensure long words break and wrap */
             }
             
             h1, h2 {
@@ -457,6 +465,10 @@
         @media (max-width: 480px) {
             .top-menu-bar img {
                 max-width: 40vw; /* Smaller logo on very small screens */
+            }
+
+            .hero-content p {
+                font-size: 2.5vw; /* Even smaller font size for very small mobile screens */
             }
         }
 
