@@ -19,6 +19,7 @@
             min-height: 100vh; /* Ensure body takes full viewport height */
             display: flex;
             flex-direction: column;
+            scroll-padding-top: 18vh; /* Account for sticky header and nav when jumping to anchor links */
         }
 
         .static-blurred-background {
@@ -27,10 +28,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('./images/hero-bg.jpg') no-repeat center center fixed;
-            background-size: cover;
+            background: url('./images/hero-bg.jpg') no-repeat center center / cover;
             filter: blur(5px);
             z-index: -2; /* Ensure it's behind all content and the body gradient */
+            background-attachment: scroll; /* Ensure background doesn't try to be fixed on mobile, relying on position:fixed */
         }
 
         .content-wrapper {
@@ -48,7 +49,7 @@
             display: flex;
             align-items: center;
             justify-content: center; /* Center the logo */
-            padding: 0 2vw; /* Responsive horizontal padding */
+            padding: 0; /* Removed horizontal padding to give more space for hamburger on mobile */
             box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
@@ -67,7 +68,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 2vw; /* Responsive horizontal padding */
+            padding: 0; /* Removed horizontal padding */
             box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 10vh; /* Below the top-menu-bar */
@@ -379,7 +380,7 @@
             }
             nav {
                 justify-content: space-between;
-                padding: 0 4vw;
+                padding: 0 15px; /* Added fixed padding to nav for better control on mobile */
                 top: 10vh; /* Stick below top bar */
             }
 
@@ -420,11 +421,14 @@
 
             .menu-toggle {
                 display: flex; /* Show hamburger menu on mobile */
-                right: 20px; /* Fixed position from right */
+                right: 15px; /* Adjusted fixed position from right */
+                width: 30px; /* Adjusted fixed width for better consistency */
+                height: 20px; /* Adjusted fixed height for better consistency */
             }
 
             .hero-section {
-                margin-top: 18vh; /* Push hero section down below sticky header and nav */
+                margin-top: 0; /* Remove margin-top as scroll-padding-top is used on body */
+                padding-top: 18vh; /* Add padding to hero-section to push content below sticky header */
                 height: 40vh; /* Shorter hero on mobile */
                 padding: 3vh 5vw;
             }
