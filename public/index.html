@@ -1,27 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mozuk Marine</title>
     <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
-        /* Global Styles */
-        body {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to right, #25b0a2, #2f5294); /* Gradient background for the whole page */
-            color: #ffffff; /* White text for contrast */
-            line-height: 1.6;
-            overflow-x: hidden; /* Prevent horizontal scrolling on mobile */
-            min-height: 100vh; /* Ensure body takes full viewport height */
-            display: flex;
-            flex-direction: column;
-            scroll-padding-top: 18vh; /* Account for sticky header and nav when jumping to anchor links */
+        /* ===== CSS CUSTOM PROPERTIES ===== */
+        :root {
+            /* Colors - Modern Dark Theme Palette */
+            --color-primary: hsl(174, 63%, 42%);
+            --color-primary-dark: hsl(174, 63%, 32%);
+            --color-primary-light: hsl(174, 63%, 52%);
+            --color-secondary: hsl(223, 49%, 38%);
+            --color-secondary-dark: hsl(223, 49%, 28%);
+            --color-secondary-light: hsl(223, 49%, 48%);
+            --color-accent: hsl(174, 100%, 70%);
+
+            /* Neutrals */
+            --color-bg-dark: hsl(220, 20%, 8%);
+            --color-bg-darker: hsl(220, 20%, 5%);
+            --color-surface: hsl(220, 15%, 12%);
+            --color-surface-light: hsl(220, 15%, 18%);
+            --color-text-primary: hsl(0, 0%, 98%);
+            --color-text-secondary: hsl(0, 0%, 75%);
+            --color-text-muted: hsl(0, 0%, 60%);
+
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+
+            /* Typography */
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 2rem;
+            --font-size-4xl: 2.5rem;
+            --font-size-5xl: 3rem;
+
+            /* Effects */
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.3);
+            --shadow-glow: 0 0 20px rgba(37, 176, 162, 0.3);
+
+            /* Transitions */
+            --transition-fast: 150ms ease;
+            --transition-base: 250ms ease;
+            --transition-slow: 350ms ease;
+
+            /* Border Radius */
+            --radius-sm: 0.5rem;
+            --radius-md: 1rem;
+            --radius-lg: 1.5rem;
+            --radius-xl: 2rem;
+
+            /* Glassmorphism */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-blur: blur(20px);
         }
 
+        /* ===== GLOBAL RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 120px;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: radial-gradient(ellipse at top, hsl(220, 20%, 12%) 0%, var(--color-bg-dark) 50%),
+                radial-gradient(ellipse at bottom, hsl(174, 30%, 15%) 0%, var(--color-bg-dark) 50%);
+            background-attachment: fixed;
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== BACKGROUND ===== */
         .static-blurred-background {
             position: fixed;
             top: 0;
@@ -29,50 +108,71 @@
             width: 100%;
             height: 100%;
             background: url('./images/hero-bg.jpg') no-repeat center center / cover;
-            filter: blur(5px);
-            z-index: -2; /* Ensure it's behind all content and the body gradient */
-            background-attachment: scroll; /* Ensure background doesn't try to be fixed on mobile, relying on position:fixed */
+            filter: blur(8px) brightness(0.4);
+            z-index: -2;
         }
 
         .content-wrapper {
-            flex: 1; /* Allows content to grow and push footer down */
+            flex: 1;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Center content horizontally */
-            width: 100%;
-        }
-
-        .top-menu-bar {
-            background-color: #ffffff;
-            height: 10vh; /* Responsive height */
-            width: 100%;
-            display: flex;
             align-items: center;
-            justify-content: center; /* Center the logo */
-            padding: 0; /* Removed horizontal padding to give more space for hamburger on mobile */
-            box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            width: 100%;
+            position: relative;
+            z-index: 1;
         }
 
-        .top-menu-bar img {
-            max-width: 30vw; /* Responsive logo size */
-            height: auto;
-        }
-
-        nav {
-            background: linear-gradient(to right, #25b0a2, #2f5294); /* Gradient background */
-            height: 8vh; /* Responsive height */
+        /* ===== NAVIGATION ===== */
+        .top-menu-bar {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-bottom: 1px solid var(--glass-border);
+            height: 70px;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0; /* Removed horizontal padding */
-            box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
             position: sticky;
-            top: 10vh; /* Below the top-menu-bar */
+            top: 0;
+            z-index: 1000;
+            transition: all var(--transition-base);
+        }
+
+        .top-menu-bar.scrolled {
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .top-menu-bar img {
+            max-width: 180px;
+            height: auto;
+            transition: transform var(--transition-base);
+        }
+
+        .top-menu-bar img:hover {
+            transform: scale(1.05);
+        }
+
+        nav {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-bottom: 1px solid var(--glass-border);
+            height: 60px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: sticky;
+            top: 70px;
             z-index: 999;
+            transition: all var(--transition-base);
+        }
+
+        nav.scrolled {
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: var(--shadow-md);
         }
 
         .nav-list {
@@ -81,183 +181,249 @@
             padding: 0;
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
+            gap: var(--spacing-lg);
             width: 100%;
         }
 
         .nav-list li {
-            margin: 0 2vw; /* Responsive horizontal margin */
+            position: relative;
         }
 
         .nav-list li a {
-            color: #ffffff;
+            color: var(--color-text-primary);
             text-decoration: none;
-            padding: 2vh 0; /* Responsive vertical padding */
+            padding: var(--spacing-sm) 0;
             display: inline-block;
-            transition: color 0.3s ease;
-            font-weight: bold;
-            font-size: 3vw; /* Responsive font size */
-            white-space: nowrap; /* Prevent links from wrapping */
+            font-weight: 500;
+            font-size: var(--font-size-base);
+            transition: color var(--transition-base);
+            position: relative;
+        }
+
+        .nav-list li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transition: width var(--transition-base);
         }
 
         .nav-list li a:hover {
-            color: #f8f8f8;
+            color: var(--color-accent);
+        }
+
+        .nav-list li a:hover::after {
+            width: 100%;
         }
 
         .menu-toggle {
-            display: none; /* Hidden on desktop */
+            display: none;
             flex-direction: column;
             justify-content: space-between;
-            width: 6vw; /* Responsive width */
-            height: 4vw; /* Responsive height */
+            width: 30px;
+            height: 24px;
             cursor: pointer;
             position: absolute;
-            right: 4vw; /* Responsive positioning */
-            z-index: 100; /* Ensure it's above other content */
+            right: var(--spacing-lg);
+            z-index: 100;
         }
 
         .menu-toggle .bar {
-            height: 0.5vh; /* Responsive height */
+            height: 3px;
             width: 100%;
-            background-color: #ffffff;
-            border-radius: 1vh; /* Responsive border-radius */
-            transition: all 0.3s ease-in-out;
+            background-color: var(--color-text-primary);
+            border-radius: 3px;
+            transition: all var(--transition-base);
         }
 
-        /* Hero Section */
+        .menu-toggle.active .bar:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .menu-toggle.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active .bar:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* ===== HERO SECTION ===== */
+        /* ===== HERO SECTION ===== */
         .hero-section {
             position: relative;
-            height: 50vh; /* Responsive height */
-            color: #ffffff;
+            min-height: 500px;
+            color: var(--color-text-primary);
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 5vh 5vw; /* Responsive padding */
-            box-sizing: border-box;
-            z-index: 1; /* Ensure hero content is above blurred background */
+            padding: var(--spacing-2xl) var(--spacing-lg);
             width: 100%;
-            background-color: rgba(0,0,0,0.3); /* Slight overlay for readability */
+            animation: fadeInUp 0.8s ease-out;
+            border-radius: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero-content h2 {
-            font-size: 8vw; /* Responsive font size */
-            margin-bottom: 1vh;
-            color: #ffffff;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero-content p {
-            font-size: 3vw; /* Responsive font size */
-            max-width: 80vw;
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            max-width: 800px;
             margin: 0 auto;
+            color: var(--color-text-secondary);
+            line-height: 1.8;
         }
 
         .container {
             width: 90%;
-            max-width: 1200px; /* Max width for desktop */
-            margin: 3vh auto; /* Responsive vertical margin */
-            overflow: hidden;
+            max-width: 1200px;
+            margin: var(--spacing-xl) auto;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            gap: var(--spacing-xl);
         }
 
+        /* ===== SECTIONS ===== */
         section {
-            background-color: rgba(255, 255, 255, 0.9); /* Slightly translucent white for sections */
-            margin-bottom: 3vh; /* Responsive vertical margin */
-            padding: 4vh 4vw; /* Responsive padding */
-            border-radius: 3vw; /* Responsive rounded corners */
-            box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            margin-bottom: var(--spacing-lg);
+            padding: var(--spacing-xl) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
             width: 100%;
-            box-sizing: border-box;
-            color: #333; /* Default text color for sections */
             text-align: center;
+            transition: all var(--transition-slow);
         }
 
-        section#request-a-quote {
-            text-align: center;
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl), var(--shadow-glow);
         }
 
-        section#contact-us {
+        h1,
+        h2 {
+            color: var(--color-accent);
             text-align: center;
-        }
-
-        h1, h2 {
-            color: #2f5294; /* Darker blue from gradient */
-            text-align: center;
-            font-size: 6vw; /* Responsive font size */
-            margin-bottom: 2vh;
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
         }
 
         h3 {
-            color: #25b0a2; /* Green accent for titles */
-            font-size: 4.5vw; /* Responsive font size */
-            margin-bottom: 1vh;
+            color: var(--color-primary);
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
         }
 
         section p {
-            font-size: 3vw; /* Responsive font size */
-            margin-bottom: 1vh;
+            font-size: var(--font-size-base);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin-bottom: var(--spacing-md);
         }
 
         section img {
-            max-width: 90%; /* Responsive image width */
+            max-width: 90%;
             height: auto;
             display: block;
-            margin: 3vh auto; /* Responsive vertical margin */
-            border-radius: 2vw; /* Responsive rounded corners */
-            filter: blur(0.5px); /* Subtle blur for section images */
+            margin: var(--spacing-lg) auto;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
         }
 
         section#about img {
-            filter: none; /* Remove blur for about-us image */
+            filter: none;
+            box-shadow: none;
+            border: none;
+            background: transparent;
         }
-        
-        /* Service Grid */
+
+        /* ===== SERVICE GRID ===== */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted minmax for better card size */
-            gap: 3vw; /* Responsive gap */
-            margin-top: 3vh;
-            justify-content: center; /* Center grid items */
-            width: 100%; /* Ensure grid takes full width */
-            box-sizing: border-box;
-            padding: 0 1vw; /* Add some padding to the grid container */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+            width: 100%;
         }
 
         .service-item {
             position: relative;
             overflow: hidden;
-            border-radius: 3vw; /* Responsive rounded corners */
-            box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.05);
-            background-color: rgba(255, 255, 255, 0.1); /* Translucent white to show gradient */
+            border-radius: var(--radius-md);
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-slow);
+            padding: 0;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 0; /* Reset padding to ensure image fills */
-            box-sizing: border-box;
-            text-align: center; /* Center content within the service item */
+        }
+
+        .service-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-xl), var(--shadow-glow);
+        }
+
+        .service-item {
+            will-change: transform, box-shadow;
         }
 
         .service-content {
             position: relative;
             width: 100%;
-            height: 25vh; /* Fixed height for service items (responsive to viewport) */
+            aspect-ratio: 1024 / 944;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .service-content img {
             width: 100%;
             height: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+            border-radius: 0;
+            box-shadow: none;
             object-fit: cover;
-            filter: blur(2px); /* Apply blur to service images */
-            transition: filter 0.3s ease, transform 0.3s ease;
-            border-radius: 0; /* Remove border-radius on image itself to fit parent */
+            filter: blur(2px);
+            transition: all var(--transition-slow);
+        }
+
+        .service-item:hover .service-content img {
+            transform: scale(1.1);
+            filter: blur(0px);
         }
 
         .service-overlay {
@@ -266,61 +432,60 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.5); /* Overlay for text readability */
-            color: #ffffff;
+            background: linear-gradient(135deg, rgba(37, 176, 162, 0.7), rgba(47, 82, 148, 0.7));
+            color: var(--color-text-primary);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center; /* Center all text within the overlay */
-            opacity: 1; /* Initially visible for title */
-            transition: opacity 0.3s ease, background 0.3s ease;
-        }
-
-        .service-overlay h3 {
-            color: #ffffff; /* White for title */
-            margin: 0; /* Reset margin */
-            font-size: 4.5vw; /* Responsive font size */
-            text-align: center; /* Center text within the h3 */
-        }
-
-        .service-overlay p.details {
-            color: #ffffff; /* White for details */
-            margin: 0; /* Reset margin */
-            font-size: 2.8vw; /* Responsive font size */
-            opacity: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: opacity 0.3s ease, max-height 0.3s ease;
-            text-align: center; /* Ensure details text is centered */
-        }
-
-        .service-item:hover .service-content img {
-            transform: scale(1.05); /* Slight zoom on hover */
+            text-align: center;
+            padding: var(--spacing-md);
+            transition: all var(--transition-slow);
         }
 
         .service-item:hover .service-overlay {
-            background: rgba(0, 0, 0, 0.7); /* Darker overlay on hover */
+            background: linear-gradient(135deg, rgba(37, 176, 162, 0.95), rgba(47, 82, 148, 0.95));
+        }
+
+        .service-overlay h3 {
+            color: var(--color-text-primary);
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .service-overlay p.details {
+            color: var(--color-text-primary);
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all var(--transition-slow);
+            line-height: 1.6;
         }
 
         .service-item:hover .service-overlay p.details {
             opacity: 1;
-            max-height: 10vh; /* Adjust as needed to reveal text */
-            margin-top: 1.5vh; /* Add margin after title appears */
+            max-height: 100%;
+            margin-top: var(--spacing-sm);
         }
 
         /* Responsive Adjustments for Service Grid */
         @media (max-width: 768px) {
             .services-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust for mobile */
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                /* Adjust for mobile */
                 padding: 0 2vw;
             }
+
             .service-item {
                 border-radius: 4vw;
             }
+
             .service-overlay h3 {
                 font-size: 5.5vw;
             }
+
             .service-overlay p.details {
                 font-size: 3.5vw;
             }
@@ -333,88 +498,143 @@
                 margin-top: 30px;
                 padding: 0;
             }
+
             .service-item {
                 border-radius: 20px !important;
             }
+
             .service-content {
-                height: 200px;
+                aspect-ratio: 1024 / 944;
+                height: auto;
             }
+
             .service-overlay h3 {
                 font-size: 1.6em;
             }
+
             .service-overlay p.details {
                 font-size: 0.9em;
                 margin-top: 10px;
             }
         }
 
+        /* ===== BUTTONS ===== */
         .quote-button {
-            background-color: #25b0a2; /* Green accent t*/
-            color: #ffffff;
-            padding: 1.5vh 4vw; /* Responsive padding */
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: var(--color-text-primary);
+            padding: var(--spacing-md) var(--spacing-xl);
             border: none;
-            border-radius: 1.5vw; /* Responsive rounded corners */
-            font-size: 3.5vw; /* Responsive font size */
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-lg);
+            font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            margin-top: 2vh;
-            text-decoration: none; /* Remove underline for anchor tag */
-            display: inline-block; /* Allows padding and margin */
+            transition: all var(--transition-base);
+            margin-top: var(--spacing-lg);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            will-change: transform, box-shadow;
         }
 
         .quote-button:hover {
-            background-color: #2f5294; /* Darker blue on hover */
-            transform: translateY(-0.2vh);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg), var(--shadow-glow);
         }
 
+        .quote-button .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0);
+            animation: ripple-animation 0.6s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* ===== FOOTER ===== */
         footer {
-            background-color: rgba(0, 0, 0, 0.8);
-            color: #ffffff;
+            background: rgba(0, 0, 0, 0.9);
+            color: var(--color-text-secondary);
             text-align: center;
-            padding: 2vh 0; /* Responsive vertical padding */
+            padding: var(--spacing-lg) 0;
             width: 100%;
-            margin-top: auto; /* Push footer to the bottom */
-            font-size: 2.5vw; /* Responsive font size */
+            margin-top: auto;
+            font-size: var(--font-size-sm);
+            border-top: 1px solid var(--glass-border);
+        }
+
+        /* Ensure request-a-quote section text is centered */
+        section#request-a-quote {
+            text-align: center;
+        }
+
+        section#request-a-quote * {
+            text-align: center;
+        }
+
+        /* Ensure contact-us section text is centered */
+        section#contact-us {
+            text-align: center;
+        }
+
+        section#contact-us * {
+            text-align: center;
         }
 
         /* Responsive Adjustments */
         @media (max-width: 768px) {
-            .content-wrapper {
-                /* padding-top: 18vh; */ /* Removed as we are using margin-top on hero-section */
-            }
             nav {
                 justify-content: space-between;
-                padding: 0 15px; /* Added fixed padding to nav for better control on mobile */
-                top: 10vh; /* Stick below top bar */
+                padding: 0 15px;
+                /* Added fixed padding to nav for better control on mobile */
+                top: 10vh;
+                /* Stick below top bar */
             }
 
             .nav-list {
-                display: none; /* Hide navigation links by default on mobile */
+                display: none;
+                /* Hide navigation links by default on mobile */
                 flex-direction: column;
-                position: fixed; /* Use fixed to ensure it covers the screen */
-                top: 18vh; /* Below top menu bar and nav bar */
+                position: fixed;
+                /* Use fixed to ensure it covers the screen */
+                top: 18vh;
+                /* Below top menu bar and nav bar */
                 left: 0;
                 width: 100%;
                 background: linear-gradient(to bottom, #2f5294, #25b0a2);
                 box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.2);
                 padding: 2vh 0;
-                z-index: 998; /* Below nav but above other content */
-                height: calc(100vh - 18vh); /* Fill remaining viewport height */
-                overflow-y: auto; /* Allow scrolling if menu is long */
+                z-index: 998;
+                /* Below nav but above other content */
+                height: calc(100vh - 18vh);
+                /* Fill remaining viewport height */
+                overflow-y: auto;
+                /* Allow scrolling if menu is long */
                 align-items: center;
             }
 
             .nav-list.active {
-                display: flex; /* Show menu when active */
+                display: flex;
+                /* Show menu when active */
             }
 
             .nav-list li {
-                margin: 1.5vh 0; /* Responsive vertical margin */
+                margin: 1.5vh 0;
+                /* Responsive vertical margin */
                 width: 100%;
             }
 
             .nav-list li a {
-                font-size: 5vw; /* Larger font for mobile menu */
+                font-size: 5vw;
+                /* Larger font for mobile menu */
                 padding: 2vh 0;
                 border-bottom: 0.1vh solid rgba(255, 255, 255, 0.1);
             }
@@ -424,16 +644,23 @@
             }
 
             .menu-toggle {
-                display: flex; /* Show hamburger menu on mobile */
-                right: 15px; /* Adjusted fixed position from right */
-                width: 30px; /* Adjusted fixed width for better consistency */
-                height: 20px; /* Adjusted fixed height for better consistency */
+                display: flex;
+                /* Show hamburger menu on mobile */
+                right: 15px;
+                /* Adjusted fixed position from right */
+                width: 30px;
+                /* Adjusted fixed width for better consistency */
+                height: 20px;
+                /* Adjusted fixed height for better consistency */
             }
 
             .hero-section {
-                margin-top: 0; /* Remove margin-top as scroll-padding-top is used on body */
-                padding-top: 18vh; /* Add padding to hero-section to push content below sticky header */
-                height: 40vh; /* Shorter hero on mobile */
+                margin-top: 0;
+                /* Remove margin-top as scroll-padding-top is used on body */
+                padding-top: 18vh;
+                /* Add padding to hero-section to push content below sticky header */
+                height: 40vh;
+                /* Shorter hero on mobile */
                 padding: 3vh 5vw;
             }
 
@@ -442,41 +669,53 @@
             }
 
             .hero-content p {
-                font-size: 2.8vw; /* Further reduced font size for better fit on mobile */
-                line-height: 1.4; /* Adjust line height for readability */
-                word-wrap: break-word; /* Ensure long words break and wrap */
-                overflow-wrap: break-word; /* Ensure long words break and wrap */
+                font-size: 2.8vw;
+                /* Further reduced font size for better fit on mobile */
+                line-height: 1.4;
+                /* Adjust line height for readability */
+                word-wrap: break-word;
+                /* Ensure long words break and wrap */
+                overflow-wrap: break-word;
+                /* Ensure long words break and wrap */
             }
-            
-            h1, h2 {
-                font-size: 8vw; /* Adjust heading size for mobile */
+
+            h1,
+            h2 {
+                font-size: 8vw;
+                /* Adjust heading size for mobile */
             }
 
             h3 {
-                font-size: 6vw; /* Adjust heading size for mobile */
+                font-size: 6vw;
+                /* Adjust heading size for mobile */
             }
 
             section p {
-                font-size: 4vw; /* Adjust paragraph size for mobile */
+                font-size: 4vw;
+                /* Adjust paragraph size for mobile */
             }
 
             .quote-button {
-                font-size: 5vw; /* Adjust button text size for mobile */
+                font-size: 5vw;
+                /* Adjust button text size for mobile */
                 padding: 2vh 6vw;
             }
 
             footer {
-                font-size: 3.5vw; /* Adjust footer font size for mobile */
+                font-size: 3.5vw;
+                /* Adjust footer font size for mobile */
             }
         }
 
         @media (max-width: 480px) {
             .top-menu-bar img {
-                max-width: 40vw; /* Smaller logo on very small screens */
+                max-width: 40vw;
+                /* Smaller logo on very small screens */
             }
 
             .hero-content p {
-                font-size: 2.5vw; /* Even smaller font size for very small mobile screens */
+                font-size: 2.5vw;
+                /* Even smaller font size for very small mobile screens */
             }
         }
 
@@ -496,7 +735,8 @@
                 height: 60px;
                 padding: 0 20px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                top: 60px; /* Below desktop top-menu-bar */
+                top: 60px;
+                /* Below desktop top-menu-bar */
             }
 
             .nav-list li {
@@ -509,13 +749,15 @@
             }
 
             .menu-toggle {
-                display: none; /* Ensure hamburger is hidden on desktop */
+                display: none;
+                /* Ensure hamburger is hidden on desktop */
             }
 
             .hero-section {
                 height: 400px;
                 padding: 50px;
-                background-color: rgba(0,0,0,0.3); /* Ensure overlay remains */
+                background-color: rgba(0, 0, 0, 0.3);
+                /* Ensure overlay remains */
             }
 
             .hero-content h2 {
@@ -536,27 +778,34 @@
             section {
                 margin-bottom: 20px;
                 padding: 30px;
-                border-radius: 20px !important; /* Prominent rounded corners */
+                border-radius: 20px !important;
+                /* Prominent rounded corners */
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-                text-align: left; /* Revert text alignment for desktop sections if needed */
+                text-align: left;
+                /* Revert text alignment for desktop sections if needed */
             }
 
-            h1, h2 {
-                font-size: 2.5em; /* Adjust heading size for desktop */
+            h1,
+            h2 {
+                font-size: 2.5em;
+                /* Adjust heading size for desktop */
                 margin-bottom: 20px;
             }
 
             h3 {
-                font-size: 1.5em; /* Adjust heading size for desktop */
+                font-size: 1.5em;
+                /* Adjust heading size for desktop */
                 margin-bottom: 10px;
             }
 
             section p {
-                font-size: 1em; /* Adjust paragraph size for desktop */
+                font-size: 1em;
+                /* Adjust paragraph size for desktop */
             }
 
             section img {
-                max-width: 500px; /* Max width for images on desktop */
+                max-width: 500px;
+                /* Max width for images on desktop */
                 margin: 30px auto;
                 border-radius: 10px;
             }
@@ -576,6 +825,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="static-blurred-background"></div>
     <div class="top-menu-bar">
@@ -592,14 +842,17 @@
             <li><a href="#services">Services</a></li>
             <li><a href="#about">About Us</a></li>
             <li><a href="contact.html">Request a Quote</a></li>
-            <li><a href="contact.html#contact-us">Contact Us</a></li>
         </ul>
     </nav>
     <div class="content-wrapper">
         <section class="hero-section" id="home">
             <div class="hero-content">
                 <h2>Welcome to Mozuk Marine</h2>
-                <p>Your trusted partner for comprehensive Ballast Water Treatment System (BWTS) solutions. We provide expert installation, maintenance, and repair services to ensure your vessels comply with international maritime regulations. Our team of highly skilled technicians is dedicated to keeping your BWTS operating efficiently and reliably, minimizing downtime and maximizing your operational readiness.</p>
+                <p>Your trusted partner for comprehensive Ballast Water Treatment System (BWTS) solutions. We provide
+                    expert installation, maintenance, and repair services to ensure your vessels comply with
+                    international maritime regulations. Our team of highly skilled technicians is dedicated to keeping
+                    your BWTS operating efficiently and reliably, minimizing downtime and maximizing your operational
+                    readiness.</p>
             </div>
         </section>
 
@@ -612,7 +865,8 @@
                             <img src="./images/installation.png" alt="BWTS Installation">
                             <div class="service-overlay">
                                 <h3>BWTS Installation</h3>
-                                <p class="details">Professional installation of new Ballast Water Treatment Systems tailored to your vessel's specifications.</p>
+                                <p class="details">Professional installation of new Ballast Water Treatment Systems
+                                    tailored to your vessel's specifications.</p>
                             </div>
                         </div>
                     </div>
@@ -621,22 +875,24 @@
                             <img src="./images/maintenance.png" alt="BWTS Maintenance and Repair">
                             <div class="service-overlay">
                                 <h3>Maintenance & Repair</h3>
-                                <p class="details">Routine maintenance, troubleshooting, and emergency repair services for all major BWTS brands.</p>
+                                <p class="details">Routine maintenance, troubleshooting, and emergency repair services
+                                    for all major BWTS brands.</p>
                             </div>
                         </div>
                     </div>
                     <div class="service-item">
                         <div class="service-content">
-                            <img src="./images/testing.png" alt="BWTS Commissioning and Testing">
+                            <img src="./images/testing.png" alt="BWTS Commissioning and Testing" loading="lazy">
                             <div class="service-overlay">
                                 <h3>Commissioning & Testing</h3>
-                                <p class="details">Ensuring your BWTS is fully operational and compliant with all regulatory requirements.</p>
+                                <p class="details">Ensuring your BWTS is fully operational and compliant with all
+                                    regulatory requirements.</p>
                             </div>
                         </div>
                     </div>
                     <div class="service-item">
                         <div class="service-content">
-                            <img src="./images/spare-parts.png" alt="BWTS Spare Parts and Support">
+                            <img src="./images/spare-parts.png" alt="BWTS Spare Parts and Support" loading="lazy">
                             <div class="service-overlay">
                                 <h3>Spare Parts & Support</h3>
                                 <p class="details">Access to genuine spare parts and 24/7 technical support.</p>
@@ -645,19 +901,21 @@
                     </div>
                     <div class="service-item">
                         <div class="service-content">
-                            <img src="./images/training.png" alt="Crew Training">
+                            <img src="./images/training.png" alt="Crew Training" loading="lazy">
                             <div class="service-overlay">
                                 <h3>Crew Training</h3>
-                                <p class="details">Comprehensive training programs for your crew on BWTS operation and maintenance.</p>
+                                <p class="details">Comprehensive training programs for your crew on BWTS operation and
+                                    maintenance.</p>
                             </div>
                         </div>
                     </div>
                     <div class="service-item">
                         <div class="service-content">
-                            <img src="./images/documents.png" alt="Documentation Updates">
+                            <img src="./images/documents.png" alt="Documentation Updates" loading="lazy">
                             <div class="service-overlay">
                                 <h3>Documentation updates</h3>
-                                <p class="details">Digitilization services for existing diagrams and technical drawings. BWMP updates for the latest revisions according to the newest IMO regulations.</p>
+                                <p class="details">Digitilization services for existing diagrams and technical drawings.
+                                    BWMP updates for the latest revisions according to the newest IMO regulations.</p>
                             </div>
                         </div>
                     </div>
@@ -667,8 +925,12 @@
             <section id="about">
                 <h2>About Us</h2>
                 <img src="./images/about-us.png" alt="About Us">
-                <p>Mozuk Marine is a leading service provider in the maritime industry, specializing in Ballast Water Treatment Systems. With years of experience and a deep understanding of marine engineering, we pride ourselves on delivering high-quality, reliable, and efficient services to ship owners and operators worldwide.</p>
-                <p>Our mission is to support the global maritime community in achieving environmental compliance and operational excellence through our dedicated BWTS expertise.</p>
+                <p>Mozuk Marine is a leading service provider in the maritime industry, specializing in Ballast Water
+                    Treatment Systems. With years of experience and a deep understanding of marine engineering, we pride
+                    ourselves on delivering high-quality, reliable, and efficient services to ship owners and operators
+                    worldwide.</p>
+                <p>Our mission is to support the global maritime community in achieving environmental compliance and
+                    operational excellence through our dedicated BWTS expertise.</p>
             </section>
 
             <!-- Request a Quote Section -->
@@ -692,8 +954,8 @@
 
     <script>
         // Scroll to top on page load
-        window.onload = function() {
-            setTimeout(function() {
+        window.onload = function () {
+            setTimeout(function () {
                 window.scrollTo(0, 0);
             }, 0);
         };
@@ -716,5 +978,5 @@
         });
     </script>
 </body>
-</html>
 
+</html>
