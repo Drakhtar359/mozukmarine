@@ -446,31 +446,34 @@
         }
 
         .service-icon-badge {
-            position: absolute;
-            bottom: -20px;
-            right: 20px;
-            width: 52px;
-            height: 52px;
+            width: 50px;
+            height: 50px;
             border-radius: var(--radius-md);
             background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
             display: flex;
             align-items: center;
             justify-content: center;
             color: #050b14;
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             box-shadow: 0 8px 20px rgba(0, 242, 254, 0.4);
+            margin-top: -42px;
+            margin-bottom: 1.25rem;
+            position: relative;
+            z-index: 10;
             transition: transform 0.3s ease;
         }
 
         .service-card:hover .service-icon-badge {
-            transform: rotate(5deg) scale(1.1);
+            transform: translateY(-3px) scale(1.1);
         }
 
         .service-body {
-            padding: 2rem 1.75rem 1.75rem;
+            padding: 1.75rem;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
+            position: relative;
+            z-index: 2;
         }
 
         .service-body h3 {
@@ -937,11 +940,11 @@
                     <div class="service-image-wrap">
                         <img src="./images/installation.png" alt="BWTS Installation">
                         <div class="service-image-overlay"></div>
+                    </div>
+                    <div class="service-body">
                         <div class="service-icon-badge">
                             <i class="fa-solid fa-screwdriver-wrench"></i>
                         </div>
-                    </div>
-                    <div class="service-body">
                         <h3>BWTS Installation</h3>
                         <p>Turnkey retrofit and newbuild installation of top-tier Ballast Water Treatment Systems customized to your vessel layout.</p>
                         <a href="contact.html" class="service-footer">Request Installation Quote <i class="fa-solid fa-arrow-right"></i></a>
@@ -953,11 +956,11 @@
                     <div class="service-image-wrap">
                         <img src="./images/maintenance.png" alt="Maintenance and Repair">
                         <div class="service-image-overlay"></div>
+                    </div>
+                    <div class="service-body">
                         <div class="service-icon-badge">
                             <i class="fa-solid fa-toolbox"></i>
                         </div>
-                    </div>
-                    <div class="service-body">
                         <h3>Maintenance & Repair</h3>
                         <p>Scheduled overhauls, sensor calibration, UV lamp replacements, filter maintenance, and emergency troubleshooting for all major brands.</p>
                         <a href="contact.html" class="service-footer">Schedule Maintenance <i class="fa-solid fa-arrow-right"></i></a>
@@ -969,11 +972,11 @@
                     <div class="service-image-wrap">
                         <img src="./images/testing.png" alt="Commissioning and Testing">
                         <div class="service-image-overlay"></div>
+                    </div>
+                    <div class="service-body">
                         <div class="service-icon-badge">
                             <i class="fa-solid fa-chart-line"></i>
                         </div>
-                    </div>
-                    <div class="service-body">
                         <h3>Commissioning & Testing</h3>
                         <p>Rigorous operational testing, biological sampling validation, and commissioning to guarantee compliance with international standards.</p>
                         <a href="contact.html" class="service-footer">Book Commissioning <i class="fa-solid fa-arrow-right"></i></a>
@@ -985,11 +988,11 @@
                     <div class="service-image-wrap">
                         <img src="./images/spare-parts.png" alt="Spare Parts Support">
                         <div class="service-image-overlay"></div>
+                    </div>
+                    <div class="service-body">
                         <div class="service-icon-badge">
                             <i class="fa-solid fa-boxes-stacked"></i>
                         </div>
-                    </div>
-                    <div class="service-body">
                         <h3>Spare Parts & Support</h3>
                         <p>Rapid sourcing and dispatch of genuine OEM spare parts, valves, sensors, and 24/7 technical helpdesk assistance.</p>
                         <a href="contact.html" class="service-footer">Order Spare Parts <i class="fa-solid fa-arrow-right"></i></a>
@@ -1001,11 +1004,11 @@
                     <div class="service-image-wrap">
                         <img src="./images/training.png" alt="Crew Training">
                         <div class="service-image-overlay"></div>
+                    </div>
+                    <div class="service-body">
                         <div class="service-icon-badge">
                             <i class="fa-solid fa-user-graduate"></i>
                         </div>
-                    </div>
-                    <div class="service-body">
                         <h3>Crew Training</h3>
                         <p>Hands-on operational and safety training programs empowering your marine officers and engineers with full BWTS mastery.</p>
                         <a href="contact.html" class="service-footer">Enquire Training <i class="fa-solid fa-arrow-right"></i></a>
@@ -1017,11 +1020,11 @@
                     <div class="service-image-wrap">
                         <img src="./images/documents.png" alt="Documentation Updates">
                         <div class="service-image-overlay"></div>
+                    </div>
+                    <div class="service-body">
                         <div class="service-icon-badge">
                             <i class="fa-regular fa-file-code"></i>
                         </div>
-                    </div>
-                    <div class="service-body">
                         <h3>Documentation Updates</h3>
                         <p>Digitization of technical schematics, CAD updates, and Ballast Water Management Plan (BWMP) revisions according to IMO regulations.</p>
                         <a href="contact.html" class="service-footer">Update Documentation <i class="fa-solid fa-arrow-right"></i></a>
