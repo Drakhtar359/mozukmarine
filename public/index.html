@@ -390,10 +390,70 @@
             letter-spacing: 0.5px;
         }
 
-        /* ===== SERVICES SECTION ===== */
+        /* ===== SERVICES SECTION & TABS ===== */
         .services-section {
             padding: var(--spacing-2xl) 0;
             position: relative;
+        }
+
+        .services-tabs-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.85rem 2.2rem;
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--color-glass-border);
+            color: var(--text-muted);
+            font-family: var(--font-main);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s var(--transition-smooth);
+            backdrop-filter: var(--glass-blur);
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+            background: rgba(0, 242, 254, 0.08);
+            border-color: var(--color-glass-border-hover);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: #050b14;
+            border-color: transparent;
+            box-shadow: 0 6px 25px rgba(0, 242, 254, 0.4);
+            font-weight: 700;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeInTab 0.4s var(--transition-smooth);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeInTab {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .services-grid {
@@ -931,103 +991,217 @@
             <div class="section-header reveal">
                 <div class="badge"><i class="fa-solid fa-gears"></i> Core Capabilities</div>
                 <h2>Our Engineering <span class="text-gradient">Services</span></h2>
-                <p>End-to-end solutions tailored to your vessel’s specific Ballast Water Treatment System needs.</p>
+                <p>Select a service category below to explore our specialized marine solutions.</p>
             </div>
 
-            <div class="services-grid">
-                <!-- Service 1 -->
-                <div class="service-card reveal delay-1">
-                    <div class="service-image-wrap">
-                        <img src="./images/installation.png" alt="BWTS Installation">
-                        <div class="service-image-overlay"></div>
-                    </div>
-                    <div class="service-body">
-                        <div class="service-icon-badge">
-                            <i class="fa-solid fa-screwdriver-wrench"></i>
+            <!-- Services Category Tabs -->
+            <div class="services-tabs-nav reveal">
+                <button class="tab-btn active" data-tab="bwts-tab">
+                    <i class="fa-solid fa-anchor"></i> BWTS Services
+                </button>
+                <button class="tab-btn" data-tab="electrical-tab">
+                    <i class="fa-solid fa-bolt"></i> Electrical Services
+                </button>
+            </div>
+
+            <!-- Tab Panel 1: BWTS Services -->
+            <div class="tab-content active" id="bwts-tab">
+                <div class="services-grid">
+                    <!-- Service 1 -->
+                    <div class="service-card">
+                        <div class="service-image-wrap">
+                            <img src="./images/installation.png" alt="BWTS Installation">
+                            <div class="service-image-overlay"></div>
                         </div>
-                        <h3>BWTS Installation</h3>
-                        <p>Turnkey retrofit and newbuild installation of top-tier Ballast Water Treatment Systems customized to your vessel layout.</p>
-                        <a href="contact.html" class="service-footer">Request Installation Quote <i class="fa-solid fa-arrow-right"></i></a>
+                        <div class="service-body">
+                            <div class="service-icon-badge">
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                            </div>
+                            <h3>BWTS Installation</h3>
+                            <p>Turnkey retrofit and newbuild installation of top-tier Ballast Water Treatment Systems customized to your vessel layout.</p>
+                            <a href="contact.html" class="service-footer">Request Installation Quote <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="service-card">
+                        <div class="service-image-wrap">
+                            <img src="./images/maintenance.png" alt="Maintenance and Repair">
+                            <div class="service-image-overlay"></div>
+                        </div>
+                        <div class="service-body">
+                            <div class="service-icon-badge">
+                                <i class="fa-solid fa-toolbox"></i>
+                            </div>
+                            <h3>Maintenance & Repair</h3>
+                            <p>Scheduled overhauls, sensor calibration, UV lamp replacements, filter maintenance, and emergency troubleshooting for all major brands.</p>
+                            <a href="contact.html" class="service-footer">Schedule Maintenance <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="service-card">
+                        <div class="service-image-wrap">
+                            <img src="./images/testing.png" alt="Commissioning and Testing">
+                            <div class="service-image-overlay"></div>
+                        </div>
+                        <div class="service-body">
+                            <div class="service-icon-badge">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                            <h3>Commissioning & Testing</h3>
+                            <p>Rigorous operational testing, biological sampling validation, and commissioning to guarantee compliance with international standards.</p>
+                            <a href="contact.html" class="service-footer">Book Commissioning <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Service 4 -->
+                    <div class="service-card">
+                        <div class="service-image-wrap">
+                            <img src="./images/spare-parts.png" alt="Spare Parts Support">
+                            <div class="service-image-overlay"></div>
+                        </div>
+                        <div class="service-body">
+                            <div class="service-icon-badge">
+                                <i class="fa-solid fa-boxes-stacked"></i>
+                            </div>
+                            <h3>Spare Parts & Support</h3>
+                            <p>Rapid sourcing and dispatch of genuine OEM spare parts, valves, sensors, and 24/7 technical helpdesk assistance.</p>
+                            <a href="contact.html" class="service-footer">Order Spare Parts <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Service 5 -->
+                    <div class="service-card">
+                        <div class="service-image-wrap">
+                            <img src="./images/training.png" alt="Crew Training">
+                            <div class="service-image-overlay"></div>
+                        </div>
+                        <div class="service-body">
+                            <div class="service-icon-badge">
+                                <i class="fa-solid fa-user-graduate"></i>
+                            </div>
+                            <h3>Crew Training</h3>
+                            <p>Hands-on operational and safety training programs empowering your marine officers and engineers with full BWTS mastery.</p>
+                            <a href="contact.html" class="service-footer">Enquire Training <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Service 6 -->
+                    <div class="service-card">
+                        <div class="service-image-wrap">
+                            <img src="./images/documents.png" alt="Documentation Updates">
+                            <div class="service-image-overlay"></div>
+                        </div>
+                        <div class="service-body">
+                            <div class="service-icon-badge">
+                                <i class="fa-regular fa-file-code"></i>
+                            </div>
+                            <h3>Documentation Updates</h3>
+                            <p>Digitization of technical schematics, CAD updates, and Ballast Water Management Plan (BWMP) revisions according to IMO regulations.</p>
+                            <a href="contact.html" class="service-footer">Update Documentation <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Service 2 -->
-                <div class="service-card reveal delay-2">
-                    <div class="service-image-wrap">
-                        <img src="./images/maintenance.png" alt="Maintenance and Repair">
-                        <div class="service-image-overlay"></div>
-                    </div>
-                    <div class="service-body">
-                        <div class="service-icon-badge">
-                            <i class="fa-solid fa-toolbox"></i>
+            <!-- Tab Panel 2: Electrical Services -->
+            <div class="tab-content" id="electrical-tab">
+                <div class="services-grid">
+                    <!-- Elec Service 1 -->
+                    <div class="service-card">
+                        <div class="service-image-wrap">
+                            <img src="./images/maintenance.png" alt="Power Distribution & Switchboards">
+                            <div class="service-image-overlay"></div>
                         </div>
-                        <h3>Maintenance & Repair</h3>
-                        <p>Scheduled overhauls, sensor calibration, UV lamp replacements, filter maintenance, and emergency troubleshooting for all major brands.</p>
-                        <a href="contact.html" class="service-footer">Schedule Maintenance <i class="fa-solid fa-arrow-right"></i></a>
+                        <div class="service-body">
+                            <div class="service-icon-badge">
+                                <i class="fa-solid fa-plug-circle-bolt"></i>
+                            </div>
+                            <h3>Power Distribution & Switchboards</h3>
+                            <p>Main Switchboard (MSB) overhauls, circuit breaker calibration, alternator testing, and busbar maintenance for vessel power stability.</p>
+                            <a href="contact.html" class="service-footer">Inquire Switchboard Service <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Service 3 -->
-                <div class="service-card reveal delay-3">
-                    <div class="service-image-wrap">
-                        <img src="./images/testing.png" alt="Commissioning and Testing">
-                        <div class="service-image-overlay"></div>
-                    </div>
-                    <div class="service-body">
-                        <div class="service-icon-badge">
-                            <i class="fa-solid fa-chart-line"></i>
+                    <!-- Elec Service 2 -->
+                    <div class="service-card">
+                        <div class="service-image-wrap">
+                            <img src="./images/testing.png" alt="Automation & Alarm Systems">
+                            <div class="service-image-overlay"></div>
                         </div>
-                        <h3>Commissioning & Testing</h3>
-                        <p>Rigorous operational testing, biological sampling validation, and commissioning to guarantee compliance with international standards.</p>
-                        <a href="contact.html" class="service-footer">Book Commissioning <i class="fa-solid fa-arrow-right"></i></a>
+                        <div class="service-body">
+                            <div class="service-icon-badge">
+                                <i class="fa-solid fa-microchip"></i>
+                            </div>
+                            <h3>Automation & Alarm Systems</h3>
+                            <p>Engine room Alarm Monitoring Systems (AMS), PLC programming, sensor loop testing, and automated control panel repairs.</p>
+                            <a href="contact.html" class="service-footer">Book Automation Audit <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Service 4 -->
-                <div class="service-card reveal delay-1">
-                    <div class="service-image-wrap">
-                        <img src="./images/spare-parts.png" alt="Spare Parts Support">
-                        <div class="service-image-overlay"></div>
-                    </div>
-                    <div class="service-body">
-                        <div class="service-icon-badge">
-                            <i class="fa-solid fa-boxes-stacked"></i>
+                    <!-- Elec Service 3 -->
+                    <div class="service-card">
+                        <div class="service-image-wrap">
+                            <img src="./images/installation.png" alt="Electric Motor & VFD Drives">
+                            <div class="service-image-overlay"></div>
                         </div>
-                        <h3>Spare Parts & Support</h3>
-                        <p>Rapid sourcing and dispatch of genuine OEM spare parts, valves, sensors, and 24/7 technical helpdesk assistance.</p>
-                        <a href="contact.html" class="service-footer">Order Spare Parts <i class="fa-solid fa-arrow-right"></i></a>
+                        <div class="service-body">
+                            <div class="service-icon-badge">
+                                <i class="fa-solid fa-charging-station"></i>
+                            </div>
+                            <h3>Motor & Drive Systems</h3>
+                            <p>Variable Frequency Drive (VFD) installation, electric motor rewinding, starter panel wiring, and pump control diagnostics.</p>
+                            <a href="contact.html" class="service-footer">Request Drive Service <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Service 5 -->
-                <div class="service-card reveal delay-2">
-                    <div class="service-image-wrap">
-                        <img src="./images/training.png" alt="Crew Training">
-                        <div class="service-image-overlay"></div>
-                    </div>
-                    <div class="service-body">
-                        <div class="service-icon-badge">
-                            <i class="fa-solid fa-user-graduate"></i>
+                    <!-- Elec Service 4 -->
+                    <div class="service-card">
+                        <div class="service-image-wrap">
+                            <img src="./images/documents.png" alt="Navigational Electronics">
+                            <div class="service-image-overlay"></div>
                         </div>
-                        <h3>Crew Training</h3>
-                        <p>Hands-on operational and safety training programs empowering your marine officers and engineers with full BWTS mastery.</p>
-                        <a href="contact.html" class="service-footer">Enquire Training <i class="fa-solid fa-arrow-right"></i></a>
+                        <div class="service-body">
+                            <div class="service-icon-badge">
+                                <i class="fa-solid fa-satellite-dish"></i>
+                            </div>
+                            <h3>Navigation & Radio Electronics</h3>
+                            <p>Electrical wiring and troubleshooting for marine RADAR, ECDIS, VDR, GMDSS, and gyrocompass integration.</p>
+                            <a href="contact.html" class="service-footer">Schedule Electronics Check <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Service 6 -->
-                <div class="service-card reveal delay-3">
-                    <div class="service-image-wrap">
-                        <img src="./images/documents.png" alt="Documentation Updates">
-                        <div class="service-image-overlay"></div>
-                    </div>
-                    <div class="service-body">
-                        <div class="service-icon-badge">
-                            <i class="fa-regular fa-file-code"></i>
+                    <!-- Elec Service 5 -->
+                    <div class="service-card">
+                        <div class="service-image-wrap">
+                            <img src="./images/training.png" alt="Safety & Emergency Shutdown Systems">
+                            <div class="service-image-overlay"></div>
                         </div>
-                        <h3>Documentation Updates</h3>
-                        <p>Digitization of technical schematics, CAD updates, and Ballast Water Management Plan (BWMP) revisions according to IMO regulations.</p>
-                        <a href="contact.html" class="service-footer">Update Documentation <i class="fa-solid fa-arrow-right"></i></a>
+                        <div class="service-body">
+                            <div class="service-icon-badge">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                            <h3>Safety & Emergency Systems</h3>
+                            <p>Emergency generator switchgear, ESD safety loops, fire detection circuits, and blackout recovery system testing.</p>
+                            <a href="contact.html" class="service-footer">Verify Safety Systems <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Elec Service 6 -->
+                    <div class="service-card">
+                        <div class="service-image-wrap">
+                            <img src="./images/spare-parts.png" alt="Electrical Inspections & Audits">
+                            <div class="service-image-overlay"></div>
+                        </div>
+                        <div class="service-body">
+                            <div class="service-icon-badge">
+                                <i class="fa-solid fa-magnifying-glass-chart"></i>
+                            </div>
+                            <h3>Electrical Surveys & Audits</h3>
+                            <p>Thermal imaging infrared surveys, insulation resistance (Megger) testing, harmonics analysis, and emergency fault finding.</p>
+                            <a href="contact.html" class="service-footer">Book Electrical Survey <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1277,10 +1451,22 @@
             });
         });
 
-        // 5. Scroll to Top Button
-        const scrollTopBtn = document.getElementById('scroll-top');
-        scrollTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // 6. Services Category Tabs Switching
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                btn.classList.add('active');
+                const targetTab = btn.getAttribute('data-tab');
+                const activePanel = document.getElementById(targetTab);
+                if (activePanel) {
+                    activePanel.classList.add('active');
+                }
+            });
         });
     </script>
 </body>
