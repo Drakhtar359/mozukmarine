@@ -462,58 +462,12 @@
             gap: 2rem;
         }
 
-        /* ===== CUSTOM ELECTRICAL SERVICES DYNAMIC LAYOUT ===== */
-        .electrical-container {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .elec-zone-nav {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .zone-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.65rem;
-            padding: 0.75rem 1.75rem;
-            border-radius: var(--radius-md);
-            background: rgba(13, 25, 44, 0.6);
-            border: 1px solid var(--color-glass-border);
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .zone-pill:hover {
-            color: var(--text-main);
-            border-color: var(--color-primary);
-        }
-
-        .zone-pill.active {
-            background: rgba(0, 242, 254, 0.12);
-            border-color: var(--color-primary);
-            color: var(--color-primary);
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.25);
-        }
-
-        .elec-zone-panel {
-            display: none;
-            animation: fadeInTab 0.4s var(--transition-smooth);
-        }
-
-        .elec-zone-panel.active {
+        /* ===== CUSTOM ELECTRICAL SERVICES EQUAL-HEIGHT LAYOUT ===== */
+        .elec-grid-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2.5rem;
-            align-items: flex-start;
+            align-items: stretch;
         }
 
         .elec-visual-card {
@@ -523,7 +477,10 @@
             padding: 2.5rem;
             backdrop-filter: var(--glass-blur);
             box-shadow: var(--shadow-card), var(--shadow-glow);
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
         }
 
         .elec-visual-card h3 {
@@ -590,6 +547,7 @@
             display: flex;
             flex-direction: column;
             gap: 1.25rem;
+            height: 100%;
         }
 
         .elec-feature-card {
@@ -599,6 +557,10 @@
             padding: 1.5rem;
             backdrop-filter: var(--glass-blur);
             transition: all 0.3s var(--transition-smooth);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .elec-feature-card:hover {
@@ -658,7 +620,7 @@
         }
 
         @media (max-width: 992px) {
-            .elec-zone-panel.active {
+            .elec-grid-layout {
                 grid-template-columns: 1fr;
             }
         }
@@ -1306,163 +1268,79 @@
                 </div>
             </div>
 
-            <!-- Tab Panel 2: Electrical Services (Dynamic Engine Room & Bridge Layout) -->
+            <!-- Tab Panel 2: Electrical Services (Equal Height Engine Room Layout) -->
             <div class="tab-content" id="electrical-tab">
-                <div class="electrical-container">
-                    <!-- Zone Selector Switcher -->
-                    <div class="elec-zone-nav">
-                        <button class="zone-pill active" data-zone="engine-room-zone">
-                            <i class="fa-solid fa-gears"></i> Engine Room Solutions
-                        </button>
-                        <button class="zone-pill" data-zone="bridge-zone">
-                            <i class="fa-solid fa-satellite"></i> Bridge & Navigation Systems
-                        </button>
-                    </div>
-
-                    <!-- Zone Panel 1: Engine Room Electrical -->
-                    <div class="elec-zone-panel active" id="engine-room-zone">
-                        <!-- Left Hero Overview Box -->
-                        <div class="elec-visual-card">
-                            <h3><i class="fa-solid fa-bolt-lightning"></i> Engine Room Core Electrical</h3>
+                <div class="elec-grid-layout">
+                    <!-- Left Overview Box -->
+                    <div class="elec-visual-card">
+                        <div>
+                            <div class="badge" style="margin-bottom: 1rem;"><i class="fa-solid fa-bolt-lightning"></i> Engine Room Power & Automation</div>
+                            <h3>Custom Electrical Solutions</h3>
                             <p>Turnkey power generation, main switchboard (MSB) maintenance, automated alarm monitoring systems (AMS), and motor drive solutions engineered for heavy-duty marine operation.</p>
-                            
-                            <div class="elec-spec-grid">
-                                <div class="elec-spec-box">
-                                    <i class="fa-solid fa-plug-circle-bolt"></i>
-                                    <h4>Switchboard & PMS</h4>
-                                    <p>Load sharing, breaker calibration, generator sync.</p>
-                                </div>
-                                <div class="elec-spec-box">
-                                    <i class="fa-solid fa-microchip"></i>
-                                    <h4>AMS & Automation</h4>
-                                    <p>PLC programming, engine alarm panel loops.</p>
-                                </div>
-                                <div class="elec-spec-box">
-                                    <i class="fa-solid fa-charging-station"></i>
-                                    <h4>VFD Motor Drives</h4>
-                                    <p>Energy-efficient pump starters & motor rewinding.</p>
-                                </div>
-                                <div class="elec-spec-box">
-                                    <i class="fa-solid fa-shield-cat"></i>
-                                    <h4>Emergency Shutdown</h4>
-                                    <p>ESD safety loops & 24V DC battery restoration.</p>
-                                </div>
-                            </div>
                         </div>
-
-                        <!-- Right Detailed Solutions Accordion/Cards -->
-                        <div class="elec-features-list">
-                            <div class="elec-feature-card">
-                                <div class="elec-feature-header">
-                                    <i class="fa-solid fa-sliders"></i>
-                                    <h4>Main Switchboard (MSB) & Power Management</h4>
-                                </div>
-                                <p>Precision overhaul of generator breaker panels, busbar insulation testing, automatic power restoration, and primary distribution protection.</p>
-                                <div class="elec-feature-tags">
-                                    <span class="tag-pill">MSB Overhauls</span>
-                                    <span class="tag-pill">Power Management</span>
-                                    <span class="tag-pill">Generator Synchronization</span>
-                                </div>
+                        
+                        <div class="elec-spec-grid">
+                            <div class="elec-spec-box">
+                                <i class="fa-solid fa-plug-circle-bolt"></i>
+                                <h4>Switchboard & PMS</h4>
+                                <p>Load sharing, breaker calibration, generator sync.</p>
                             </div>
-
-                            <div class="elec-feature-card">
-                                <div class="elec-feature-header">
-                                    <i class="fa-solid fa-laptop-code"></i>
-                                    <h4>Engine Room Automation & Monitoring (AMS)</h4>
-                                </div>
-                                <p>Custom PLC automation, exhaust temperature sensor loops, tank level gauging, and high-temperature shutdown interlocks.</p>
-                                <div class="elec-feature-tags">
-                                    <span class="tag-pill">Alarm Monitoring</span>
-                                    <span class="tag-pill">PLC Diagnostics</span>
-                                    <span class="tag-pill">Sensor Calibration</span>
-                                </div>
+                            <div class="elec-spec-box">
+                                <i class="fa-solid fa-microchip"></i>
+                                <h4>AMS & Automation</h4>
+                                <p>PLC programming, engine alarm panel loops.</p>
                             </div>
-
-                            <div class="elec-feature-card">
-                                <div class="elec-feature-header">
-                                    <i class="fa-solid fa-fan"></i>
-                                    <h4>Variable Frequency Drives (VFD) & Heavy Motors</h4>
-                                    <p>Custom VFD panel retrofits for sea water cooling pumps, ballast pumps, and engine room ventilation fans to reduce power consumption.</p>
-                                    <div class="elec-feature-tags">
-                                        <span class="tag-pill">VFD Installation</span>
-                                        <span class="tag-pill">Starter Panel Rewiring</span>
-                                        <span class="tag-pill">Motor Surveys</span>
-                                    </div>
-                                </div>
+                            <div class="elec-spec-box">
+                                <i class="fa-solid fa-charging-station"></i>
+                                <h4>VFD Motor Drives</h4>
+                                <p>Energy-efficient pump starters & motor rewinding.</p>
+                            </div>
+                            <div class="elec-spec-box">
+                                <i class="fa-solid fa-shield-cat"></i>
+                                <h4>Emergency Shutdown</h4>
+                                <p>ESD safety loops & 24V DC battery restoration.</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Zone Panel 2: Bridge & Navigation Control -->
-                    <div class="elec-zone-panel" id="bridge-zone">
-                        <!-- Left Hero Overview Box -->
-                        <div class="elec-visual-card">
-                            <h3><i class="fa-solid fa-compass-drafting"></i> Bridge & Navigation Command</h3>
-                            <p>Specialized low-voltage wiring, redundant power supplies, console integration, and NMEA sensor communications for vessel bridge command centers.</p>
-                            
-                            <div class="elec-spec-grid">
-                                <div class="elec-spec-box">
-                                    <i class="fa-solid fa-display"></i>
-                                    <h4>Navigation Consoles</h4>
-                                    <p>ECDIS, RADAR, Conning display power supplies.</p>
-                                </div>
-                                <div class="elec-spec-box">
-                                    <i class="fa-solid fa-tower-cell"></i>
-                                    <h4>GMDSS & Comms</h4>
-                                    <p>Radio power switchovers & satellite terminals.</p>
-                                </div>
-                                <div class="elec-spec-box">
-                                    <i class="fa-solid fa-lightbulb"></i>
-                                    <h4>Night Dimming & LED</h4>
-                                    <p>Console backlight dimmers & ambient bridge LED.</p>
-                                </div>
-                                <div class="elec-spec-box">
-                                    <i class="fa-solid fa-network-wired"></i>
-                                    <h4>NMEA & VDR Data</h4>
-                                    <p>Multiplexer wiring & Gyro/VDR data feeds.</p>
-                                </div>
+                    <!-- Right Detailed Feature Cards -->
+                    <div class="elec-features-list">
+                        <div class="elec-feature-card">
+                            <div class="elec-feature-header">
+                                <i class="fa-solid fa-sliders"></i>
+                                <h4>Main Switchboard (MSB) & Power Management</h4>
+                            </div>
+                            <p>Precision overhaul of generator breaker panels, busbar insulation testing, automatic power restoration, and primary distribution protection.</p>
+                            <div class="elec-feature-tags">
+                                <span class="tag-pill">MSB Overhauls</span>
+                                <span class="tag-pill">Power Management</span>
+                                <span class="tag-pill">Generator Synchronization</span>
                             </div>
                         </div>
 
-                        <!-- Right Detailed Solutions Cards -->
-                        <div class="elec-features-list">
-                            <div class="elec-feature-card">
-                                <div class="elec-feature-header">
-                                    <i class="fa-solid fa-desktop"></i>
-                                    <h4>Bridge Console Power & Display Integration</h4>
-                                </div>
-                                <p>Uninterrupted Power Supply (UPS) backup systems, clean DC power conversion, and organized wiring retrofits for navigation displays.</p>
-                                <div class="elec-feature-tags">
-                                    <span class="tag-pill">Console Wiring</span>
-                                    <span class="tag-pill">UPS Redundancy</span>
-                                    <span class="tag-pill">ECDIS & RADAR Power</span>
-                                </div>
+                        <div class="elec-feature-card">
+                            <div class="elec-feature-header">
+                                <i class="fa-solid fa-laptop-code"></i>
+                                <h4>Engine Room Automation & Monitoring (AMS)</h4>
                             </div>
-
-                            <div class="elec-feature-card">
-                                <div class="elec-feature-header">
-                                    <i class="fa-solid fa-satellite-dish"></i>
-                                    <h4>GMDSS & Emergency Communication Backups</h4>
-                                </div>
-                                <p>24V emergency battery charger switchover panels, GMDSS radio station power isolation, and AIS/VDR signal integration.</p>
-                                <div class="elec-feature-tags">
-                                    <span class="tag-pill">GMDSS Radio Power</span>
-                                    <span class="tag-pill">Emergency 24V Switchover</span>
-                                    <span class="tag-pill">VDR Integration</span>
-                                </div>
+                            <p>Custom PLC automation, exhaust temperature sensor loops, tank level gauging, and high-temperature shutdown interlocks.</p>
+                            <div class="elec-feature-tags">
+                                <span class="tag-pill">Alarm Monitoring</span>
+                                <span class="tag-pill">PLC Diagnostics</span>
+                                <span class="tag-pill">Sensor Calibration</span>
                             </div>
+                        </div>
 
-                            <div class="elec-feature-card">
-                                <div class="elec-feature-header">
-                                    <i class="fa-solid fa-dharmachakra"></i>
-                                    <h4>Steering Interface & Night Dimming Systems</h4>
-                                </div>
-                                <p>Rudder angle indicator electrical loops, bow thruster remote control wiring, and night-vision red/cyan console dimmer circuits.</p>
-                                <div class="elec-feature-tags">
-                                    <span class="tag-pill">Steering Controls</span>
-                                    <span class="tag-pill">Night Dimmer Loops</span>
-                                    <span class="tag-pill">Thruster Wiring</span>
-                                </div>
+                        <div class="elec-feature-card">
+                            <div class="elec-feature-header">
+                                <i class="fa-solid fa-fan"></i>
+                                <h4>Variable Frequency Drives (VFD) & Heavy Motors</h4>
+                            </div>
+                            <p>Custom VFD panel retrofits for sea water cooling pumps, ballast pumps, and engine room ventilation fans to reduce power consumption.</p>
+                            <div class="elec-feature-tags">
+                                <span class="tag-pill">VFD Installation</span>
+                                <span class="tag-pill">Starter Panel Rewiring</span>
+                                <span class="tag-pill">Motor Surveys</span>
                             </div>
                         </div>
                     </div>
@@ -1728,24 +1606,6 @@
                 const activePanel = document.getElementById(targetTab);
                 if (activePanel) {
                     activePanel.classList.add('active');
-                }
-            });
-        });
-
-        // 7. Electrical Sub-Zone Switcher (Engine Room vs Bridge)
-        const zonePills = document.querySelectorAll('.zone-pill');
-        const zonePanels = document.querySelectorAll('.elec-zone-panel');
-
-        zonePills.forEach(pill => {
-            pill.addEventListener('click', () => {
-                zonePills.forEach(p => p.classList.remove('active'));
-                zonePanels.forEach(p => p.classList.remove('active'));
-
-                pill.classList.add('active');
-                const targetZone = pill.getAttribute('data-zone');
-                const activeZone = document.getElementById(targetZone);
-                if (activeZone) {
-                    activeZone.classList.add('active');
                 }
             });
         });
