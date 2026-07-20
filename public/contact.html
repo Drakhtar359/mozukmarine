@@ -4,77 +4,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mozuk Marine - Request a Quote</title>
+    <title>Mozuk Marine - Request a Quote & Contact</title>
+    <meta name="description" content="Request a personalized quote for Ballast Water Treatment System (BWTS) installation, maintenance, repair, or spare parts from Mozuk Marine.">
     <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <style>
-        /* ===== CSS CUSTOM PROPERTIES ===== */
-        :root {
-            /* Colors - Modern Dark Theme Palette */
-            --color-primary: hsl(174, 63%, 42%);
-            --color-primary-dark: hsl(174, 63%, 32%);
-            --color-primary-light: hsl(174, 63%, 52%);
-            --color-secondary: hsl(223, 49%, 38%);
-            --color-secondary-dark: hsl(223, 49%, 28%);
-            --color-secondary-light: hsl(223, 49%, 48%);
-            --color-accent: hsl(174, 100%, 70%);
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-            /* Neutrals */
-            --color-bg-dark: hsl(220, 20%, 8%);
-            --color-bg-darker: hsl(220, 20%, 5%);
-            --color-surface: hsl(220, 15%, 12%);
-            --color-surface-light: hsl(220, 15%, 18%);
-            --color-text-primary: hsl(0, 0%, 98%);
-            --color-text-secondary: hsl(0, 0%, 75%);
-            --color-text-muted: hsl(0, 0%, 60%);
+    <style>
+        /* ===== CSS DESIGN SYSTEM & TOKENS ===== */
+        :root {
+            /* Color Palette - Cyber Marine Dark Mode */
+            --color-bg: #050b14;
+            --color-bg-alt: #0a1322;
+            --color-surface: rgba(13, 25, 44, 0.7);
+            --color-surface-hover: rgba(20, 38, 66, 0.85);
+            --color-glass-border: rgba(0, 242, 254, 0.15);
+            --color-glass-border-hover: rgba(0, 242, 254, 0.4);
+            
+            /* Cyan / Ocean Accent Gradients */
+            --color-primary: #00f2fe;
+            --color-primary-dark: #00c6ff;
+            --color-secondary: #3a7bd5;
+            --color-accent: #00ffc3;
+            
+            /* Text Colors */
+            --text-main: #f0f6fc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
 
             /* Spacing */
             --spacing-xs: 0.5rem;
             --spacing-sm: 1rem;
             --spacing-md: 1.5rem;
-            --spacing-lg: 2rem;
-            --spacing-xl: 3rem;
-            --spacing-2xl: 4rem;
+            --spacing-lg: 2.5rem;
+            --spacing-xl: 4rem;
 
             /* Typography */
-            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            --font-size-xs: 0.75rem;
-            --font-size-sm: 0.875rem;
-            --font-size-base: 1rem;
-            --font-size-lg: 1.125rem;
-            --font-size-xl: 1.25rem;
-            --font-size-2xl: 1.5rem;
-            --font-size-3xl: 2rem;
-            --font-size-4xl: 2.5rem;
-            --font-size-5xl: 3rem;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-heading: 'Space Grotesk', sans-serif;
 
             /* Effects */
-            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
-            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.3);
-            --shadow-glow: 0 0 20px rgba(37, 176, 162, 0.3);
-
-            /* Transitions */
-            --transition-fast: 150ms ease;
-            --transition-base: 250ms ease;
-            --transition-slow: 350ms ease;
-
-            /* Border Radius */
-            --radius-sm: 0.5rem;
-            --radius-md: 1rem;
-            --radius-lg: 1.5rem;
-            --radius-xl: 2rem;
-
-            /* Glassmorphism */
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --glass-blur: blur(20px);
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-full: 9999px;
+            --shadow-glow: 0 0 30px rgba(0, 242, 254, 0.25);
+            --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.4);
+            --glass-blur: blur(16px);
+            --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* ===== GLOBAL RESET & BASE STYLES ===== */
-        * {
+        /* ===== GLOBAL RESETS ===== */
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -82,580 +66,849 @@
 
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: 100px;
         }
 
         body {
-            font-family: var(--font-family);
-            background: radial-gradient(ellipse at top, hsl(220, 20%, 12%) 0%, var(--color-bg-dark) 50%),
-                radial-gradient(ellipse at bottom, hsl(174, 30%, 15%) 0%, var(--color-bg-dark) 50%);
-            background-attachment: fixed;
-            color: var(--color-text-primary);
+            font-family: var(--font-main);
+            background-color: var(--color-bg);
+            color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ===== BACKGROUND ===== */
-        .static-blurred-background {
+        /* Canvas Particle Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .bg-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('./images/hero-bg.jpg') no-repeat center center / cover;
-            filter: blur(8px) brightness(0.4);
-            z-index: -2;
+            background: radial-gradient(circle at 50% 0%, rgba(0, 242, 254, 0.08) 0%, transparent 60%),
+                        radial-gradient(circle at 80% 80%, rgba(58, 123, 213, 0.06) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none;
         }
 
-        .content-wrapper {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
+        .container {
+            width: 90%;
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .badge {
+            display: inline-flex;
             align-items: center;
-            width: 100%;
-            position: relative;
-            z-index: 1;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-full);
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid var(--color-glass-border);
+            color: var(--color-primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            backdrop-filter: var(--glass-blur);
         }
 
         /* ===== NAVIGATION ===== */
-        .top-menu-bar {
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border-bottom: 1px solid var(--glass-border);
-            height: 70px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .header-nav {
             position: sticky;
             top: 0;
             z-index: 1000;
-            transition: all var(--transition-base);
+            background: rgba(5, 11, 20, 0.75);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
         }
 
-        .top-menu-bar.scrolled {
-            background: rgba(0, 0, 0, 0.8);
-            box-shadow: var(--shadow-lg);
+        .header-nav.scrolled {
+            background: rgba(5, 11, 20, 0.92);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-bottom-color: var(--color-glass-border);
         }
 
-        .top-menu-bar img {
-            max-width: 180px;
-            height: auto;
-            transition: transform var(--transition-base);
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
         }
 
-        .top-menu-bar img:hover {
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            height: 48px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover img {
             transform: scale(1.05);
         }
 
-        nav {
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border-bottom: 1px solid var(--glass-border);
-            height: 60px;
-            width: 100%;
+        .nav-menu {
             display: flex;
             align-items: center;
-            justify-content: center;
-            position: sticky;
-            top: 70px;
-            z-index: 999;
-            transition: all var(--transition-base);
-        }
-
-        nav.scrolled {
-            background: rgba(0, 0, 0, 0.7);
-            box-shadow: var(--shadow-md);
-        }
-
-        .nav-list {
+            gap: 2.5rem;
             list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            gap: var(--spacing-lg);
-            width: 100%;
         }
 
-        .nav-list li {
-            position: relative;
-        }
-
-        .nav-list li a {
-            color: var(--color-text-primary);
+        .nav-link {
+            color: var(--text-muted);
             text-decoration: none;
-            padding: var(--spacing-sm) 0;
-            display: inline-block;
             font-weight: 500;
-            font-size: var(--font-size-base);
-            transition: color var(--transition-base);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
             position: relative;
+            padding: 0.5rem 0;
         }
 
-        .nav-list li a::after {
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-main);
+        }
+
+        .nav-link::after {
             content: '';
             position: absolute;
             bottom: 0;
-            left: 0;
+            left: 50%;
             width: 0;
             height: 2px;
-            background: var(--color-primary);
-            transition: width var(--transition-base);
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            transition: all 0.3s var(--transition-smooth);
+            transform: translateX(-50%);
+            border-radius: 2px;
         }
 
-        .nav-list li a:hover {
-            color: var(--color-accent);
-        }
-
-        .nav-list li a:hover::after {
+        .nav-link:hover::after, .nav-link.active::after {
             width: 100%;
         }
 
-        .menu-toggle {
+        .btn-nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.4rem;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: #000;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+        }
+
+        .mobile-toggle {
             display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 24px;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
             cursor: pointer;
-            position: absolute;
-            right: var(--spacing-lg);
-            z-index: 100;
+            padding: 0.5rem;
         }
 
-        .menu-toggle .bar {
-            height: 3px;
-            width: 100%;
-            background-color: var(--color-text-primary);
-            border-radius: 3px;
-            transition: all var(--transition-base);
+        /* ===== CONTACT PAGE LAYOUT ===== */
+        .contact-hero {
+            padding: var(--spacing-xl) 0 var(--spacing-lg);
+            text-align: center;
         }
 
-        .service-content img {
-            width: 100%;
-            height: 100%;
-            max-width: 100%;
-            margin: 0;
-            padding: 0;
-            border-radius: 0;
-            box-shadow: none;
-            object-fit: cover;
-            filter: blur(2px);
-            transition: all var(--transition-slow);
+        .contact-hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+            font-weight: 800;
+            margin-top: 0.75rem;
+            margin-bottom: 1rem;
         }
 
-        .menu-toggle.active .bar:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
+        .contact-hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 680px;
+            margin: 0 auto;
         }
 
-        .menu-toggle.active .bar:nth-child(2) {
-            opacity: 0;
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 2.5rem;
+            margin-bottom: var(--spacing-xl);
         }
 
-        .menu-toggle.active .bar:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-
-        /* ===== CONTAINER & SECTIONS ===== */
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: var(--spacing-xl) auto;
-            padding: 0;
+        /* Contact Details Info Sidebar */
+        .contact-info-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            backdrop-filter: var(--glass-blur);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: var(--spacing-xl);
+            gap: 2rem;
+            box-shadow: var(--shadow-card);
         }
 
-        .service-item:hover .service-overlay p.details {
-            opacity: 1;
-            max-height: 100%;
-            margin-top: var(--spacing-sm);
-        }
-
-        section {
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border);
-            margin-bottom: var(--spacing-lg);
-            padding: var(--spacing-2xl) var(--spacing-lg);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-            width: 100%;
-            text-align: center;
-            transition: all var(--transition-slow);
-        }
-
-        section:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-xl), var(--shadow-glow);
-        }
-
-        h1,
-        h2 {
-            color: var(--color-accent);
-            text-align: center;
-            font-size: clamp(1.75rem, 4vw, 2.5rem);
+        .contact-info-header h3 {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
             font-weight: 700;
-            margin-bottom: var(--spacing-lg);
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
         }
 
-        /* ===== FORM STYLES ===== */
-        .form-container {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: left;
+        .contact-info-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.25rem;
+        }
+
+        .info-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid var(--color-glass-border);
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .info-text span {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+        }
+
+        .info-text strong, .info-text a {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .info-text a:hover {
+            color: var(--color-primary);
+        }
+
+        .reassurance-box {
+            background: rgba(0, 242, 254, 0.05);
+            border: 1px dashed var(--color-glass-border);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        .reassurance-box i {
+            font-size: 1.75rem;
+            color: var(--color-accent);
+        }
+
+        .reassurance-box p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 0;
+            line-height: 1.4;
+        }
+
+        /* Quote Form Card */
+        .form-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            backdrop-filter: var(--glass-blur);
+            box-shadow: var(--shadow-card);
+        }
+
+        .form-section-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
         }
 
         .form-group {
-            margin-bottom: var(--spacing-lg);
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            margin-bottom: 1.25rem;
         }
 
         .form-group label {
-            display: block;
-            margin-bottom: var(--spacing-xs);
-            color: var(--color-text-primary);
-            font-weight: 500;
-            font-size: var(--font-size-base);
-            margin-left: var(--spacing-xs);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-main);
         }
 
-        .form-group input[type="text"],
-        .form-group input[type="email"],
-        .form-group textarea {
+        .form-control {
             width: 100%;
-            padding: var(--spacing-md);
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
+            padding: 0.85rem 1.1rem;
+            background: rgba(5, 11, 20, 0.6);
+            border: 1px solid var(--color-glass-border);
             border-radius: var(--radius-md);
-            font-size: var(--font-size-base);
-            color: var(--color-text-primary);
-            transition: all var(--transition-base);
-            font-family: var(--font-family);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus {
+        .form-control:focus {
             outline: none;
             border-color: var(--color-primary);
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 15px rgba(37, 176, 162, 0.2);
+            background: rgba(5, 11, 20, 0.85);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
         }
 
-        .form-group textarea {
+        .form-control::placeholder {
+            color: var(--text-dim);
+        }
+
+        textarea.form-control {
+            min-height: 140px;
             resize: vertical;
-            min-height: 150px;
         }
 
-        .submit-button {
-            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-            color: var(--color-text-primary);
-            padding: var(--spacing-md) var(--spacing-xl);
-            border: none;
+        .btn-submit {
+            width: 100%;
+            padding: 1rem 2rem;
             border-radius: var(--radius-md);
-            font-size: var(--font-size-lg);
-            font-weight: 600;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: #050b14;
+            font-weight: 700;
+            font-size: 1.05rem;
+            border: none;
             cursor: pointer;
-            transition: all var(--transition-base);
-            margin-top: var(--spacing-md);
-            display: block;
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-            will-change: transform, box-shadow;
-        }
-
-        .submit-button:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg), var(--shadow-glow);
-        }
-
-        /* ===== POPUP ===== */
-        .popup {
-            display: none;
-            position: fixed;
-            z-index: 10000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
+            transition: all 0.3s var(--transition-smooth);
+            display: flex;
             align-items: center;
             justify-content: center;
+            gap: 0.75rem;
+            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.35);
         }
 
-        .popup-content {
-            background: var(--color-surface);
-            border: 1px solid var(--glass-border);
-            margin: auto;
-            padding: var(--spacing-2xl);
-            border-radius: var(--radius-lg);
-            text-align: center;
-            box-shadow: var(--shadow-xl);
-            max-width: 90%;
-            width: 500px;
-            color: var(--color-text-primary);
-        }
-
-        .popup-content h2 {
-            color: var(--color-accent);
-            margin-bottom: var(--spacing-md);
-            font-size: var(--font-size-2xl);
-        }
-
-        .popup-content p {
-            margin-bottom: var(--spacing-lg);
-            font-size: var(--font-size-base);
-            line-height: 1.6;
-            color: var(--color-text-secondary);
-        }
-
-        .quote-button {
-            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-            color: var(--color-text-primary);
-            padding: var(--spacing-sm) var(--spacing-lg);
-            border: none;
-            border-radius: var(--radius-sm);
-            font-size: var(--font-size-base);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--transition-base);
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .quote-button:hover {
+        .btn-submit:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-md), var(--shadow-glow);
+            box-shadow: 0 12px 30px rgba(0, 242, 254, 0.5);
+            color: #050b14;
         }
 
-        /* ===== FOOTER ===== */
-        footer {
-            background: rgba(0, 0, 0, 0.9);
-            color: var(--color-text-secondary);
+        .btn-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* Message Banner */
+        #form-messages {
+            display: none;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
             text-align: center;
-            padding: var(--spacing-lg) 0;
-            width: 100%;
-            margin-top: auto;
-            font-size: var(--font-size-sm);
-            border-top: 1px solid var(--glass-border);
         }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .service-content {
-                aspect-ratio: 1024 / 944;
-                height: auto;
+        /* Successful Submission Popup Modal */
+        .popup-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .popup-card {
+            background: var(--color-bg-alt);
+            border: 1px solid var(--color-glass-border-hover);
+            border-radius: var(--radius-lg);
+            padding: 3rem 2rem;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            box-shadow: var(--shadow-card), var(--shadow-glow);
+            animation: popupScale 0.4s var(--transition-smooth);
+        }
+
+        @keyframes popupScale {
+            from {
+                opacity: 0;
+                transform: scale(0.85);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .popup-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: var(--radius-full);
+            background: rgba(0, 255, 195, 0.15);
+            color: var(--color-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.25rem;
+            margin: 0 auto 1.5rem;
+            border: 1px solid var(--color-accent);
+        }
+
+        .popup-card h2 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.75rem;
+        }
+
+        .popup-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* FOOTER */
+        .site-footer {
+            background: #03070d;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 3rem 0 2rem;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-brand img {
+            height: 40px;
+            width: auto;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1.5rem;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        @media (max-width: 992px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
             }
 
-            .top-menu-bar {
-                height: 60px;
-            }
-
-            .top-menu-bar img {
-                max-width: 150px;
-            }
-
-            nav {
-                height: 50px;
-                top: 60px;
-                padding: 0 var(--spacing-sm);
-                justify-content: space-between;
-            }
-
-            .nav-list {
-                display: none;
-                flex-direction: column;
+            .nav-menu {
                 position: fixed;
-                top: 110px;
+                top: 80px;
                 left: 0;
                 width: 100%;
-                background: rgba(0, 0, 0, 0.95);
+                background: rgba(5, 11, 20, 0.95);
                 backdrop-filter: var(--glass-blur);
-                -webkit-backdrop-filter: var(--glass-blur);
-                box-shadow: var(--shadow-xl);
-                padding: var(--spacing-lg) 0;
-                z-index: 998;
-                max-height: calc(100vh - 110px);
-                overflow-y: auto;
-                animation: slideDown 0.3s ease-out;
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--color-glass-border);
+                transform: translateY(-150%);
+                transition: transform 0.4s var(--transition-smooth);
+                z-index: 999;
             }
 
-            @keyframes slideDown {
-                from {
-                    opacity: 0;
-                    transform: translateY(-20px);
-                }
-
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
+            .nav-menu.active {
+                transform: translateY(0);
             }
 
-            .nav-list.active {
-                display: flex;
-            }
-
-            .nav-list li {
-                margin: var(--spacing-sm) 0;
-                width: 100%;
-                text-align: center;
-            }
-
-            .nav-list li a {
-                font-size: var(--font-size-lg);
-                padding: var(--spacing-md) 0;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-
-            .container {
-                margin-top: var(--spacing-lg);
-            }
-
-            section {
-                padding: var(--spacing-lg);
+            .mobile-toggle {
+                display: block;
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="static-blurred-background"></div>
-    <div class="top-menu-bar">
-        <a href="index.html">
-            <img src="./images/logo.png" alt="Mozuk Marine Logo">
-        </a>
-    </div>
-    <nav>
-        <div class="menu-toggle" id="mobile-menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+    <!-- Background Canvas and Ambient Overlay -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="bg-overlay"></div>
+
+    <!-- Header Navigation -->
+    <header class="header-nav" id="main-header">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="./images/logo.png" alt="Mozuk Marine Logo">
+            </a>
+
+            <button class="mobile-toggle" id="menu-toggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html#home" class="nav-link">Home</a></li>
+                <li><a href="index.html#services" class="nav-link">Services</a></li>
+                <li><a href="index.html#about" class="nav-link">About Us</a></li>
+                <li><a href="contact.html" class="nav-link active">Contact</a></li>
+                <li><a href="contact.html" class="btn-nav-cta"><i class="fa-solid fa-paper-plane"></i> Request Quote</a></li>
+            </ul>
         </div>
-        <ul class="nav-list">
-            <li><a href="index.html#home">Home</a></li>
-            <li><a href="index.html#services">Services</a></li>
-            <li><a href="index.html#about">About Us</a></li>
-            <li><a href="contact.html">Request a Quote</a></li>
-        </ul>
-    </nav>
-    <div class="content-wrapper">
-        <div class="container">
-            <section>
-                <h2>Request a Quote</h2>
-                <div class="form-container">
-                    <form action="https://formspree.io/info@mozuk.net" method="POST" id="quote-form">
-                        <div id="form-messages"></div> <!-- Message display area -->
-                        <input type="hidden" name="_replyto" id="replyto-email">
-                        <div class="form-group">
-                            <label for="name">Name:</label>
-                            <input type="text" id="name" name="name" required placeholder="Enter your full name">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number:</label>
-                            <input type="text" id="phone" name="phone" required placeholder="Enter your phone number">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" required placeholder="Enter your email address">
-                        </div>
-                        <div class="form-group">
-                            <label for="company">Company (Optional):</label>
-                            <input type="text" id="company" name="company" placeholder="Your company name">
-                        </div>
-                        <div class="form-group">
-                            <label for="ship-name">Ship Name (Optional):</label>
-                            <input type="text" id="ship-name" name="ship-name" placeholder="Name of the vessel">
-                        </div>
-                        <div class="form-group">
-                            <label for="imo">IMO (Optional):</label>
-                            <input type="text" id="imo" name="imo" placeholder="IMO number">
-                        </div>
-                        <div class="form-group">
-                            <label for="bwts-model">BWTS Model (Optional):</label>
-                            <input type="text" id="bwts-model" name="bwts-model" placeholder="Model of the system">
-                        </div>
-                        <div class="form-group">
-                            <label for="bwts-size">BWTS Size (Optional):</label>
-                            <input type="text" id="bwts-size" name="bwts-size" placeholder="Size/Capacity">
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject:</label>
-                            <input type="text" id="subject" name="subject" placeholder="Subject of your inquiry">
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message:</label>
-                            <textarea id="message" name="message" required
-                                placeholder="How can we help you?"></textarea>
-                        </div>
-                        <button type="submit" class="submit-button">Submit Request</button>
-                    </form>
+    </header>
+
+    <main class="container">
+        <!-- Contact Hero Header -->
+        <section class="contact-hero">
+            <div class="badge"><i class="fa-solid fa-calculator"></i> Quote & Inquiry</div>
+            <h1>Request a Personalized <span class="text-gradient">BWTS Quote</span></h1>
+            <p>Fill out the form below with your vessel details or service requirement, and our marine engineering specialists will reply within 24 hours.</p>
+        </section>
+
+        <!-- 2-Column Contact & Form Grid -->
+        <div class="contact-grid">
+            <!-- Sidebar Info -->
+            <div class="contact-info-card">
+                <div class="contact-info-header">
+                    <h3>Get In Touch</h3>
+                    <p>Direct communication channels for urgent support & technical inquiries.</p>
                 </div>
-            </section>
+
+                <div class="info-list">
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+                        <div class="info-text">
+                            <span>Email Us</span>
+                            <a href="mailto:marine-services@mozuk.net">marine-services@mozuk.net</a>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+                        <div class="info-text">
+                            <span>Direct Line / WhatsApp</span>
+                            <a href="tel:+96179083906">+961 79 083 906</a>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fa-solid fa-clock"></i></div>
+                        <div class="info-text">
+                            <span>Response Time</span>
+                            <strong>Within 24 Hours (24/7 Hotline)</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reassurance-box">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <p>Our engineers are certified across leading BWTS brands and fully aligned with IMO D-2 and USCG regulations.</p>
+                </div>
+            </div>
+
+            <!-- Form Card -->
+            <div class="form-card">
+                <div id="form-messages"></div>
+
+                <form action="https://formspree.io/info@mozuk.net" method="POST" id="quote-form">
+                    <input type="hidden" name="_replyto" id="replyto-email">
+
+                    <div class="form-section-title">
+                        <i class="fa-solid fa-user"></i> Contact Details
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" class="form-control" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="text" id="phone" name="phone" class="form-control" required placeholder="+1 234 567 8900">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" class="form-control" required placeholder="john@company.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company Name</label>
+                            <input type="text" id="company" name="company" class="form-control" placeholder="Maritime Shipping Ltd">
+                        </div>
+                    </div>
+
+                    <div class="form-section-title" style="margin-top: 1rem;">
+                        <i class="fa-solid fa-ship"></i> Vessel & System Specifications
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ship-name">Ship Name</label>
+                            <input type="text" id="ship-name" name="ship-name" class="form-control" placeholder="M/V Ocean Star">
+                        </div>
+                        <div class="form-group">
+                            <label for="imo">IMO Number</label>
+                            <input type="text" id="imo" name="imo" class="form-control" placeholder="IMO 9876543">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bwts-model">BWTS Model</label>
+                            <input type="text" id="bwts-model" name="bwts-model" class="form-control" placeholder="e.g. Alfa Laval / Techcross">
+                        </div>
+                        <div class="form-group">
+                            <label for="bwts-size">Capacity / Size</label>
+                            <input type="text" id="bwts-size" name="bwts-size" class="form-control" placeholder="e.g. 500 m³/h">
+                        </div>
+                    </div>
+
+                    <div class="form-section-title" style="margin-top: 1rem;">
+                        <i class="fa-solid fa-message"></i> Inquiry Request
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" class="form-control" placeholder="e.g. BWTS Retrofit Installation Quote">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Detailed Message *</label>
+                        <textarea id="message" name="message" class="form-control" required placeholder="Please describe your technical requirement or vessel schedule..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <i class="fa-solid fa-paper-plane"></i> Submit Request
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal Popup -->
+    <div id="success-popup" class="popup-modal">
+        <div class="popup-card">
+            <div class="popup-icon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h2>Quote Request Sent!</h2>
+            <p>Thank you for reaching out to Mozuk Marine. Our engineering team has received your request and will contact you shortly.</p>
+            <a href="index.html" class="btn-submit" style="text-decoration: none;">
+                Return to Homepage
+            </a>
         </div>
     </div>
 
-    <div id="success-popup" class="popup">
-        <div class="popup-content">
-            <h2>Submit Successful!</h2>
-            <p>Thank you for your request. We will get back to you shortly.</p>
-            <button class="quote-button" id="home-button">HOME</button>
-        </div>
-    </div>
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="./images/logo.png" alt="Mozuk Marine Logo">
+                </div>
+                <ul class="footer-links">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="contact.html">Request Quote</a></li>
+                </ul>
+            </div>
 
-    <footer>
-        <p>&copy; 2025 Mozuk Marine. All rights reserved.</p>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Mozuk Marine. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
+    <!-- JavaScript Interactions -->
     <script>
-        // Scroll to top
-        window.onload = function () {
-            setTimeout(function () {
-                window.scrollTo(0, 0);
-            }, 0);
-        };
+        // 1. Particle Canvas Background
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
 
-        // Header Scroll Effect
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.radius = Math.random() * 2 + 0.5;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+                this.alpha = Math.random() * 0.5 + 0.1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 242, 254, ${this.alpha})`;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#00f2fe';
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
+                if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
+            }
+        }
+
+        for (let i = 0; i < 40; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateCanvas);
+        }
+        animateCanvas();
+
+        // 2. Header Scroll Effect
+        const header = document.getElementById('main-header');
         window.addEventListener('scroll', () => {
-            const topBar = document.querySelector('.top-menu-bar');
-            const nav = document.querySelector('nav');
             if (window.scrollY > 50) {
-                topBar.classList.add('scrolled');
-                nav.classList.add('scrolled');
+                header.classList.add('scrolled');
             } else {
-                topBar.classList.remove('scrolled');
-                nav.classList.remove('scrolled');
+                header.classList.remove('scrolled');
             }
         });
 
-        // Form Handling
+        // 3. Mobile Navigation Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.className = 'fa-solid fa-xmark';
+            } else {
+                icon.className = 'fa-solid fa-bars';
+            }
+        });
+
+        // 4. Formspree AJAX Submission Handling
         const form = document.getElementById('quote-form');
         const formMessages = document.getElementById('form-messages');
         const successPopup = document.getElementById('success-popup');
-        const homeButton = document.getElementById('home-button');
+        const emailInput = document.getElementById('email');
+        const replytoHiddenInput = document.getElementById('replyto-email');
+
+        if (emailInput && replytoHiddenInput) {
+            emailInput.addEventListener('input', () => {
+                replytoHiddenInput.value = emailInput.value;
+            });
+        }
 
         form.addEventListener('submit', async function (event) {
             event.preventDefault();
 
-            const submitBtn = form.querySelector('.submit-button');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Sending...';
+            const submitBtn = form.querySelector('.btn-submit');
+            const originalHTML = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending Request...';
             submitBtn.disabled = true;
 
             const formData = new FormData(form);
@@ -673,52 +926,21 @@
                     formMessages.style.display = 'none';
                     successPopup.style.display = 'flex';
                 } else {
-                    throw new Error('Form submission failed');
+                    throw new Error('Submission failed');
                 }
             } catch (error) {
-                formMessages.style.color = 'var(--color-accent)';
-                formMessages.textContent = 'Oops! There was a problem submitting your form. Please try again.';
+                formMessages.style.background = 'rgba(239, 68, 68, 0.15)';
+                formMessages.style.border = '1px solid rgba(239, 68, 68, 0.4)';
+                formMessages.style.color = '#f87171';
+                formMessages.textContent = 'Oops! There was a problem submitting your form. Please try again or email us directly.';
                 formMessages.style.display = 'block';
-                setTimeout(() => {
-                    formMessages.textContent = '';
-                    formMessages.style.display = 'none';
-                }, 5000);
             } finally {
-                submitBtn.textContent = originalText;
+                submitBtn.innerHTML = originalHTML;
                 submitBtn.disabled = false;
             }
         });
 
-        homeButton.addEventListener('click', function () {
-            window.location.href = 'index.html';
-        });
-
-        // Email mirror for formspree
-        const emailInput = document.getElementById('email');
-        const replytoHiddenInput = document.getElementById('replyto-email');
-        if (emailInput && replytoHiddenInput) {
-            emailInput.addEventListener('input', () => {
-                replytoHiddenInput.value = emailInput.value;
-            });
-        }
-
-        // Mobile Menu
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navList = document.querySelector('.nav-list');
-
-        mobileMenu.addEventListener('click', () => {
-            navList.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-        });
-
-        document.querySelectorAll('.nav-list a').forEach(item => {
-            item.addEventListener('click', () => {
-                navList.classList.remove('active');
-                mobileMenu.classList.remove('active');
-            });
-        });
-
-        // Close popup when clicking outside
+        // Close Popup Modal when clicking outside
         window.addEventListener('click', (e) => {
             if (e.target === successPopup) {
                 successPopup.style.display = 'none';
