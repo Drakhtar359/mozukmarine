@@ -730,6 +730,9 @@
                         <button class="lang-option active" data-lang="en">
                             <span class="lang-flag">🇬🇧</span> English (EN)
                         </button>
+                        <button class="lang-option" data-lang="es">
+                            <span class="lang-flag">🇪🇸</span> Español (ES)
+                        </button>
                         <button class="lang-option" data-lang="fr">
                             <span class="lang-flag">🇫🇷</span> Français (FR)
                         </button>
@@ -1081,6 +1084,40 @@
                 popup_desc: "Thank you for reaching out to Mozuk Marine. Our engineering team has received your request and will contact you shortly.",
                 popup_btn: "Return to Homepage"
             },
+            es: {
+                nav_home: "Inicio",
+                nav_services: "Servicios",
+                nav_about: "Nosotros",
+                nav_contact: "Contacto",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> Solicitar Cotización',
+                hero_badge: '<i class="fa-solid fa-calculator"></i> Cotización y Consulta',
+                hero_title: 'Solicitar una <span class="text-gradient">Cotización BWTS</span> Personalizada',
+                hero_desc: "Complete el formulario a continuación con los datos de su buque o servicio requerido y nuestros especialistas responderán en menos de 24 horas.",
+                sidebar_title: "Contáctenos Directamente",
+                sidebar_subtitle: "Canales de comunicación directa para soporte urgente y consultas técnicas.",
+                sidebar_email: "Escríbanos",
+                sidebar_phone: "Línea Directa / WhatsApp",
+                sidebar_response: "Tiempo de Respuesta",
+                sidebar_response_val: "En menos de 24 Horas (Atención 24/7)",
+                sidebar_reassurance: "Nuestros ingenieros están certificados en las principales marcas de BWTS y cumplen plenamente con las normativas IMO D-2 y USCG.",
+                form_sec_contact: '<i class="fa-solid fa-user"></i> Datos de Contacto',
+                label_name: "Nombre Completo *",
+                label_phone: "Número de Teléfono *",
+                label_email: "Correo Electrónico *",
+                label_company: "Nombre de la Empresa",
+                form_sec_vessel: '<i class="fa-solid fa-ship"></i> Especificaciones del Buque y Sistema',
+                label_ship: "Nombre del Buque",
+                label_imo: "Número IMO",
+                label_model: "Modelo BWTS",
+                label_size: "Capacidad / Caudal",
+                form_sec_inquiry: '<i class="fa-solid fa-message"></i> Solicitud de Consulta',
+                label_subject: "Asunto",
+                label_message: "Mensaje Detallado *",
+                btn_submit: '<i class="fa-solid fa-paper-plane"></i> Enviar Solicitud',
+                popup_title: "¡Solicitud de Cotización Enviada!",
+                popup_desc: "Gracias por ponerse en contacto con Mozuk Marine. Nuestro equipo de ingeniería ha recibido su solicitud y se comunicará pronto.",
+                popup_btn: "Volver al Inicio"
+            },
             fr: {
                 nav_home: "Accueil",
                 nav_services: "Services",
@@ -1196,8 +1233,8 @@
                 document.documentElement.setAttribute('dir', 'ltr');
             }
 
-            const flags = { en: '🇬🇧', fr: '🇫🇷', ar: '🇸🇦', bg: '🇧🇬' };
-            const codes = { en: 'EN', fr: 'FR', ar: 'AR', bg: 'BG' };
+            const flags = { en: '🇬🇧', es: '🇪🇸', fr: '🇫🇷', ar: '🇸🇦', bg: '🇧🇬' };
+            const codes = { en: 'EN', es: 'ES', fr: 'FR', ar: 'AR', bg: 'BG' };
             const flagEl = document.getElementById('current-flag');
             const codeEl = document.getElementById('current-lang');
             if (flagEl) flagEl.textContent = flags[lang];
