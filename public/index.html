@@ -254,6 +254,104 @@
             color: #000;
         }
 
+        /* Language Selector */
+        .lang-selector {
+            position: relative;
+            list-style: none;
+        }
+
+        .lang-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.45rem 0.85rem;
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--color-glass-border);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: var(--glass-blur);
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: rgba(0, 242, 254, 0.12);
+            border-color: var(--color-primary);
+        }
+
+        .lang-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: rgba(10, 19, 34, 0.95);
+            border: 1px solid var(--color-glass-border-hover);
+            border-radius: var(--radius-md);
+            padding: 0.5rem;
+            backdrop-filter: var(--glass-blur);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            gap: 0.35rem;
+            min-width: 140px;
+            z-index: 1001;
+        }
+
+        html[dir="rtl"] .lang-dropdown {
+            right: auto;
+            left: 0;
+        }
+
+        .lang-dropdown.active {
+            display: flex;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .lang-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius-sm);
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: var(--font-main);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            width: 100%;
+        }
+
+        html[dir="rtl"] .lang-option {
+            text-align: right;
+        }
+
+        .lang-option:hover, .lang-option.active {
+            background: rgba(0, 242, 254, 0.15);
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        /* RTL Layout Adjustments */
+        html[dir="rtl"] body {
+            text-align: right;
+        }
+
+        html[dir="rtl"] .section-header, 
+        html[dir="rtl"] .hero, 
+        html[dir="rtl"] .cta-card {
+            text-align: center;
+        }
+
+        html[dir="rtl"] .fa-arrow-right {
+            transform: scaleX(-1);
+        }
+
         /* Mobile Nav Toggle */
         .mobile-toggle {
             display: none;
@@ -1099,11 +1197,29 @@
             </button>
 
             <ul class="nav-menu" id="nav-menu">
-                <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#services" class="nav-link">Services</a></li>
-                <li><a href="#about" class="nav-link">About Us</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
-                <li><a href="contact.html" class="btn-nav-cta"><i class="fa-solid fa-paper-plane"></i> Request Quote</a></li>
+                <li><a href="#home" class="nav-link active" data-i18n="nav_home">Home</a></li>
+                <li><a href="#services" class="nav-link" data-i18n="nav_services">Services</a></li>
+                <li><a href="#about" class="nav-link" data-i18n="nav_about">About Us</a></li>
+                <li><a href="contact.html" class="nav-link" data-i18n="nav_contact">Contact</a></li>
+                <li><a href="contact.html" class="btn-nav-cta" data-i18n="nav_quote"><i class="fa-solid fa-paper-plane"></i> Request Quote</a></li>
+                <li class="lang-selector">
+                    <button class="lang-btn" id="lang-btn" aria-label="Select Language">
+                        <span class="lang-flag" id="current-flag">🇬🇧</span>
+                        <span class="lang-code" id="current-lang">EN</span>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem; transition: transform 0.3s ease;"></i>
+                    </button>
+                    <div class="lang-dropdown" id="lang-dropdown">
+                        <button class="lang-option active" data-lang="en">
+                            <span class="lang-flag">🇬🇧</span> English (EN)
+                        </button>
+                        <button class="lang-option" data-lang="ar">
+                            <span class="lang-flag">🇸🇦</span> العربية (AR)
+                        </button>
+                        <button class="lang-option" data-lang="bg">
+                            <span class="lang-flag">🇧🇬</span> Български (BG)
+                        </button>
+                    </div>
+                </li>
             </ul>
         </div>
     </header>
@@ -1112,17 +1228,17 @@
         <!-- Hero Section -->
         <section class="hero reveal active" id="home">
             <div class="hero-content">
-                <div class="badge">
+                <div class="badge" data-i18n="hero_badge">
                     <i class="fa-solid fa-shield-halved"></i> Pioneering BWTS Solutions
                 </div>
-                <h1>Comprehensive Marine <span class="text-gradient">BWTS Systems</span> & Support</h1>
-                <p>Delivering precision installation, certified maintenance, rapid troubleshooting, and global compliance solutions for Ballast Water Treatment Systems worldwide.</p>
+                <h1 data-i18n="hero_title">Comprehensive Marine <span class="text-gradient">BWTS Systems</span> & Support</h1>
+                <p data-i18n="hero_desc">Delivering precision installation, certified maintenance, rapid troubleshooting, and global compliance solutions for Ballast Water Treatment Systems worldwide.</p>
                 
                 <div class="hero-actions">
-                    <a href="#services" class="btn-primary">
+                    <a href="#services" class="btn-primary" data-i18n="hero_btn_services">
                         Explore Our Services <i class="fa-solid fa-arrow-right"></i>
                     </a>
-                    <a href="contact.html" class="btn-secondary">
+                    <a href="contact.html" class="btn-secondary" data-i18n="hero_btn_quote">
                         <i class="fa-solid fa-calculator"></i> Request a Quote
                     </a>
                 </div>
@@ -1132,19 +1248,19 @@
             <div class="stats-bar reveal delay-1">
                 <div class="stat-item">
                     <div class="stat-number"><span class="counter" data-target="120">0</span>+</div>
-                    <div class="stat-label">Vessels Serviced</div>
+                    <div class="stat-label" data-i18n="stat_vessels">Vessels Serviced</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number"><span class="counter" data-target="100">0</span>%</div>
-                    <div class="stat-label">IMO & USCG Compliant</div>
+                    <div class="stat-label" data-i18n="stat_compliance">IMO & USCG Compliant</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number">24/7</div>
-                    <div class="stat-label">Global Tech Support</div>
+                    <div class="stat-label" data-i18n="stat_support">Global Tech Support</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number"><span class="counter" data-target="6">0</span>+</div>
-                    <div class="stat-label">Years Expertise</div>
+                    <div class="stat-label" data-i18n="stat_years">Years Expertise</div>
                 </div>
             </div>
         </section>
@@ -1152,17 +1268,17 @@
         <!-- Services Section -->
         <section class="services-section" id="services">
             <div class="section-header reveal">
-                <div class="badge"><i class="fa-solid fa-gears"></i> Core Capabilities</div>
-                <h2>Our Engineering <span class="text-gradient">Services</span></h2>
-                <p>Select a service category below to explore our specialized marine solutions.</p>
+                <div class="badge" data-i18n="sec_capabilities"><i class="fa-solid fa-gears"></i> Core Capabilities</div>
+                <h2 data-i18n="sec_title">Our Engineering <span class="text-gradient">Services</span></h2>
+                <p data-i18n="sec_subtitle">Select a service category below to explore our specialized marine solutions.</p>
             </div>
 
             <!-- Services Category Tabs -->
             <div class="services-tabs-nav reveal">
-                <button class="tab-btn active" data-tab="bwts-tab">
+                <button class="tab-btn active" data-tab="bwts-tab" data-i18n="tab_bwts">
                     <i class="fa-solid fa-anchor"></i> BWTS Services
                 </button>
-                <button class="tab-btn" data-tab="electrical-tab">
+                <button class="tab-btn" data-tab="electrical-tab" data-i18n="tab_elec">
                     <i class="fa-solid fa-bolt"></i> Electrical Services
                 </button>
             </div>
@@ -1180,9 +1296,9 @@
                             <div class="service-icon-badge">
                                 <i class="fa-solid fa-screwdriver-wrench"></i>
                             </div>
-                            <h3>BWTS Installation</h3>
-                            <p>Turnkey retrofit and newbuild installation of top-tier Ballast Water Treatment Systems customized to your vessel layout.</p>
-                            <a href="contact.html" class="service-footer">Request Installation Quote <i class="fa-solid fa-arrow-right"></i></a>
+                            <h3 data-i18n="bwts_c1_title">BWTS Installation</h3>
+                            <p data-i18n="bwts_c1_desc">Turnkey retrofit and newbuild installation of top-tier Ballast Water Treatment Systems customized to your vessel layout.</p>
+                            <a href="contact.html" class="service-footer" data-i18n="bwts_c1_btn">Request Installation Quote <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
 
@@ -1196,9 +1312,9 @@
                             <div class="service-icon-badge">
                                 <i class="fa-solid fa-toolbox"></i>
                             </div>
-                            <h3>Maintenance & Repair</h3>
-                            <p>Scheduled overhauls, sensor calibration, UV lamp replacements, filter maintenance, and emergency troubleshooting for all major brands.</p>
-                            <a href="contact.html" class="service-footer">Schedule Maintenance <i class="fa-solid fa-arrow-right"></i></a>
+                            <h3 data-i18n="bwts_c2_title">Maintenance & Repair</h3>
+                            <p data-i18n="bwts_c2_desc">Scheduled overhauls, sensor calibration, UV lamp replacements, filter maintenance, and emergency troubleshooting for all major brands.</p>
+                            <a href="contact.html" class="service-footer" data-i18n="bwts_c2_btn">Schedule Maintenance <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
 
@@ -1212,9 +1328,9 @@
                             <div class="service-icon-badge">
                                 <i class="fa-solid fa-chart-line"></i>
                             </div>
-                            <h3>Commissioning & Testing</h3>
-                            <p>Rigorous operational testing, biological sampling validation, and commissioning to guarantee compliance with international standards.</p>
-                            <a href="contact.html" class="service-footer">Book Commissioning <i class="fa-solid fa-arrow-right"></i></a>
+                            <h3 data-i18n="bwts_c3_title">Commissioning & Testing</h3>
+                            <p data-i18n="bwts_c3_desc">Rigorous operational testing, biological sampling validation, and commissioning to guarantee compliance with international standards.</p>
+                            <a href="contact.html" class="service-footer" data-i18n="bwts_c3_btn">Book Commissioning <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
 
@@ -1228,9 +1344,9 @@
                             <div class="service-icon-badge">
                                 <i class="fa-solid fa-boxes-stacked"></i>
                             </div>
-                            <h3>Spare Parts & Support</h3>
-                            <p>Rapid sourcing and dispatch of genuine OEM spare parts, valves, sensors, and 24/7 technical helpdesk assistance.</p>
-                            <a href="contact.html" class="service-footer">Order Spare Parts <i class="fa-solid fa-arrow-right"></i></a>
+                            <h3 data-i18n="bwts_c4_title">Spare Parts & Support</h3>
+                            <p data-i18n="bwts_c4_desc">Rapid sourcing and dispatch of genuine OEM spare parts, valves, sensors, and 24/7 technical helpdesk assistance.</p>
+                            <a href="contact.html" class="service-footer" data-i18n="bwts_c4_btn">Order Spare Parts <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
 
@@ -1244,9 +1360,9 @@
                             <div class="service-icon-badge">
                                 <i class="fa-solid fa-user-graduate"></i>
                             </div>
-                            <h3>Crew Training</h3>
-                            <p>Hands-on operational and safety training programs empowering your marine officers and engineers with full BWTS mastery.</p>
-                            <a href="contact.html" class="service-footer">Enquire Training <i class="fa-solid fa-arrow-right"></i></a>
+                            <h3 data-i18n="bwts_c5_title">Crew Training</h3>
+                            <p data-i18n="bwts_c5_desc">Hands-on operational and safety training programs empowering your marine officers and engineers with full BWTS mastery.</p>
+                            <a href="contact.html" class="service-footer" data-i18n="bwts_c5_btn">Enquire Training <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
 
@@ -1260,9 +1376,9 @@
                             <div class="service-icon-badge">
                                 <i class="fa-regular fa-file-code"></i>
                             </div>
-                            <h3>Documentation Updates</h3>
-                            <p>Digitization of technical schematics, CAD updates, and Ballast Water Management Plan (BWMP) revisions according to IMO regulations.</p>
-                            <a href="contact.html" class="service-footer">Update Documentation <i class="fa-solid fa-arrow-right"></i></a>
+                            <h3 data-i18n="bwts_c6_title">Documentation Updates</h3>
+                            <p data-i18n="bwts_c6_desc">Digitization of technical schematics, CAD updates, and Ballast Water Management Plan (BWMP) revisions according to IMO regulations.</p>
+                            <a href="contact.html" class="service-footer" data-i18n="bwts_c6_btn">Update Documentation <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -1274,31 +1390,31 @@
                     <!-- Left Overview Box -->
                     <div class="elec-visual-card">
                         <div>
-                            <div class="badge" style="margin-bottom: 1rem;"><i class="fa-solid fa-bolt-lightning"></i> Engine Room Power & Automation</div>
-                            <h3>Custom Electrical Solutions</h3>
-                            <p>Turnkey power generation, main switchboard (MSB) maintenance, automated alarm monitoring systems (AMS), and motor drive solutions engineered for heavy-duty marine operation.</p>
+                            <div class="badge" style="margin-bottom: 1rem;" data-i18n="elec_badge"><i class="fa-solid fa-bolt-lightning"></i> Engine Room Power & Automation</div>
+                            <h3 data-i18n="elec_title">Custom Electrical Solutions</h3>
+                            <p data-i18n="elec_desc">Turnkey power generation, main switchboard (MSB) maintenance, automated alarm monitoring systems (AMS), and motor drive solutions engineered for heavy-duty marine operation.</p>
                         </div>
                         
                         <div class="elec-spec-grid">
                             <div class="elec-spec-box">
                                 <i class="fa-solid fa-plug-circle-bolt"></i>
-                                <h4>Switchboard & PMS</h4>
-                                <p>Load sharing, breaker calibration, generator sync.</p>
+                                <h4 data-i18n="elec_spec1_title">Switchboard & PMS</h4>
+                                <p data-i18n="elec_spec1_desc">Load sharing, breaker calibration, generator sync.</p>
                             </div>
                             <div class="elec-spec-box">
                                 <i class="fa-solid fa-microchip"></i>
-                                <h4>AMS & Automation</h4>
-                                <p>PLC programming, engine alarm panel loops.</p>
+                                <h4 data-i18n="elec_spec2_title">AMS & Automation</h4>
+                                <p data-i18n="elec_spec2_desc">PLC programming, engine alarm panel loops.</p>
                             </div>
                             <div class="elec-spec-box">
                                 <i class="fa-solid fa-charging-station"></i>
-                                <h4>VFD Motor Drives</h4>
-                                <p>Energy-efficient pump starters & motor rewinding.</p>
+                                <h4 data-i18n="elec_spec3_title">VFD Motor Drives</h4>
+                                <p data-i18n="elec_spec3_desc">Energy-efficient pump starters & motor rewinding.</p>
                             </div>
                             <div class="elec-spec-box">
                                 <i class="fa-solid fa-shield-cat"></i>
-                                <h4>Emergency Shutdown</h4>
-                                <p>ESD safety loops & 24V DC battery restoration.</p>
+                                <h4 data-i18n="elec_spec4_title">Emergency Shutdown</h4>
+                                <p data-i18n="elec_spec4_desc">ESD safety loops & 24V DC battery restoration.</p>
                             </div>
                         </div>
                     </div>
@@ -1308,9 +1424,9 @@
                         <div class="elec-feature-card">
                             <div class="elec-feature-header">
                                 <i class="fa-solid fa-sliders"></i>
-                                <h4>Main Switchboard (MSB) & Power Management</h4>
+                                <h4 data-i18n="elec_feat1_title">Main Switchboard (MSB) & Power Management</h4>
                             </div>
-                            <p>Precision overhaul of generator breaker panels, busbar insulation testing, automatic power restoration, and primary distribution protection.</p>
+                            <p data-i18n="elec_feat1_desc">Precision overhaul of generator breaker panels, busbar insulation testing, automatic power restoration, and primary distribution protection.</p>
                             <div class="elec-feature-tags">
                                 <span class="tag-pill">MSB Overhauls</span>
                                 <span class="tag-pill">Power Management</span>
@@ -1321,9 +1437,9 @@
                         <div class="elec-feature-card">
                             <div class="elec-feature-header">
                                 <i class="fa-solid fa-laptop-code"></i>
-                                <h4>Engine Room Automation & Monitoring (AMS)</h4>
+                                <h4 data-i18n="elec_feat2_title">Engine Room Automation & Monitoring (AMS)</h4>
                             </div>
-                            <p>Custom PLC automation, exhaust temperature sensor loops, tank level gauging, and high-temperature shutdown interlocks.</p>
+                            <p data-i18n="elec_feat2_desc">Custom PLC automation, exhaust temperature sensor loops, tank level gauging, and high-temperature shutdown interlocks.</p>
                             <div class="elec-feature-tags">
                                 <span class="tag-pill">Alarm Monitoring</span>
                                 <span class="tag-pill">PLC Diagnostics</span>
@@ -1334,9 +1450,9 @@
                         <div class="elec-feature-card">
                             <div class="elec-feature-header">
                                 <i class="fa-solid fa-fan"></i>
-                                <h4>Variable Frequency Drives (VFD) & Heavy Motors</h4>
+                                <h4 data-i18n="elec_feat3_title">Variable Frequency Drives (VFD) & Heavy Motors</h4>
                             </div>
-                            <p>Custom VFD panel retrofits for sea water cooling pumps, ballast pumps, and engine room ventilation fans to reduce power consumption.</p>
+                            <p data-i18n="elec_feat3_desc">Custom VFD panel retrofits for sea water cooling pumps, ballast pumps, and engine room ventilation fans to reduce power consumption.</p>
                             <div class="elec-feature-tags">
                                 <span class="tag-pill">VFD Installation</span>
                                 <span class="tag-pill">Starter Panel Rewiring</span>
@@ -1357,37 +1473,37 @@
                     </div>
                     <div class="about-floating-card">
                         <i class="fa-solid fa-anchor"></i>
-                        <span>Dedicated Marine Engineering Specialists</span>
+                        <span data-i18n="about_floating">Dedicated Marine Engineering Specialists</span>
                     </div>
                 </div>
 
                 <div class="about-info reveal delay-1">
-                    <div class="badge"><i class="fa-solid fa-building-flag"></i> About Mozuk Marine</div>
-                    <h2>Dedicated to <span class="text-gradient">Environmental Compliance</span> & Vessel Efficiency</h2>
-                    <p>Mozuk Marine stands at the forefront of maritime environmental technology. With years of practical field experience and in-depth understanding of marine engineering, we serve shipowners, vessel operators, and shipyards worldwide.</p>
+                    <div class="badge" data-i18n="about_badge"><i class="fa-solid fa-building-flag"></i> About Mozuk Marine</div>
+                    <h2 data-i18n="about_title">Dedicated to <span class="text-gradient">Environmental Compliance</span> & Vessel Efficiency</h2>
+                    <p data-i18n="about_desc1">Mozuk Marine stands at the forefront of maritime environmental technology. With years of practical field experience and in-depth understanding of marine engineering, we serve shipowners, vessel operators, and shipyards worldwide.</p>
 
                     <div class="about-features">
                         <div class="feature-item">
                             <div class="feature-icon"><i class="fa-solid fa-circle-check"></i></div>
                             <div class="feature-text">
-                                <h4>Global Readiness</h4>
-                                <p>Technicians available for worldwide dispatch to ports and drydocks.</p>
+                                <h4 data-i18n="about_f1_title">Global Readiness</h4>
+                                <p data-i18n="about_f1_desc">Technicians available for worldwide dispatch to ports and drydocks.</p>
                             </div>
                         </div>
 
                         <div class="feature-item">
                             <div class="feature-icon"><i class="fa-solid fa-circle-check"></i></div>
                             <div class="feature-text">
-                                <h4>Multi-Brand Proficiency</h4>
-                                <p>Certified expertise across all major UV, Electro-chlorination, and Chemical BWTS models.</p>
+                                <h4 data-i18n="about_f2_title">Multi-Brand Proficiency</h4>
+                                <p data-i18n="about_f2_desc">Certified expertise across all major UV, Electro-chlorination, and Chemical BWTS models.</p>
                             </div>
                         </div>
 
                         <div class="feature-item">
                             <div class="feature-icon"><i class="fa-solid fa-circle-check"></i></div>
                             <div class="feature-text">
-                                <h4>Regulatory Assurance</h4>
-                                <p>Ensuring complete adherence to IMO D-2 standards and USCG regulations.</p>
+                                <h4 data-i18n="about_f3_title">Regulatory Assurance</h4>
+                                <p data-i18n="about_f3_desc">Ensuring complete adherence to IMO D-2 standards and USCG regulations.</p>
                             </div>
                         </div>
                     </div>
@@ -1398,9 +1514,9 @@
         <!-- Call to Action Banner -->
         <section class="cta-section reveal" id="request-a-quote">
             <div class="cta-card">
-                <h2>Ready to Upgrade or Service Your BWTS?</h2>
-                <p>Get in touch with our engineering team for a custom quote, technical audit, or urgent service request.</p>
-                <a href="contact.html" class="btn-primary">
+                <h2 data-i18n="cta_title">Ready to Upgrade or Service Your BWTS?</h2>
+                <p data-i18n="cta_desc">Get in touch with our engineering team for a custom quote, technical audit, or urgent service request.</p>
+                <a href="contact.html" class="btn-primary" data-i18n="cta_btn">
                     <i class="fa-solid fa-paper-plane"></i> Request a Quote Now
                 </a>
             </div>
@@ -1409,15 +1525,15 @@
         <!-- Contact Quick Chips -->
         <section class="contact-chips-section reveal" id="contact-us">
             <div class="section-header">
-                <div class="badge"><i class="fa-solid fa-headset"></i> Get In Touch</div>
-                <h2>Direct <span class="text-gradient">Communication</span></h2>
+                <div class="badge" data-i18n="contact_badge"><i class="fa-solid fa-headset"></i> Get In Touch</div>
+                <h2 data-i18n="contact_title">Direct <span class="text-gradient">Communication</span></h2>
             </div>
             
             <div class="chips-grid">
                 <a href="mailto:marine-services@mozuk.net" class="chip-card">
                     <div class="chip-icon"><i class="fa-solid fa-envelope"></i></div>
                     <div class="chip-info">
-                        <span>Email Inquiry</span>
+                        <span data-i18n="chip_email_label">Email Inquiry</span>
                         <strong>marine-services@mozuk.net</strong>
                     </div>
                 </a>
@@ -1425,7 +1541,7 @@
                 <a href="tel:+96179083906" class="chip-card">
                     <div class="chip-icon"><i class="fa-solid fa-phone"></i></div>
                     <div class="chip-info">
-                        <span>Phone / WhatsApp</span>
+                        <span data-i18n="chip_phone_label">Phone / WhatsApp</span>
                         <strong style="white-space: nowrap;">+961 79 083 906</strong>
                     </div>
                 </a>
@@ -1433,8 +1549,8 @@
                 <div class="chip-card">
                     <div class="chip-icon"><i class="fa-solid fa-clock"></i></div>
                     <div class="chip-info">
-                        <span>Availability</span>
-                        <strong>24/7 Global Dispatch</strong>
+                        <span data-i18n="chip_avail_label">Availability</span>
+                        <strong data-i18n="chip_avail_val">24/7 Global Dispatch</strong>
                     </div>
                 </div>
             </div>
@@ -1609,6 +1725,295 @@
                 }
             });
         });
+
+        // 7. Multilingual Translation Engine (EN, AR, BG)
+        const i18nData = {
+            en: {
+                nav_home: "Home",
+                nav_services: "Services",
+                nav_about: "About Us",
+                nav_contact: "Contact",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> Request Quote',
+                hero_badge: '<i class="fa-solid fa-shield-halved"></i> Pioneering BWTS Solutions',
+                hero_title: 'Comprehensive Marine <span class="text-gradient">BWTS Systems</span> & Support',
+                hero_desc: "Delivering precision installation, certified maintenance, rapid troubleshooting, and global compliance solutions for Ballast Water Treatment Systems worldwide.",
+                hero_btn_services: 'Explore Our Services <i class="fa-solid fa-arrow-right"></i>',
+                hero_btn_quote: '<i class="fa-solid fa-calculator"></i> Request a Quote',
+                stat_vessels: "Vessels Serviced",
+                stat_compliance: "IMO & USCG Compliant",
+                stat_support: "Global Tech Support",
+                stat_years: "Years Expertise",
+                sec_capabilities: '<i class="fa-solid fa-gears"></i> Core Capabilities',
+                sec_title: 'Our Engineering <span class="text-gradient">Services</span>',
+                sec_subtitle: "Select a service category below to explore our specialized marine solutions.",
+                tab_bwts: '<i class="fa-solid fa-anchor"></i> BWTS Services',
+                tab_elec: '<i class="fa-solid fa-bolt"></i> Electrical Services',
+                bwts_c1_title: "BWTS Installation",
+                bwts_c1_desc: "Turnkey retrofit and newbuild installation of top-tier Ballast Water Treatment Systems customized to your vessel layout.",
+                bwts_c1_btn: 'Request Installation Quote <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c2_title: "Maintenance & Repair",
+                bwts_c2_desc: "Scheduled overhauls, sensor calibration, UV lamp replacements, filter maintenance, and emergency troubleshooting for all major brands.",
+                bwts_c2_btn: 'Schedule Maintenance <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c3_title: "Commissioning & Testing",
+                bwts_c3_desc: "Rigorous operational testing, biological sampling validation, and commissioning to guarantee compliance with international standards.",
+                bwts_c3_btn: 'Book Commissioning <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c4_title: "Spare Parts & Support",
+                bwts_c4_desc: "Rapid sourcing and dispatch of genuine OEM spare parts, valves, sensors, and 24/7 technical helpdesk assistance.",
+                bwts_c4_btn: 'Order Spare Parts <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c5_title: "Crew Training",
+                bwts_c5_desc: "Hands-on operational and safety training programs empowering your marine officers and engineers with full BWTS mastery.",
+                bwts_c5_btn: 'Enquire Training <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c6_title: "Documentation Updates",
+                bwts_c6_desc: "Digitization of technical schematics, CAD updates, and Ballast Water Management Plan (BWMP) revisions according to IMO regulations.",
+                bwts_c6_btn: 'Update Documentation <i class="fa-solid fa-arrow-right"></i>',
+                elec_badge: '<i class="fa-solid fa-bolt-lightning"></i> Engine Room Power & Automation',
+                elec_title: "Custom Electrical Solutions",
+                elec_desc: "Turnkey power generation, main switchboard (MSB) maintenance, automated alarm monitoring systems (AMS), and motor drive solutions engineered for heavy-duty marine operation.",
+                elec_spec1_title: "Switchboard & PMS",
+                elec_spec1_desc: "Load sharing, breaker calibration, generator sync.",
+                elec_spec2_title: "AMS & Automation",
+                elec_spec2_desc: "PLC programming, engine alarm panel loops.",
+                elec_spec3_title: "VFD Motor Drives",
+                elec_spec3_desc: "Energy-efficient pump starters & motor rewinding.",
+                elec_spec4_title: "Emergency Shutdown",
+                elec_spec4_desc: "ESD safety loops & 24V DC battery restoration.",
+                elec_feat1_title: "Main Switchboard (MSB) & Power Management",
+                elec_feat1_desc: "Precision overhaul of generator breaker panels, busbar insulation testing, automatic power restoration, and primary distribution protection.",
+                elec_feat2_title: "Engine Room Automation & Monitoring (AMS)",
+                elec_feat2_desc: "Custom PLC automation, exhaust temperature sensor loops, tank level gauging, and high-temperature shutdown interlocks.",
+                elec_feat3_title: "Variable Frequency Drives (VFD) & Heavy Motors",
+                elec_feat3_desc: "Custom VFD panel retrofits for sea water cooling pumps, ballast pumps, and engine room ventilation fans to reduce power consumption.",
+                about_badge: '<i class="fa-solid fa-building-flag"></i> About Mozuk Marine',
+                about_title: 'Dedicated to <span class="text-gradient">Environmental Compliance</span> & Vessel Efficiency',
+                about_desc1: "Mozuk Marine stands at the forefront of maritime environmental technology. With years of practical field experience and in-depth understanding of marine engineering, we serve shipowners, vessel operators, and shipyards worldwide.",
+                about_floating: "Dedicated Marine Engineering Specialists",
+                about_f1_title: "Global Readiness",
+                about_f1_desc: "Technicians available for worldwide dispatch to ports and drydocks.",
+                about_f2_title: "Multi-Brand Proficiency",
+                about_f2_desc: "Certified expertise across all major UV, Electro-chlorination, and Chemical BWTS models.",
+                about_f3_title: "Regulatory Assurance",
+                about_f3_desc: "Ensuring complete adherence to IMO D-2 standards and USCG regulations.",
+                cta_title: "Ready to Upgrade or Service Your BWTS?",
+                cta_desc: "Get in touch with our engineering team for a custom quote, technical audit, or urgent service request.",
+                cta_btn: '<i class="fa-solid fa-paper-plane"></i> Request a Quote Now',
+                contact_badge: '<i class="fa-solid fa-headset"></i> Get In Touch',
+                contact_title: 'Direct <span class="text-gradient">Communication</span>',
+                chip_email_label: "Email Inquiry",
+                chip_phone_label: "Phone / WhatsApp",
+                chip_avail_label: "Availability",
+                chip_avail_val: "24/7 Global Dispatch"
+            },
+            ar: {
+                nav_home: "الرئيسية",
+                nav_services: "الخدمات",
+                nav_about: "من نحن",
+                nav_contact: "تواصل معنا",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> طلب عرض سعر',
+                hero_badge: '<i class="fa-solid fa-shield-halved"></i> حلول رائدة لأنظمة مياه التوازن',
+                hero_title: 'أنظمة ودعم شامل <span class="text-gradient">لمياه التوازن البحرية</span>',
+                hero_desc: "تقديم تركيب دقيق، وصيانة معتمدة، واستكشاف سريع للأعطال، وحلول امتثال عالمية لأنظمة معالجة مياه التوازن حول العالم.",
+                hero_btn_services: 'استكشف خدماتنا <i class="fa-solid fa-arrow-right"></i>',
+                hero_btn_quote: '<i class="fa-solid fa-calculator"></i> طلب عرض سعر',
+                stat_vessels: "السفن المخدومة",
+                stat_compliance: "متوافق مع IMO و USCG",
+                stat_support: "دعم فني عالمي 24/7",
+                stat_years: "سنوات من الخبرة",
+                sec_capabilities: '<i class="fa-solid fa-gears"></i> القدرات الأساسية',
+                sec_title: 'خدماتنا <span class="text-gradient">الهندسية</span>',
+                sec_subtitle: "اختر فئة الخدمة أدناه لاستكشاف حلولنا البحرية المتخصصة.",
+                tab_bwts: '<i class="fa-solid fa-anchor"></i> خدمات مياه التوازن',
+                tab_elec: '<i class="fa-solid fa-bolt"></i> الخدمات الكهربائية',
+                bwts_c1_title: "تركيب أنظمة معالجة مياه التوازن",
+                bwts_c1_desc: "تركيب متكامل وتعديل ريتروفيت لأنظمة معالجة مياه التوازن عالية الجودة والمخصصة لتصميم سفينتك.",
+                bwts_c1_btn: 'طلب عرض سعر التركيب <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c2_title: "الصيانة والإصلاح",
+                bwts_c2_desc: "صيانة دورية، معايرة المستشعرات، استبدال مصابيح UV، صيانة الفلاتر، وإصلاح الأعطال الطارئة لجميع العلامات التجارية.",
+                bwts_c2_btn: 'جدولة الصيانة <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c3_title: "التشغيل والاختبار",
+                bwts_c3_desc: "اختبارات تشغيلية دقيقة، والتحقق من العينات البيولوجية، والتشغيل لضمان الامتثال للمعايير الدولية.",
+                bwts_c3_btn: 'حجز التشغيل <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c4_title: "قطع الغيار والدعم",
+                bwts_c4_desc: "تأمين وشحن سريع لقطع الغيار الأصلية OEM والصمامات والمستشعرات ودعم فني على مدار الساعة.",
+                bwts_c4_btn: 'طلب قطع غيار <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c5_title: "تدريب الطاقم",
+                bwts_c5_desc: "برامج تدريبية عملية والسلامة لتمكين الضباط والمهندسين البحريين من إتقان تشغيل أنظمة BWTS.",
+                bwts_c5_btn: 'الاستفسار عن التدريب <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c6_title: "تحديث التوثيق",
+                bwts_c6_desc: "رقمنة المخططات الفنية، وتحديثات CAD، وتعديلات خطة إدارة مياه التوازن (BWMP) وفقاً للوائح IMO.",
+                bwts_c6_btn: 'تحديث التوثيق <i class="fa-solid fa-arrow-right"></i>',
+                elec_badge: '<i class="fa-solid fa-bolt-lightning"></i> طاقة وأتمتة غرفة المحركات',
+                elec_title: "حلول كهربائية مخصصة",
+                elec_desc: "توليد الطاقة الكامل، صيانة لوحات التوزيع الرئيسية (MSB)، أنظمة الإنذار والمراقبة الآلية (AMS)، ومغيرات التردد للمحركات البحرية.",
+                elec_spec1_title: "لوحات التوزيع و PMS",
+                elec_spec1_desc: "مشاركة الأحمال، معايرة القواطع، ومزامنة المولدات.",
+                elec_spec2_title: "أنظمة الإنذار والأتمتة",
+                elec_spec2_desc: "برمجة PLC ودائر إنذار المحركات.",
+                elec_spec3_title: "مغيرات التردد (VFD)",
+                elec_spec3_desc: "مغيرات التردد للمضخات وإعادة لف المحركات.",
+                elec_spec4_title: "الإيقاف الطارئ",
+                elec_spec4_desc: "دوائر السلامة ESD واستعادة بطاريات 24V.",
+                elec_feat1_title: "اللوحة الرئيسية (MSB) وإدارة الطاقة",
+                elec_feat1_desc: "صيانة دقيقة للقواطع الكهربائية للمولدات، واختبار عزل القضبان، واستعادة الطاقة الآلية وتأمين التوزيع الرئيسي.",
+                elec_feat2_title: "أتمتة ومراقبة غرفة المحركات (AMS)",
+                elec_feat2_desc: "أتمتة PLC مخصصة، ومستشعرات حرارة العادم، وقياس مستويات الخزانات، وأقفال الإيقاف لارتفاع الحرارة.",
+                elec_feat3_title: "مغيرات التردد (VFD) والمحركات الثقيلة",
+                elec_feat3_desc: "تحديث لوحات VFD لمضخات تبريد مياه البحر ومضخات التوازن ومراوح تهوية غرفة المحركات لتقليل استهلاك الطاقة.",
+                about_badge: '<i class="fa-solid fa-building-flag"></i> عن موزوك مارين',
+                about_title: 'ملتزمون بـ <span class="text-gradient">الامتثال البيئي</span> وكفاءة السفن',
+                about_desc1: "تقف موزوك مارين في طليعة تكنولوجيا البيئة البحرية. مع سنوات من الخبرة العملية والفهم العميق للهندسة البحرية، نخدم مالكي السفن ومشغليها حول العالم.",
+                about_floating: "متخصصون في الهندسة البحرية",
+                about_f1_title: "الجاهزية العالمية",
+                about_f1_desc: "مهندسون جاهزون للإرسال الفوري إلى الموانئ وأحواض الصيانة عالمياً.",
+                about_f2_title: "خبرة متعددة العلامات التجارية",
+                about_f2_desc: "خبرة معتمدة عبر جميع طرازات UV والكلورة الكهربائية والكيميائية.",
+                about_f3_title: "ضمان الامتثال التنظيمي",
+                about_f3_desc: "ضمان الامتثال الكامل لمعايير IMO D-2 وأنظمة الخفر الساحلي الأمريكي USCG.",
+                cta_title: "هل أنت مستعد لترقية أو صيانة نظامك؟",
+                cta_desc: "تواصل مع فريقنا الهندسي للحصول على عرض سعر مخصص، أو تدقيق فني، أو طلب صيانة طارئ.",
+                cta_btn: '<i class="fa-solid fa-paper-plane"></i> طلب عرض سعر الآن',
+                contact_badge: '<i class="fa-solid fa-headset"></i> تواصل معنا',
+                contact_title: 'تواصل <span class="text-gradient">مباشر</span>',
+                chip_email_label: "استفسار البريد الإلكتروني",
+                chip_phone_label: "الهاتف / واتساب",
+                chip_avail_label: "التوفر",
+                chip_avail_val: "إرسال عالمي على مدار 24/7"
+            },
+            bg: {
+                nav_home: "Начало",
+                nav_services: "Услуги",
+                nav_about: "За нас",
+                nav_contact: "Контакти",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> Поискайте оферта',
+                hero_badge: '<i class="fa-solid fa-shield-halved"></i> Пионерски BWTS Решения',
+                hero_title: 'Цялостни Морски <span class="text-gradient">BWTS Системи</span> и Поддръжка',
+                hero_desc: "Прецизен монтаж, сертифицирана поддръжка, бързо отстраняване на неизправности и глобални решения за съответствие на системи за баластни води.",
+                hero_btn_services: 'Разгледайте Услугите <i class="fa-solid fa-arrow-right"></i>',
+                hero_btn_quote: '<i class="fa-solid fa-calculator"></i> Поискайте оферта',
+                stat_vessels: "Обслужени кораби",
+                stat_compliance: "Съответствие с IMO & USCG",
+                stat_support: "24/7 Глобална поддръжка",
+                stat_years: "Години опит",
+                sec_capabilities: '<i class="fa-solid fa-gears"></i> Основни възможности',
+                sec_title: 'Нашите Инженерни <span class="text-gradient">Услуги</span>',
+                sec_subtitle: "Изберете категория услуги по-долу, за да разгледате нашите специализирани морски решения.",
+                tab_bwts: '<i class="fa-solid fa-anchor"></i> BWTS Услуги',
+                tab_elec: '<i class="fa-solid fa-bolt"></i> Електрически Услуги',
+                bwts_c1_title: "Монтаж на BWTS",
+                bwts_c1_desc: "Цялостен монтаж и модернизация на водещи системи за третиране на баластни води, съобразени със спецификата на вашия кораб.",
+                bwts_c1_btn: 'Поискайте оферта за монтаж <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c2_title: "Поддръжка и Ремонт",
+                bwts_c2_desc: "Планови прегледи, калибриране на сензори, подмяна на UV лампи, поддръжка на филтри и аварийни ремонти за всички основни марки.",
+                bwts_c2_btn: 'Заявете поддръжка <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c3_title: "Въвеждане в експлоатация и Тестване",
+                bwts_c3_desc: "Строги оперативни тестове, биологична валидация и въвеждане в експлоатация за гарантиране на пълно съответствие.",
+                bwts_c3_btn: 'Заявете тестване <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c4_title: "Резервни части и Поддръжка",
+                bwts_c4_desc: "Бърза доставка на оригинални резервни части, клапани, сензори и 24/7 техническа поддръжка.",
+                bwts_c4_btn: 'Поръчайте резервни части <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c5_title: "Обучение на екипажа",
+                bwts_c5_desc: "Практически и технически програми за обучение, осигуряващи пълно владеене на BWTS от вашите офицери и инженери.",
+                bwts_c5_btn: 'Запитване за обучение <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c6_title: "Актуализация на документация",
+                bwts_c6_desc: "Дигитализация на технически схеми, CAD чертежи и актуализация на Плана за управление на баластните води (BWMP).",
+                bwts_c6_btn: 'Актуализирайте документация <i class="fa-solid fa-arrow-right"></i>',
+                elec_badge: '<i class="fa-solid fa-bolt-lightning"></i> Енергия и Автоматизация в Машинното Отделение',
+                elec_title: "Персонализирани Електрически Решения",
+                elec_desc: "Главно разпределително табло (MSB), системи за алармен мониторинг (AMS) и задвижвания с честотни инвертори (VFD) за морски съоръжения.",
+                elec_spec1_title: "Табла & PMS",
+                elec_spec1_desc: "Разпределение на товара, калибриране, синхронизация.",
+                elec_spec2_title: "AMS & Автоматизация",
+                elec_spec2_desc: "PLC програмиране, алармени вериги.",
+                elec_spec3_title: "VFD Честотни инвертори",
+                elec_spec3_desc: "Енергоспестяващи стартери за помпи и пренавиване.",
+                elec_spec4_title: "Аварийно Изключване",
+                elec_spec4_desc: "ESD вериги и 24V DC аварийни батерии.",
+                elec_feat1_title: "Главно Разпределително Табло (MSB) и PMS",
+                elec_feat1_desc: "Преглед и ремонт на генераторни прекъсвачи, тестване на изолация на шини и автоматично възстановяване на захранването.",
+                elec_feat2_title: "Автоматизация и Мониторинг (AMS)",
+                elec_feat2_desc: "Персонализирана PLC автоматизация, сензори за температура на изгорелите газове, ниворемери и термични блокировки.",
+                elec_feat3_title: "Честотни Инвертори (VFD) & Мощни Двигатели",
+                elec_feat3_desc: "Модернизация на VFD табла за охлаждащи помпи, баластни помпи и вентилация за намаляване на разхода на енергия.",
+                about_badge: '<i class="fa-solid fa-building-flag"></i> За Мозук Марин',
+                about_title: 'Посветени на <span class="text-gradient">Екологичното Съответствие</span> и Ефективността',
+                about_desc1: "Мозук Марин е лидер в морските екологични технологии. С дългогодишен практически опит и дълбоко познаване на морското инженерство, ние обслужваме корабособственици и корабостроителници по целия свят.",
+                about_floating: "Специализирани Морски Инженери",
+                about_f1_title: "Глобална Готовност",
+                about_f1_desc: "Готовност за бързо изпращане на технически екипи до пристанища и кораборемонтни заводи.",
+                about_f2_title: "Многомаркова Компетентност",
+                about_f2_desc: "Сертифициран опит с всички основни марки UV, електрохлориращи и химически BWTS системи.",
+                about_f3_title: "Регулаторно Осигуряване",
+                about_f3_desc: "Гарантиране на пълно съответствие със стандартите IMO D-2 и USCG.",
+                cta_title: "Готови ли сте за модернизация или сервиз?",
+                cta_desc: "Свържете се с нашия инженерен екип за индивидуална оферта, технически одит или спешен ремонт.",
+                cta_btn: '<i class="fa-solid fa-paper-plane"></i> Поискайте оферта сега',
+                contact_badge: '<i class="fa-solid fa-headset"></i> Свържете се с нас',
+                contact_title: 'Директна <span class="text-gradient">Комуникация</span>',
+                chip_email_label: "Имейл запитване",
+                chip_phone_label: "Телефон / WhatsApp",
+                chip_avail_label: "Наличност",
+                chip_avail_val: "24/7 Глобален диспечерски център"
+            }
+        };
+
+        function setLanguage(lang) {
+            if (!i18nData[lang]) lang = 'en';
+            localStorage.setItem('mozuk_lang', lang);
+
+            document.documentElement.setAttribute('lang', lang);
+            if (lang === 'ar') {
+                document.documentElement.setAttribute('dir', 'rtl');
+            } else {
+                document.documentElement.setAttribute('dir', 'ltr');
+            }
+
+            const flags = { en: '🇬🇧', ar: '🇸🇦', bg: '🇧🇬' };
+            const codes = { en: 'EN', ar: 'AR', bg: 'BG' };
+            const flagEl = document.getElementById('current-flag');
+            const codeEl = document.getElementById('current-lang');
+            if (flagEl) flagEl.textContent = flags[lang];
+            if (codeEl) codeEl.textContent = codes[lang];
+
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                if (opt.getAttribute('data-lang') === lang) {
+                    opt.classList.add('active');
+                } else {
+                    opt.classList.remove('active');
+                }
+            });
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18nData[lang] && i18nData[lang][key]) {
+                    el.innerHTML = i18nData[lang][key];
+                }
+            });
+        }
+
+        const langBtn = document.getElementById('lang-btn');
+        const langDropdown = document.getElementById('lang-dropdown');
+
+        if (langBtn && langDropdown) {
+            langBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                langDropdown.classList.toggle('active');
+            });
+
+            document.addEventListener('click', () => {
+                langDropdown.classList.remove('active');
+            });
+
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                opt.addEventListener('click', (e) => {
+                    const selectedLang = opt.getAttribute('data-lang');
+                    setLanguage(selectedLang);
+                    langDropdown.classList.remove('active');
+                });
+            });
+        }
+
+        // Initialize saved language
+        const savedLang = localStorage.getItem('mozuk_lang') || 'en';
+        setLanguage(savedLang);
     </script>
 </body>
 

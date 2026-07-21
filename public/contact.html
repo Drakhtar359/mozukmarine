@@ -210,19 +210,96 @@
             width: 100%;
         }
 
-        .btn-nav-cta {
-            display: inline-flex;
+        /* Language Selector */
+        .lang-selector {
+            position: relative;
+            list-style: none;
+        }
+
+        .lang-btn {
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.65rem 1.4rem;
+            gap: 0.45rem;
+            padding: 0.45rem 0.85rem;
             border-radius: var(--radius-full);
-            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-            color: #000;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-decoration: none;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--color-glass-border);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: var(--glass-blur);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+        }
+
+        .lang-btn:hover {
+            background: rgba(0, 242, 254, 0.12);
+            border-color: var(--color-primary);
+        }
+
+        .lang-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: rgba(10, 19, 34, 0.95);
+            border: 1px solid var(--color-glass-border-hover);
+            border-radius: var(--radius-md);
+            padding: 0.5rem;
+            backdrop-filter: var(--glass-blur);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            gap: 0.35rem;
+            min-width: 140px;
+            z-index: 1001;
+        }
+
+        html[dir="rtl"] .lang-dropdown {
+            right: auto;
+            left: 0;
+        }
+
+        .lang-dropdown.active {
+            display: flex;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .lang-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius-sm);
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: var(--font-main);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            width: 100%;
+        }
+
+        html[dir="rtl"] .lang-option {
+            text-align: right;
+        }
+
+        .lang-option:hover, .lang-option.active {
+            background: rgba(0, 242, 254, 0.15);
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        /* RTL Layout Adjustments */
+        html[dir="rtl"] body {
+            text-align: right;
+        }
+
+        html[dir="rtl"] .contact-hero {
+            text-align: center;
         }
 
         .mobile-toggle {
@@ -638,11 +715,29 @@
             </button>
 
             <ul class="nav-menu" id="nav-menu">
-                <li><a href="index.html#home" class="nav-link">Home</a></li>
-                <li><a href="index.html#services" class="nav-link">Services</a></li>
-                <li><a href="index.html#about" class="nav-link">About Us</a></li>
-                <li><a href="contact.html" class="nav-link active">Contact</a></li>
-                <li><a href="contact.html" class="btn-nav-cta"><i class="fa-solid fa-paper-plane"></i> Request Quote</a></li>
+                <li><a href="index.html#home" class="nav-link" data-i18n="nav_home">Home</a></li>
+                <li><a href="index.html#services" class="nav-link" data-i18n="nav_services">Services</a></li>
+                <li><a href="index.html#about" class="nav-link" data-i18n="nav_about">About Us</a></li>
+                <li><a href="contact.html" class="nav-link active" data-i18n="nav_contact">Contact</a></li>
+                <li><a href="contact.html" class="btn-nav-cta" data-i18n="nav_quote"><i class="fa-solid fa-paper-plane"></i> Request Quote</a></li>
+                <li class="lang-selector">
+                    <button class="lang-btn" id="lang-btn" aria-label="Select Language">
+                        <span class="lang-flag" id="current-flag">🇬🇧</span>
+                        <span class="lang-code" id="current-lang">EN</span>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem; transition: transform 0.3s ease;"></i>
+                    </button>
+                    <div class="lang-dropdown" id="lang-dropdown">
+                        <button class="lang-option active" data-lang="en">
+                            <span class="lang-flag">🇬🇧</span> English (EN)
+                        </button>
+                        <button class="lang-option" data-lang="ar">
+                            <span class="lang-flag">🇸🇦</span> العربية (AR)
+                        </button>
+                        <button class="lang-option" data-lang="bg">
+                            <span class="lang-flag">🇧🇬</span> Български (BG)
+                        </button>
+                    </div>
+                </li>
             </ul>
         </div>
     </header>
@@ -650,9 +745,9 @@
     <main class="container">
         <!-- Contact Hero Header -->
         <section class="contact-hero">
-            <div class="badge"><i class="fa-solid fa-calculator"></i> Quote & Inquiry</div>
-            <h1>Request a Personalized <span class="text-gradient">BWTS Quote</span></h1>
-            <p>Fill out the form below with your vessel details or service requirement, and our marine engineering specialists will reply within 24 hours.</p>
+            <div class="badge" data-i18n="hero_badge"><i class="fa-solid fa-calculator"></i> Quote & Inquiry</div>
+            <h1 data-i18n="hero_title">Request a Personalized <span class="text-gradient">BWTS Quote</span></h1>
+            <p data-i18n="hero_desc">Fill out the form below with your vessel details or service requirement, and our marine engineering specialists will reply within 24 hours.</p>
         </section>
 
         <!-- 2-Column Contact & Form Grid -->
@@ -660,15 +755,15 @@
             <!-- Sidebar Info -->
             <div class="contact-info-card">
                 <div class="contact-info-header">
-                    <h3>Get In Touch</h3>
-                    <p>Direct communication channels for urgent support & technical inquiries.</p>
+                    <h3 data-i18n="sidebar_title">Get In Touch</h3>
+                    <p data-i18n="sidebar_subtitle">Direct communication channels for urgent support & technical inquiries.</p>
                 </div>
 
                 <div class="info-list">
                     <div class="info-item">
                         <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
                         <div class="info-text">
-                            <span>Email Us</span>
+                            <span data-i18n="sidebar_email">Email Us</span>
                             <a href="mailto:marine-services@mozuk.net">marine-services@mozuk.net</a>
                         </div>
                     </div>
@@ -676,7 +771,7 @@
                     <div class="info-item">
                         <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
                         <div class="info-text">
-                            <span>Direct Line / WhatsApp</span>
+                            <span data-i18n="sidebar_phone">Direct Line / WhatsApp</span>
                             <a href="tel:+96179083906" style="white-space: nowrap;">+961 79 083 906</a>
                         </div>
                     </div>
@@ -684,15 +779,15 @@
                     <div class="info-item">
                         <div class="info-icon"><i class="fa-solid fa-clock"></i></div>
                         <div class="info-text">
-                            <span>Response Time</span>
-                            <strong>Within 24 Hours (24/7 Hotline)</strong>
+                            <span data-i18n="sidebar_response">Response Time</span>
+                            <strong data-i18n="sidebar_response_val">Within 24 Hours (24/7 Hotline)</strong>
                         </div>
                     </div>
                 </div>
 
                 <div class="reassurance-box">
                     <i class="fa-solid fa-shield-halved"></i>
-                    <p>Our engineers are certified across leading BWTS brands and fully aligned with IMO D-2 and USCG regulations.</p>
+                    <p data-i18n="sidebar_reassurance">Our engineers are certified across leading BWTS brands and fully aligned with IMO D-2 and USCG regulations.</p>
                 </div>
             </div>
 
@@ -703,70 +798,70 @@
                 <form action="https://formspree.io/f/xrenkonk" method="POST" id="quote-form">
                     <input type="hidden" name="_replyto" id="replyto-email">
 
-                    <div class="form-section-title">
+                    <div class="form-section-title" data-i18n="form_sec_contact">
                         <i class="fa-solid fa-user"></i> Contact Details
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="name">Full Name *</label>
+                            <label for="name" data-i18n="label_name">Full Name *</label>
                             <input type="text" id="name" name="name" class="form-control" required placeholder="John Doe">
                         </div>
                         <div class="form-group">
-                            <label for="phone">Phone Number *</label>
+                            <label for="phone" data-i18n="label_phone">Phone Number *</label>
                             <input type="text" id="phone" name="phone" class="form-control" required placeholder="+961 79 083 906">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="email">Email Address *</label>
+                            <label for="email" data-i18n="label_email">Email Address *</label>
                             <input type="email" id="email" name="email" class="form-control" required placeholder="john@company.com">
                         </div>
                         <div class="form-group">
-                            <label for="company">Company Name</label>
+                            <label for="company" data-i18n="label_company">Company Name</label>
                             <input type="text" id="company" name="company" class="form-control" placeholder="Maritime Shipping Ltd">
                         </div>
                     </div>
 
-                    <div class="form-section-title" style="margin-top: 1rem;">
+                    <div class="form-section-title" style="margin-top: 1rem;" data-i18n="form_sec_vessel">
                         <i class="fa-solid fa-ship"></i> Vessel & System Specifications
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="ship-name">Ship Name</label>
+                            <label for="ship-name" data-i18n="label_ship">Ship Name</label>
                             <input type="text" id="ship-name" name="ship-name" class="form-control" placeholder="M/V Ocean Star">
                         </div>
                         <div class="form-group">
-                            <label for="imo">IMO Number</label>
+                            <label for="imo" data-i18n="label_imo">IMO Number</label>
                             <input type="text" id="imo" name="imo" class="form-control" placeholder="IMO 9876543">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="bwts-model">BWTS Model</label>
+                            <label for="bwts-model" data-i18n="label_model">BWTS Model</label>
                             <input type="text" id="bwts-model" name="bwts-model" class="form-control" placeholder="e.g. Alfa Laval / Techcross">
                         </div>
                         <div class="form-group">
-                            <label for="bwts-size">Capacity / Size</label>
+                            <label for="bwts-size" data-i18n="label_size">Capacity / Size</label>
                             <input type="text" id="bwts-size" name="bwts-size" class="form-control" placeholder="e.g. 500 m³/h">
                         </div>
                     </div>
 
-                    <div class="form-section-title" style="margin-top: 1rem;">
+                    <div class="form-section-title" style="margin-top: 1rem;" data-i18n="form_sec_inquiry">
                         <i class="fa-solid fa-message"></i> Inquiry Request
                     </div>
                     <div class="form-group">
-                        <label for="subject">Subject</label>
+                        <label for="subject" data-i18n="label_subject">Subject</label>
                         <input type="text" id="subject" name="subject" class="form-control" placeholder="e.g. BWTS Retrofit Installation Quote">
                     </div>
 
                     <div class="form-group">
-                        <label for="message">Detailed Message *</label>
+                        <label for="message" data-i18n="label_message">Detailed Message *</label>
                         <textarea id="message" name="message" class="form-control" required placeholder="Please describe your technical requirement or vessel schedule..."></textarea>
                     </div>
 
-                    <button type="submit" class="btn-submit">
+                    <button type="submit" class="btn-submit" data-i18n="btn_submit">
                         <i class="fa-solid fa-paper-plane"></i> Submit Request
                     </button>
                 </form>
@@ -780,9 +875,9 @@
             <div class="popup-icon">
                 <i class="fa-solid fa-check"></i>
             </div>
-            <h2>Quote Request Sent!</h2>
-            <p>Thank you for reaching out to Mozuk Marine. Our engineering team has received your request and will contact you shortly.</p>
-            <a href="index.html" class="btn-submit" style="text-decoration: none;">
+            <h2 data-i18n="popup_title">Quote Request Sent!</h2>
+            <p data-i18n="popup_desc">Thank you for reaching out to Mozuk Marine. Our engineering team has received your request and will contact you shortly.</p>
+            <a href="index.html" class="btn-submit" style="text-decoration: none;" data-i18n="popup_btn">
                 Return to Homepage
             </a>
         </div>
@@ -946,6 +1041,172 @@
                 successPopup.style.display = 'none';
             }
         });
+
+        // 5. Multilingual Translation Engine (EN, AR, BG)
+        const i18nData = {
+            en: {
+                nav_home: "Home",
+                nav_services: "Services",
+                nav_about: "About Us",
+                nav_contact: "Contact",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> Request Quote',
+                hero_badge: '<i class="fa-solid fa-calculator"></i> Quote & Inquiry',
+                hero_title: 'Request a Personalized <span class="text-gradient">BWTS Quote</span>',
+                hero_desc: "Fill out the form below with your vessel details or service requirement, and our marine engineering specialists will reply within 24 hours.",
+                sidebar_title: "Get In Touch",
+                sidebar_subtitle: "Direct communication channels for urgent support & technical inquiries.",
+                sidebar_email: "Email Us",
+                sidebar_phone: "Direct Line / WhatsApp",
+                sidebar_response: "Response Time",
+                sidebar_response_val: "Within 24 Hours (24/7 Hotline)",
+                sidebar_reassurance: "Our engineers are certified across leading BWTS brands and fully aligned with IMO D-2 and USCG regulations.",
+                form_sec_contact: '<i class="fa-solid fa-user"></i> Contact Details',
+                label_name: "Full Name *",
+                label_phone: "Phone Number *",
+                label_email: "Email Address *",
+                label_company: "Company Name",
+                form_sec_vessel: '<i class="fa-solid fa-ship"></i> Vessel & System Specifications',
+                label_ship: "Ship Name",
+                label_imo: "IMO Number",
+                label_model: "BWTS Model",
+                label_size: "Capacity / Size",
+                form_sec_inquiry: '<i class="fa-solid fa-message"></i> Inquiry Request',
+                label_subject: "Subject",
+                label_message: "Detailed Message *",
+                btn_submit: '<i class="fa-solid fa-paper-plane"></i> Submit Request',
+                popup_title: "Quote Request Sent!",
+                popup_desc: "Thank you for reaching out to Mozuk Marine. Our engineering team has received your request and will contact you shortly.",
+                popup_btn: "Return to Homepage"
+            },
+            ar: {
+                nav_home: "الرئيسية",
+                nav_services: "الخدمات",
+                nav_about: "من نحن",
+                nav_contact: "تواصل معنا",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> طلب عرض سعر',
+                hero_badge: '<i class="fa-solid fa-calculator"></i> طلب عرض سعر واستفسار',
+                hero_title: 'طلب عرض سعر مخصص <span class="text-gradient">لأنظمة التوازن</span>',
+                hero_desc: "يرجى ملء النموذج أدناه بتفاصيل سفينتك أو الخدمة المطلوبة، وسيقوم متخصصو الهندسة البحرية بالرد عليك خلال 24 ساعة.",
+                sidebar_title: "تواصل معنا مباشرة",
+                sidebar_subtitle: "قنوات تواصل مباشرة للدعم الفني والاستفسارات العاجلة.",
+                sidebar_email: "البريد الإلكتروني",
+                sidebar_phone: "الخط المباشر / واتساب",
+                sidebar_response: "زمن الاستجابة",
+                sidebar_response_val: "خلال 24 ساعة (خط ساخن 24/7)",
+                sidebar_reassurance: "مهندسونا معتمدون عبر العلامات التجارية الرائدة وممتثلون بالكامل للوائح IMO D-2 و USCG.",
+                form_sec_contact: '<i class="fa-solid fa-user"></i> تفاصيل الاتصال',
+                label_name: "الاسم الكامل *",
+                label_phone: "رقم الهاتف *",
+                label_email: "عنوان البريد الإلكتروني *",
+                label_company: "اسم الشركة",
+                form_sec_vessel: '<i class="fa-solid fa-ship"></i> مواصفات السفينة والنظام',
+                label_ship: "اسم السفينة",
+                label_imo: "رقم IMO",
+                label_model: "طراز نظام BWTS",
+                label_size: "السعة / الحجم",
+                form_sec_inquiry: '<i class="fa-solid fa-message"></i> تفاصيل الطلب',
+                label_subject: "الموضوع",
+                label_message: "الرسالة التفصيلية *",
+                btn_submit: '<i class="fa-solid fa-paper-plane"></i> إرسال الطلب',
+                popup_title: "تم إرسال طلب عرض السعر!",
+                popup_desc: "شكراً لتواصلك مع موزوك مارين. استلم فريقنا الهندسي طلبك وسيتواصل معك في أقرب وقت.",
+                popup_btn: "العودة إلى الصفحة الرئيسية"
+            },
+            bg: {
+                nav_home: "Начало",
+                nav_services: "Услуги",
+                nav_about: "За нас",
+                nav_contact: "Контакти",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> Поискайте оферта',
+                hero_badge: '<i class="fa-solid fa-calculator"></i> Оферта и Запитване',
+                hero_title: 'Поискайте Индивидуална <span class="text-gradient">BWTS Оферта</span>',
+                hero_desc: "Попълнете формата по-долу с данните за вашия кораб или необходимата услуга, и нашите инженери ще ви отговорят в рамките на 24 часа.",
+                sidebar_title: "Свържете се с нас",
+                sidebar_subtitle: "Директни канали за комуникация за спешна поддръжка и запитвания.",
+                sidebar_email: "Изпратете имейл",
+                sidebar_phone: "Директен телефон / WhatsApp",
+                sidebar_response: "Време за реакция",
+                sidebar_response_val: "В рамките на 24 часа (24/7 гореща линия)",
+                sidebar_reassurance: "Нашите инженери са сертифицирани за основните марки BWTS и спазват регулациите на IMO D-2 и USCG.",
+                form_sec_contact: '<i class="fa-solid fa-user"></i> Данни за контакт',
+                label_name: "Пълно име *",
+                label_phone: "Телефонен номер *",
+                label_email: "Имейл адрес *",
+                label_company: "Име на фирмата",
+                form_sec_vessel: '<i class="fa-solid fa-ship"></i> Спецификации на кораба и системата',
+                label_ship: "Име на кораба",
+                label_imo: "IMO номер",
+                label_model: "Модел на BWTS",
+                label_size: "Капацитет / Размер",
+                form_sec_inquiry: '<i class="fa-solid fa-message"></i> Запитване',
+                label_subject: "Тема",
+                label_message: "Подробно съобщение *",
+                btn_submit: '<i class="fa-solid fa-paper-plane"></i> Изпратете запитването',
+                popup_title: "Запитването е изпратено!",
+                popup_desc: "Благодарим ви, че се свързахте с Мозук Марин. Нашият инженерен екип получи вашето запитване и ще се свърже с вас скоро.",
+                popup_btn: "Към началната страница"
+            }
+        };
+
+        function setLanguage(lang) {
+            if (!i18nData[lang]) lang = 'en';
+            localStorage.setItem('mozuk_lang', lang);
+
+            document.documentElement.setAttribute('lang', lang);
+            if (lang === 'ar') {
+                document.documentElement.setAttribute('dir', 'rtl');
+            } else {
+                document.documentElement.setAttribute('dir', 'ltr');
+            }
+
+            const flags = { en: '🇬🇧', ar: '🇸🇦', bg: '🇧🇬' };
+            const codes = { en: 'EN', ar: 'AR', bg: 'BG' };
+            const flagEl = document.getElementById('current-flag');
+            const codeEl = document.getElementById('current-lang');
+            if (flagEl) flagEl.textContent = flags[lang];
+            if (codeEl) codeEl.textContent = codes[lang];
+
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                if (opt.getAttribute('data-lang') === lang) {
+                    opt.classList.add('active');
+                } else {
+                    opt.classList.remove('active');
+                }
+            });
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18nData[lang] && i18nData[lang][key]) {
+                    el.innerHTML = i18nData[lang][key];
+                }
+            });
+        }
+
+        const langBtn = document.getElementById('lang-btn');
+        const langDropdown = document.getElementById('lang-dropdown');
+
+        if (langBtn && langDropdown) {
+            langBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                langDropdown.classList.toggle('active');
+            });
+
+            document.addEventListener('click', () => {
+                langDropdown.classList.remove('active');
+            });
+
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                opt.addEventListener('click', (e) => {
+                    const selectedLang = opt.getAttribute('data-lang');
+                    setLanguage(selectedLang);
+                    langDropdown.classList.remove('active');
+                });
+            });
+        }
+
+        // Initialize saved language
+        const savedLang = localStorage.getItem('mozuk_lang') || 'en';
+        setLanguage(savedLang);
     </script>
 </body>
 
