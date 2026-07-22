@@ -2419,11 +2419,16 @@
             history.scrollRestoration = 'manual';
         }
         window.scrollTo(0, 0);
-        window.addEventListener('load', () => {
+        window.addEventListener('DOMContentLoaded', () => {
             window.scrollTo(0, 0);
-            if (typeof updateScrollReveal === 'function') {
-                updateScrollReveal();
-            }
+        });
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+                if (typeof updateScrollReveal === 'function') {
+                    updateScrollReveal();
+                }
+            }, 100);
         });
 
         // 1.1 Scroll-reveal opacity control for bg-canvas and cover elements
