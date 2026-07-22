@@ -1203,12 +1203,12 @@
             ctx.stroke();
             ctx.setLineDash([]);
             
-            // BWTS / Pump Labels
+            // BWTS / Pump Labels (BWTS unit label moved up to centerline - 28 to avoid overlap with centerline - 22 pipe)
             ctx.fillStyle = 'rgba(0, 242, 254, 0.25)';
             ctx.font = '8px monospace';
             ctx.fillText('SEA INLET', seaChestX - 22, seaChestY + 23);
             ctx.fillText('BALLAST PUMP', pumpX + 18, pumpY + 3);
-            ctx.fillText('BWTS UNIT', bwtsX - 22, bwtsY - 20);
+            ctx.fillText('BWTS UNIT', bwtsX - 22, bwtsY - 28);
             ctx.fillText('OVERBOARD', overboardX - 20, overboardY + 14);
             
             // --- 4. Draw Piping Grid ---
@@ -1471,8 +1471,10 @@
             });
             
             // --- 5. Draw Valve Symbols ---
-            // Sea chest valve shifted down next to the pump level (Y = pumpY) to avoid collision
-            drawValveSymbol(seaChestX, pumpY, true, systemMode === 'ballast');
+            // Sea chest valve placed halfway between previous (centerline - 15) and current (pumpY)
+            const valveHalfwayY = (centerline - 15 + pumpY) / 2;
+            drawValveSymbol(seaChestX, valveHalfwayY, true, systemMode === 'ballast');
+            
             drawValveSymbol(overboardX, centerline - shipHeight * 0.18, true, systemMode === 'deballast');
             drawValveSymbol(headerX, shipY + 0.65 * shipHeight, true, systemMode === 'deballast');
             
