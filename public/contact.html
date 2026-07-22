@@ -919,11 +919,11 @@
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
         
-        // Track mouse position for interaction
+        // Track mouse position for fluid interaction
         const mouse = {
             x: null,
             y: null,
-            radius: 120 // Repulsion radius
+            radius: 150 // Influence radius
         };
         
         window.addEventListener('mousemove', (e) => {
@@ -941,41 +941,49 @@
             height = canvas.height = window.innerHeight;
         });
         
-        // --- Marine Elements Config ---
-        const BUBBLE_COUNT = Math.min(60, Math.floor((width * height) / 25000));
-        const PLANKTON_COUNT = Math.min(40, Math.floor((width * height) / 35000));
-        const bubbles = [];
-        const planktonList = [];
         let time = 0;
         
-        // --- Bubble Class ---
-        class Bubble {
+        // --- Fluid dynamics water particle flow ---
+        const PARTICLE_COUNT = Math.min(100, Math.floor((width * height) / 15000));
+        const waterParticles = [];
+        
+        class WaterParticle {
             constructor() {
                 this.reset();
-                this.y = Math.random() * height; // Start at random height initially
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
             }
             
             reset() {
                 this.x = Math.random() * width;
-                this.y = height + Math.random() * 50 + 10;
-                this.radius = Math.random() * 6 + 1.5; // Bubble size (1.5px to 7.5px)
-                this.speedY = Math.random() * 0.8 + 0.3; // Upward speed
-                this.wobbleSpeed = Math.random() * 0.02 + 0.005;
-                this.wobbleRange = Math.random() * 1.5 + 0.5;
-                this.wobbleOffset = Math.random() * Math.PI * 2;
-                this.alpha = Math.random() * 0.4 + 0.1;
-                this.targetAlpha = this.alpha;
-                this.color = 'rgba(0, 242, 254, '; // Cyan base
+                this.y = height + Math.random() * 20; // Flow up from bottom
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = -(Math.random() * 1.2 + 0.4); // Upward water current
+                this.life = Math.random() * 200 + 100;
+                this.maxLife = this.life;
+                this.history = [];
+                this.historyLength = Math.floor(Math.random() * 6) + 4; // Tail length
+                this.radius = Math.random() * 1.5 + 0.5;
+                this.alpha = Math.random() * 0.3 + 0.1;
+                this.color = Math.random() > 0.3 ? '0, 242, 254' : '0, 255, 195'; // Cyan or Neon Teal
             }
             
             update() {
-                // Move upward
-                this.y -= this.speedY;
+                // Save history for trail effect
+                this.history.push({ x: this.x, y: this.y });
+                if (this.history.length > this.historyLength) {
+                    this.history.shift();
+                }
                 
-                // Sway (wobble) horizontally like a real rising bubble
-                this.x += Math.sin(time * this.wobbleSpeed + this.wobbleOffset) * (this.wobbleRange * 0.2);
+                // Fluid Vector Flow Field base forces
+                // Creates a natural wavy current flow
+                const waveForceX = Math.sin(this.y * 0.005 + time * 0.01) * 0.3;
+                const waveForceY = Math.cos(this.x * 0.005 + time * 0.008) * 0.1;
                 
-                // Mouse repulsion interaction
+                this.vx += waveForceX;
+                this.vy += waveForceY;
+                
+                // Mouse Interaction: Vortex/Whirlpool effect around mouse
                 if (mouse.x !== null && mouse.y !== null) {
                     const dx = this.x - mouse.x;
                     const dy = this.y - mouse.y;
@@ -983,121 +991,200 @@
                     
                     if (distance < mouse.radius) {
                         const force = (mouse.radius - distance) / mouse.radius;
-                        const angle = Math.atan2(dy, dx);
-                        const pushX = Math.cos(angle) * force * 3;
-                        const pushY = Math.sin(angle) * force * 1.5;
                         
-                        this.x += pushX;
-                        this.y += pushY;
+                        // Perpendicular tangent vector for swirl (vortex)
+                        const angle = Math.atan2(dy, dx);
+                        const swirlSpeed = 2.5;
+                        const tx = -Math.sin(angle) * swirlSpeed;
+                        const ty = Math.cos(angle) * swirlSpeed;
+                        
+                        // Pull particle slightly inwards while swirling
+                        const pullStrength = 0.5;
+                        const px = -Math.cos(angle) * pullStrength;
+                        const py = -Math.sin(angle) * pullStrength;
+                        
+                        // Combine base velocity with vortex velocity
+                        this.vx += (tx + px) * force;
+                        this.vy += (ty + py) * force;
                     }
                 }
                 
-                // Fade out as it gets closer to top
-                if (this.y < 100) {
-                    this.alpha = (this.y / 100) * this.targetAlpha;
-                }
+                // Apply drag to keep motion smooth
+                this.vx *= 0.96;
+                this.vy *= 0.96;
                 
-                // Reset if it goes off screen top or sides
-                if (this.y < -10 || this.x < -10 || this.x > width + 10) {
+                // Update position
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // Age particle
+                this.life--;
+                
+                // Boundaries or life reset
+                if (this.life <= 0 || this.y < -10 || this.x < -10 || this.x > width + 10) {
                     this.reset();
                 }
             }
             
             draw() {
+                if (this.history.length < 2) return;
+                
+                // Draw water stream line (tail)
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.moveTo(this.history[0].x, this.history[0].y);
                 
-                // Bubble gradient fill for 3D sphere look
-                const gradient = ctx.createRadialGradient(
-                    this.x - this.radius * 0.3, 
-                    this.y - this.radius * 0.3, 
-                    this.radius * 0.1, 
-                    this.x, 
-                    this.y, 
-                    this.radius
-                );
+                for (let i = 1; i < this.history.length; i++) {
+                    ctx.lineTo(this.history[i].x, this.history[i].y);
+                }
                 
-                gradient.addColorStop(0, `rgba(255, 255, 255, ${this.alpha * 0.95})`);
-                gradient.addColorStop(0.3, `${this.color}${this.alpha * 0.4})`);
-                gradient.addColorStop(1, `${this.color}${this.alpha * 0.05})`);
+                const ratio = this.life / this.maxLife;
+                const finalAlpha = this.alpha * (ratio > 0.2 ? 1 : ratio / 0.2);
                 
-                ctx.fillStyle = gradient;
-                
-                // Accent border/outline glow
-                ctx.strokeStyle = `rgba(0, 242, 254, ${this.alpha * 0.5})`;
-                ctx.lineWidth = 0.5;
+                ctx.strokeStyle = `rgba(${this.color}, ${finalAlpha})`;
+                ctx.lineWidth = this.radius;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
                 ctx.stroke();
-                ctx.fill();
             }
         }
         
-        // --- Bioluminescent Plankton Class ---
-        class Plankton {
-            constructor() {
-                this.reset();
-                this.y = Math.random() * height;
-            }
+        // Populate particles
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            waterParticles.push(new WaterParticle());
+        }
+        
+        // --- Marine Sonar Navigation Grid ---
+        const sonar = {
+            centerX: width * 0.85,
+            centerY: height * 0.45,
+            maxRadius: Math.min(220, width * 0.25),
+            sweepAngle: 0,
+            sweepSpeed: 0.008,
+            blips: [
+                { angle: 0.8, distance: 0.6, size: 4, alpha: 0, active: false },
+                { angle: 2.3, distance: 0.4, size: 3, alpha: 0, active: false },
+                { angle: 4.1, distance: 0.75, size: 5, alpha: 0, active: false },
+                { angle: 5.5, distance: 0.3, size: 3.5, alpha: 0, active: false }
+            ]
+        };
+        
+        function updateSonar() {
+            // Update sweep angle
+            sonar.centerX = width * 0.85;
+            sonar.centerY = height * 0.45;
+            sonar.maxRadius = Math.min(220, width * 0.25);
             
-            reset() {
-                this.x = Math.random() * width;
-                this.y = height + Math.random() * 20;
-                this.radius = Math.random() * 1.2 + 0.3; // Tiny size (0.3px to 1.5px)
-                this.speedX = (Math.random() - 0.5) * 0.2;
-                this.speedY = Math.random() * 0.15 + 0.05; // Very slow drift upward
-                this.alpha = Math.random() * 0.6 + 0.1;
-                this.glow = Math.random() * 8 + 4;
-            }
+            sonar.sweepAngle = (sonar.sweepAngle + sonar.sweepSpeed) % (Math.PI * 2);
             
-            update() {
-                this.x += this.speedX + Math.sin(time * 0.01 + this.x * 0.001) * 0.05;
-                this.y -= this.speedY;
-                
-                // Slow breathing alpha effect
-                this.alpha += Math.sin(time * 0.02 + this.x) * 0.005;
-                if (this.alpha < 0.05) this.alpha = 0.05;
-                if (this.alpha > 0.8) this.alpha = 0.8;
-                
-                // Reset if off screen
-                if (this.y < -10 || this.x < -10 || this.x > width + 10) {
-                    this.reset();
+            // Check blips collision with sweep line
+            sonar.blips.forEach(blip => {
+                // If blip is close to current sweep angle, trigger ping
+                const angleDiff = Math.abs(sonar.sweepAngle - blip.angle);
+                if (angleDiff < 0.05 && !blip.active) {
+                    blip.alpha = 1.0;
+                    blip.active = true;
                 }
+                
+                // Fade out blip
+                if (blip.alpha > 0) {
+                    blip.alpha -= 0.008;
+                } else {
+                    blip.active = false;
+                }
+            });
+        }
+        
+        function drawSonar() {
+            if (width < 600) return; // Hide on mobile for better performance & spacing
+            
+            ctx.save();
+            ctx.translate(sonar.centerX, sonar.centerY);
+            
+            // Draw Concentric Rings
+            ctx.strokeStyle = 'rgba(0, 242, 254, 0.05)';
+            ctx.lineWidth = 1;
+            
+            const ringSteps = 4;
+            for (let i = 1; i <= ringSteps; i++) {
+                ctx.beginPath();
+                ctx.arc(0, 0, (sonar.maxRadius / ringSteps) * i, 0, Math.PI * 2);
+                ctx.stroke();
             }
             
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(0, 255, 195, ${this.alpha})`; // Accent color (#00ffc3)
-                
-                // Soft glow
-                ctx.shadowBlur = this.glow;
-                ctx.shadowColor = '#00ffc3';
-                ctx.fill();
-                ctx.shadowBlur = 0; // Reset shadow for other drawings
+            // Draw Crosshairs
+            ctx.beginPath();
+            ctx.moveTo(-sonar.maxRadius, 0);
+            ctx.lineTo(sonar.maxRadius, 0);
+            ctx.moveTo(0, -sonar.maxRadius);
+            ctx.lineTo(0, sonar.maxRadius);
+            ctx.stroke();
+            
+            // Draw Radar Sweep Area (fade trail)
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            
+            // Draw trailing wedge
+            const trailResolution = 40;
+            for (let i = 0; i <= trailResolution; i++) {
+                const angle = sonar.sweepAngle - (i * 0.015);
+                const rx = Math.cos(angle) * sonar.maxRadius;
+                const ry = Math.sin(angle) * sonar.maxRadius;
+                ctx.lineTo(rx, ry);
             }
+            ctx.closePath();
+            
+            // Sweep trail gradient
+            const sweepGradient = ctx.createRadialGradient(0, 0, 10, 0, 0, sonar.maxRadius);
+            sweepGradient.addColorStop(0, 'rgba(0, 242, 254, 0.06)');
+            sweepGradient.addColorStop(1, 'rgba(0, 242, 254, 0.005)');
+            ctx.fillStyle = sweepGradient;
+            ctx.fill();
+            
+            // Draw Sweep Line
+            const sweepX = Math.cos(sonar.sweepAngle) * sonar.maxRadius;
+            const sweepY = Math.sin(sonar.sweepAngle) * sonar.maxRadius;
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(sweepX, sweepY);
+            ctx.strokeStyle = 'rgba(0, 242, 254, 0.25)';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            
+            // Draw Blips (Detected Ships/Signals)
+            sonar.blips.forEach(blip => {
+                if (blip.alpha > 0) {
+                    const bx = Math.cos(blip.angle) * (sonar.maxRadius * blip.distance);
+                    const by = Math.sin(blip.angle) * (sonar.maxRadius * blip.distance);
+                    
+                    // Glow effect
+                    ctx.beginPath();
+                    ctx.arc(bx, by, blip.size * 2.5, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(0, 255, 195, ${blip.alpha * 0.15})`;
+                    ctx.fill();
+                    
+                    // Signal core
+                    ctx.beginPath();
+                    ctx.arc(bx, by, blip.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(0, 255, 195, ${blip.alpha})`;
+                    ctx.fill();
+                }
+            });
+            
+            ctx.restore();
         }
         
-        // Initialize elements
-        for (let i = 0; i < BUBBLE_COUNT; i++) {
-            bubbles.push(new Bubble());
-        }
-        for (let i = 0; i < PLANKTON_COUNT; i++) {
-            planktonList.push(new Plankton());
-        }
-        
-        // --- Draw Swaying Undersea Sun Rays (Light Shafts) ---
+        // --- Undersea Sunlight Caustic Rays ---
         function drawSunRays() {
-            const rayCount = 4;
-            const rayWidth = width * 0.15;
+            const rayCount = 3;
+            const rayWidth = width * 0.25;
             
             for (let i = 0; i < rayCount; i++) {
-                // Low-frequency oscillation for sway
-                const angleOffset = Math.sin(time * 0.002 + i * 1.5) * 0.08;
-                const startX = width * (0.2 + i * 0.2) + Math.sin(time * 0.001 + i) * 50;
+                const angleOffset = Math.sin(time * 0.0015 + i * 2.0) * 0.06;
+                const startX = width * (0.15 + i * 0.3) + Math.sin(time * 0.0008 + i) * 60;
                 
                 ctx.beginPath();
                 ctx.moveTo(startX, -50);
                 
-                // Project rays downward diagonally/swaying
                 const endX1 = startX - rayWidth + Math.sin(angleOffset) * height;
                 const endX2 = startX + rayWidth + Math.sin(angleOffset) * height;
                 
@@ -1105,10 +1192,9 @@
                 ctx.lineTo(endX2, height);
                 ctx.closePath();
                 
-                // Light ray gradient
                 const gradient = ctx.createLinearGradient(startX, 0, (endX1 + endX2) / 2, height);
-                gradient.addColorStop(0, `rgba(0, 242, 254, ${0.04 + Math.sin(time * 0.003 + i) * 0.01})`);
-                gradient.addColorStop(0.5, `rgba(58, 123, 213, 0.015)`);
+                gradient.addColorStop(0, `rgba(0, 242, 254, ${0.06 + Math.sin(time * 0.002 + i) * 0.02})`);
+                gradient.addColorStop(0.6, `rgba(58, 123, 213, 0.015)`);
                 gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
                 
                 ctx.fillStyle = gradient;
@@ -1116,31 +1202,36 @@
             }
         }
         
-        // --- Draw Ocean Current Waves ---
-        function drawCurrents() {
-            ctx.strokeStyle = 'rgba(0, 242, 254, 0.03)';
-            ctx.lineWidth = 1.5;
+        // --- Layered Ocean Waves (Sea Water Depth) ---
+        function drawSeaWaves() {
+            const waveLayers = [
+                { freq: 0.003, speed: 0.008, amp: 22, heightOffset: 120, color: 'rgba(0, 242, 254, 0.04)' },
+                { freq: 0.002, speed: -0.006, amp: 28, heightOffset: 80, color: 'rgba(58, 123, 213, 0.035)' },
+                { freq: 0.0015, speed: 0.004, amp: 35, heightOffset: 40, color: 'rgba(0, 255, 195, 0.03)' }
+            ];
             
-            // Draw 2 layered slow-moving current lines
-            for (let layer = 0; layer < 2; layer++) {
+            waveLayers.forEach((wave, idx) => {
                 ctx.beginPath();
-                const offset = layer * 300;
-                const waveFreq = 0.002;
+                ctx.moveTo(0, height);
                 
-                for (let x = 0; x <= width; x += 20) {
-                    // Sine-wave calculation for flowing current
-                    const y = height * (0.4 + layer * 0.25) + 
-                              Math.sin(x * waveFreq + time * 0.005 + offset) * 40 +
-                              Math.cos(x * 0.001 - time * 0.002) * 20;
-                    
-                    if (x === 0) {
-                        ctx.moveTo(x, y);
-                    } else {
-                        ctx.lineTo(x, y);
-                    }
+                for (let x = 0; x <= width; x += 15) {
+                    const y = height - wave.heightOffset + 
+                              Math.sin(x * wave.freq + time * wave.speed + idx) * wave.amp +
+                              Math.cos(x * 0.0005 - time * 0.002) * 10;
+                    ctx.lineTo(x, y);
                 }
-                ctx.stroke();
-            }
+                
+                ctx.lineTo(width, height);
+                ctx.closePath();
+                
+                // Vertical gradient for wave depth
+                const waveGradient = ctx.createLinearGradient(0, height - wave.heightOffset - wave.amp, 0, height);
+                waveGradient.addColorStop(0, wave.color);
+                waveGradient.addColorStop(1, 'rgba(5, 11, 20, 0)');
+                
+                ctx.fillStyle = waveGradient;
+                ctx.fill();
+            });
         }
         
         // --- Main Animation Loop ---
@@ -1150,23 +1241,21 @@
             // Clear canvas
             ctx.clearRect(0, 0, width, height);
             
-            // 1. Draw light rays first (background-most)
+            // 1. Draw sun rays (deep background)
             drawSunRays();
             
-            // 2. Draw currents
-            drawCurrents();
+            // 2. Update & Draw Sonar radar grid
+            updateSonar();
+            drawSonar();
             
-            // 3. Update & Draw Plankton
-            planktonList.forEach(plankton => {
-                plankton.update();
-                plankton.draw();
+            // 3. Update & Draw Fluid Water Flow Particles
+            waterParticles.forEach(particle => {
+                particle.update();
+                particle.draw();
             });
             
-            // 4. Update & Draw Bubbles (drawn over rays & currents)
-            bubbles.forEach(bubble => {
-                bubble.update();
-                bubble.draw();
-            });
+            // 4. Draw Layered Sea Waves at bottom
+            drawSeaWaves();
             
             requestAnimationFrame(animate);
         }
