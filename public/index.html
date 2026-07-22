@@ -1589,18 +1589,18 @@
 
     <!-- JavaScript Interactions & Animations -->
     <script>
-        // 1. Interactive Marine-Themed Animated Canvas Background
+        // 1. Interactive Marine Engineering Blueprint Background
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
         
-        // Track mouse position for fluid interaction
+        // Track mouse position for engineering interactions
         const mouse = {
             x: null,
             y: null,
-            radius: 150 // Influence radius
+            radius: 180 // Influence radius for electrical arcs
         };
         
         window.addEventListener('mousemove', (e) => {
@@ -1620,122 +1620,400 @@
         
         let time = 0;
         
-        // --- Fluid dynamics water particle flow ---
-        const PARTICLE_COUNT = Math.min(100, Math.floor((width * height) / 15000));
-        const waterParticles = [];
-        
-        class WaterParticle {
-            constructor() {
-                this.reset();
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-            }
-            
-            reset() {
-                this.x = Math.random() * width;
-                this.y = height + Math.random() * 20; // Flow up from bottom
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = -(Math.random() * 1.2 + 0.4); // Upward water current
-                this.life = Math.random() * 200 + 100;
-                this.maxLife = this.life;
-                this.history = [];
-                this.historyLength = Math.floor(Math.random() * 6) + 4; // Tail length
-                this.radius = Math.random() * 1.5 + 0.5;
-                this.alpha = Math.random() * 0.3 + 0.1;
-                this.color = Math.random() > 0.3 ? '0, 242, 254' : '0, 255, 195'; // Cyan or Neon Teal
-            }
-            
+        // --- 1. Vessel Hull and Ballast Tanks Blueprint (BWTS visual representation) ---
+        const hull = {
+            width: 0,
+            height: 0,
+            x: 0,
+            y: 0,
             update() {
-                // Save history for trail effect
-                this.history.push({ x: this.x, y: this.y });
-                if (this.history.length > this.historyLength) {
-                    this.history.shift();
+                this.width = Math.min(width * 0.6, 650);
+                this.height = this.width * 0.22;
+                this.x = (width - this.width) / 2;
+                this.y = height - this.height - 70;
+            },
+            draw() {
+                if (width < 768) return; // Hide hull blueprint on mobile to save space
+                
+                ctx.save();
+                ctx.strokeStyle = 'rgba(0, 242, 254, 0.08)';
+                ctx.lineWidth = 1;
+                ctx.setLineDash([4, 4]); // Tech blueprint grid lines
+                
+                // Draw grid lines behind hull
+                ctx.beginPath();
+                for (let i = 0; i <= this.width; i += 50) {
+                    ctx.moveTo(this.x + i, this.y - 20);
+                    ctx.lineTo(this.x + i, this.y + this.height + 20);
+                }
+                for (let j = 0; j <= this.height; j += 30) {
+                    ctx.moveTo(this.x - 20, this.y + j);
+                    ctx.lineTo(this.x + this.width + 20, this.y + j);
+                }
+                ctx.stroke();
+                
+                // Solid blueprint line
+                ctx.setLineDash([]);
+                ctx.strokeStyle = 'rgba(0, 242, 254, 0.15)';
+                ctx.lineWidth = 1.5;
+                
+                // Draw Ship Hull Outline (Cross section)
+                ctx.beginPath();
+                // Stern
+                ctx.moveTo(this.x, this.y + this.height * 0.2);
+                ctx.lineTo(this.x + this.width * 0.05, this.y + this.height);
+                // Bottom
+                ctx.lineTo(this.x + this.width * 0.85, this.y + this.height);
+                // Bow
+                ctx.quadraticCurveTo(this.x + this.width * 0.98, this.y + this.height * 0.9, this.x + this.width, this.y + this.height * 0.1);
+                // Deck
+                ctx.lineTo(this.x, this.y + this.height * 0.1);
+                ctx.closePath();
+                ctx.stroke();
+                
+                // Draw compartments / Ballast Tanks
+                const tankWidth = this.width * 0.2;
+                const tankHeight = this.height * 0.55;
+                const tankY = this.y + this.height * 0.4;
+                
+                const tanks = [
+                    { name: 'BALLAST AFT (P)', x: this.x + this.width * 0.1, val: 0 },
+                    { name: 'BALLAST MID-1 (S)', x: this.x + this.width * 0.35, val: 0 },
+                    { name: 'BALLAST MID-2 (P)', x: this.x + this.width * 0.58, val: 0 },
+                    { name: 'BALLAST FWD (S)', x: this.x + this.width * 0.8, val: 0 }
+                ];
+                
+                tanks.forEach((tank, idx) => {
+                    // Draw tank outline
+                    ctx.strokeStyle = 'rgba(0, 242, 254, 0.12)';
+                    ctx.strokeRect(tank.x, tankY, tankWidth, tankHeight);
+                    
+                    // Ballast water level calculation (oscillating to simulate pump flow)
+                    const fillLevel = Math.sin(time * 0.0015 + idx * 1.5) * 0.4 + 0.5; // range [0.1, 0.9]
+                    
+                    // Fill tank water
+                    ctx.fillStyle = 'rgba(0, 242, 254, 0.035)';
+                    const waterHeight = tankHeight * fillLevel;
+                    ctx.fillRect(tank.x + 1, tankY + tankHeight - waterHeight, tankWidth - 2, waterHeight - 1);
+                    
+                    // Draw digital indicator text
+                    ctx.fillStyle = 'rgba(0, 242, 254, 0.35)';
+                    ctx.font = '9px monospace';
+                    ctx.fillText(tank.name, tank.x, tankY - 6);
+                    ctx.fillText(`QTY: ${Math.round(fillLevel * 100)}%`, tank.x, tankY + tankHeight + 12);
+                });
+                
+                // Draw hull dimensions text
+                ctx.fillStyle = 'rgba(0, 242, 254, 0.2)';
+                ctx.font = '10px "Space Grotesk", sans-serif';
+                ctx.fillText('MOZUK BALANCING SCHEMATIC - BWTS SIMULATION v2.1', this.x + 10, this.y + 25);
+                ctx.restore();
+            }
+        };
+        
+        // --- 2. Piping & Ballast Pump Impeller (Reflecting BWTS) ---
+        const pump = {
+            x: 0,
+            y: 0,
+            radius: 45,
+            rotation: 0,
+            speed: 0.01,
+            targetSpeed: 0.01,
+            waterParticles: [],
+            update() {
+                // Position pump relative to the ship hull
+                this.x = width < 900 ? 80 : Math.max(100, (width - Math.min(width * 0.6, 650)) / 2 - 120);
+                this.y = height - 120;
+                
+                // Mouse interaction: speed up pump when hovered
+                if (mouse.x !== null && mouse.y !== null && Math.hypot(this.x - mouse.x, this.y - mouse.y) < 120) {
+                    this.targetSpeed = 0.08;
+                } else {
+                    this.targetSpeed = 0.012;
                 }
                 
-                // Fluid Vector Flow Field base forces
-                // Creates a natural wavy current flow
-                const waveForceX = Math.sin(this.y * 0.005 + time * 0.01) * 0.3;
-                const waveForceY = Math.cos(this.x * 0.005 + time * 0.008) * 0.1;
+                // Smooth transition of speed
+                this.speed += (this.targetSpeed - this.speed) * 0.05;
+                this.rotation += this.speed;
                 
-                this.vx += waveForceX;
-                this.vy += waveForceY;
+                // Spawn water flow particles running through pump
+                if (Math.random() < this.speed * 8 && this.waterParticles.length < 35) {
+                    this.waterParticles.push({
+                        stage: 0, // 0: inlet, 1: impeller, 2: outlet
+                        x: this.x - 70,
+                        y: this.y + 25,
+                        angle: 0,
+                        progress: 0,
+                        speed: Math.random() * 1.5 + 1.0,
+                        color: Math.random() > 0.4 ? 'rgba(0, 242, 254, ' : 'rgba(0, 255, 195, '
+                    });
+                }
                 
-                // Mouse Interaction: Vortex/Whirlpool effect around mouse
-                if (mouse.x !== null && mouse.y !== null) {
-                    const dx = this.x - mouse.x;
-                    const dy = this.y - mouse.y;
-                    const distance = Math.hypot(dx, dy);
+                this.waterParticles.forEach((p, idx) => {
+                    const localSpeed = p.speed * (this.speed / 0.01); // speed scales with impeller speed
                     
-                    if (distance < mouse.radius) {
-                        const force = (mouse.radius - distance) / mouse.radius;
-                        
-                        // Perpendicular tangent vector for swirl (vortex)
-                        const angle = Math.atan2(dy, dx);
-                        const swirlSpeed = 2.5;
-                        const tx = -Math.sin(angle) * swirlSpeed;
-                        const ty = Math.cos(angle) * swirlSpeed;
-                        
-                        // Pull particle slightly inwards while swirling
-                        const pullStrength = 0.5;
-                        const px = -Math.cos(angle) * pullStrength;
-                        const py = -Math.sin(angle) * pullStrength;
-                        
-                        // Combine base velocity with vortex velocity
-                        this.vx += (tx + px) * force;
-                        this.vy += (ty + py) * force;
+                    if (p.stage === 0) {
+                        // Flow horizontally into pump center
+                        p.x += localSpeed;
+                        if (p.x >= this.x) {
+                            p.stage = 1;
+                            p.angle = Math.random() * Math.PI * 2;
+                            p.progress = 0;
+                        }
+                    } else if (p.stage === 1) {
+                        // Swirl around in impeller
+                        p.progress += this.speed * 2;
+                        p.angle += this.speed * 2.5;
+                        const radius = this.radius * 0.6 * (0.2 + p.progress);
+                        p.x = this.x + Math.cos(p.angle) * radius;
+                        p.y = this.y + Math.sin(p.angle) * radius;
+                        if (p.progress >= 1) {
+                            p.stage = 2;
+                            p.x = this.x + 10;
+                            p.y = this.y - this.radius;
+                        }
+                    } else if (p.stage === 2) {
+                        // Flow upwards and rightwards out of pump to the ballast hull
+                        p.y -= localSpeed * 0.8;
+                        p.x += localSpeed * 0.6;
+                        if (p.y < height - 250) {
+                            this.waterParticles.splice(idx, 1);
+                        }
+                    }
+                });
+            },
+            draw() {
+                if (width < 600) return; // Hide pump on mobile
+                
+                ctx.save();
+                ctx.strokeStyle = 'rgba(0, 242, 254, 0.12)';
+                ctx.lineWidth = 1.5;
+                
+                // Draw Inlet Pipe (left to center)
+                ctx.beginPath();
+                ctx.moveTo(this.x - 80, this.y + 15);
+                ctx.lineTo(this.x - 20, this.y + 15);
+                ctx.moveTo(this.x - 80, this.y + 35);
+                ctx.lineTo(this.x - 20, this.y + 35);
+                ctx.stroke();
+                
+                // Draw Outlet Pipe (top to up-right)
+                ctx.beginPath();
+                ctx.moveTo(this.x + 5, this.y - this.radius);
+                ctx.lineTo(this.x + 5, this.y - this.radius - 50);
+                ctx.lineTo(this.x + 80, this.y - this.radius - 90);
+                ctx.moveTo(this.x + 25, this.y - this.radius + 15);
+                ctx.lineTo(this.x + 25, this.y - this.radius - 40);
+                ctx.lineTo(this.x + 95, this.y - this.radius - 80);
+                ctx.stroke();
+                
+                // Draw Pump Outer Casing
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.stroke();
+                
+                // Draw Impeller Blades (rotating)
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                
+                ctx.beginPath();
+                ctx.arc(0, 0, 10, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 242, 254, 0.15)';
+                ctx.fill();
+                ctx.stroke();
+                
+                // 6 Curved Blades
+                for (let i = 0; i < 6; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.quadraticCurveTo(
+                        Math.cos(i * Math.PI/3 + 0.3) * (this.radius * 0.5),
+                        Math.sin(i * Math.PI/3 + 0.3) * (this.radius * 0.5),
+                        Math.cos(i * Math.PI/3) * (this.radius * 0.85),
+                        Math.sin(i * Math.PI/3) * (this.radius * 0.85)
+                    );
+                    ctx.stroke();
+                }
+                ctx.restore();
+                
+                // Draw water flow particles
+                this.waterParticles.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+                    ctx.fillStyle = `${p.color}0.65)`;
+                    ctx.shadowBlur = 6;
+                    ctx.shadowColor = '#00f2fe';
+                    ctx.fill();
+                });
+                
+                // Pump labels
+                ctx.shadowBlur = 0;
+                ctx.fillStyle = 'rgba(0, 242, 254, 0.3)';
+                ctx.font = '9px monospace';
+                ctx.fillText('BWTS FILTRATION PUMP 01', this.x - 50, this.y + this.radius + 15);
+                ctx.fillText(`FLOW: ${Math.round(this.speed * 6000)} m³/h`, this.x - 40, this.y + this.radius + 27);
+                ctx.restore();
+            }
+        };
+        
+        // --- 3. Electrical Circuit Grid (Reflecting Electrical Services) ---
+        const circuit = {
+            nodes: [
+                { relX: 0.70, relY: 0.15, connected: [1, 2], name: 'PWR-MAIN' },
+                { relX: 0.86, relY: 0.12, connected: [0, 3], name: 'GEN-01' },
+                { relX: 0.75, relY: 0.28, connected: [0, 4, 5], name: 'DIST-PNL' },
+                { relX: 0.91, relY: 0.25, connected: [1, 5], name: 'AUX-SYS' },
+                { relX: 0.64, relY: 0.35, connected: [2, 6], name: 'PROP-CTRL' },
+                { relX: 0.81, relY: 0.40, connected: [2, 3, 7], name: 'NAV-SYS' },
+                { relX: 0.58, relY: 0.25, connected: [4], name: 'BAT-BANK' },
+                { relX: 0.88, relY: 0.48, connected: [5], name: 'SENS-NET' }
+            ],
+            pulses: [],
+            update() {
+                // Initialize pulses if empty
+                if (this.pulses.length === 0) {
+                    for (let i = 0; i < 10; i++) {
+                        const startNodeIdx = Math.floor(Math.random() * this.nodes.length);
+                        const node = this.nodes[startNodeIdx];
+                        const destNodeIdx = node.connected[Math.floor(Math.random() * node.connected.length)];
+                        this.pulses.push({
+                            currentNode: startNodeIdx,
+                            nextNode: destNodeIdx,
+                            progress: Math.random(),
+                            speed: Math.random() * 0.008 + 0.004
+                        });
                     }
                 }
                 
-                // Apply drag to keep motion smooth
-                this.vx *= 0.96;
-                this.vy *= 0.96;
-                
-                // Update position
-                this.x += this.vx;
-                this.y += this.vy;
-                
-                // Age particle
-                this.life--;
-                
-                // Boundaries or life reset
-                if (this.life <= 0 || this.y < -10 || this.x < -10 || this.x > width + 10) {
-                    this.reset();
-                }
-            }
-            
+                // Update pulses
+                this.pulses.forEach(p => {
+                    p.progress += p.speed;
+                    if (p.progress >= 1) {
+                        p.progress = 0;
+                        p.currentNode = p.nextNode;
+                        const node = this.nodes[p.currentNode];
+                        p.nextNode = node.connected[Math.floor(Math.random() * node.connected.length)];
+                        p.speed = Math.random() * 0.008 + 0.004;
+                    }
+                });
+            },
             draw() {
-                if (this.history.length < 2) return;
+                ctx.save();
+                ctx.lineWidth = 1;
                 
-                // Draw water stream line (tail)
-                ctx.beginPath();
-                ctx.moveTo(this.history[0].x, this.history[0].y);
+                // Draw Connection Wires
+                this.nodes.forEach(node => {
+                    const x1 = node.relX * width;
+                    const y1 = node.relY * height;
+                    
+                    node.connected.forEach(connIdx => {
+                        const target = this.nodes[connIdx];
+                        const x2 = target.relX * width;
+                        const y2 = target.relY * height;
+                        
+                        ctx.beginPath();
+                        ctx.moveTo(x1, y1);
+                        ctx.lineTo(x2, y2);
+                        ctx.strokeStyle = 'rgba(0, 242, 254, 0.04)';
+                        ctx.stroke();
+                    });
+                });
                 
-                for (let i = 1; i < this.history.length; i++) {
-                    ctx.lineTo(this.history[i].x, this.history[i].y);
-                }
+                // Draw flowing electric charges
+                this.pulses.forEach(p => {
+                    const start = this.nodes[p.currentNode];
+                    const end = this.nodes[p.nextNode];
+                    
+                    const startX = start.relX * width;
+                    const startY = start.relY * height;
+                    const endX = end.relX * width;
+                    const endY = end.relY * height;
+                    
+                    const px = startX + (endX - startX) * p.progress;
+                    const py = startY + (endY - startY) * p.progress;
+                    
+                    ctx.beginPath();
+                    ctx.arc(px, py, 2, 0, Math.PI * 2);
+                    ctx.fillStyle = '#00ffc3';
+                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = '#00ffc3';
+                    ctx.fill();
+                });
                 
-                const ratio = this.life / this.maxLife;
-                const finalAlpha = this.alpha * (ratio > 0.2 ? 1 : ratio / 0.2);
+                ctx.shadowBlur = 0; // Reset glow
                 
-                ctx.strokeStyle = `rgba(${this.color}, ${finalAlpha})`;
-                ctx.lineWidth = this.radius;
-                ctx.lineCap = 'round';
-                ctx.lineJoin = 'round';
-                ctx.stroke();
+                // Draw Nodes & Electrical Spark Interactions
+                this.nodes.forEach(node => {
+                    const nx = node.relX * width;
+                    const ny = node.relY * height;
+                    
+                    let isHovered = false;
+                    if (mouse.x !== null && mouse.y !== null) {
+                        const distToMouse = Math.hypot(nx - mouse.x, ny - mouse.y);
+                        if (distToMouse < 180) {
+                            isHovered = true;
+                            
+                            // Draw zigzag electrical arc (closed circuit simulation)
+                            ctx.beginPath();
+                            ctx.moveTo(mouse.x, mouse.y);
+                            
+                            const segments = 5;
+                            const dx = nx - mouse.x;
+                            const dy = ny - mouse.y;
+                            const dist = Math.hypot(dx, dy);
+                            
+                            for (let i = 1; i < segments; i++) {
+                                const t = i / segments;
+                                let ix = mouse.x + dx * t;
+                                let iy = mouse.y + dy * t;
+                                
+                                const disp = (Math.random() - 0.5) * (dist * 0.1);
+                                const angle = Math.atan2(dy, dx) + Math.PI / 2;
+                                ix += Math.cos(angle) * disp;
+                                iy += Math.sin(angle) * disp;
+                                
+                                ctx.lineTo(ix, iy);
+                            }
+                            
+                            ctx.lineTo(nx, ny);
+                            ctx.strokeStyle = 'rgba(0, 242, 254, 0.45)';
+                            ctx.lineWidth = Math.random() * 1.5 + 0.5;
+                            ctx.shadowBlur = 10;
+                            ctx.shadowColor = '#00f2fe';
+                            ctx.stroke();
+                        }
+                    }
+                    
+                    // Node dot outer ring
+                    ctx.beginPath();
+                    ctx.arc(nx, ny, 6, 0, Math.PI * 2);
+                    ctx.strokeStyle = isHovered ? '#00ffc3' : 'rgba(0, 242, 254, 0.18)';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                    
+                    // Node core
+                    ctx.beginPath();
+                    ctx.arc(nx, ny, 2.5, 0, Math.PI * 2);
+                    ctx.fillStyle = isHovered ? '#00ffc3' : 'rgba(0, 242, 254, 0.35)';
+                    ctx.fill();
+                    
+                    // Node label
+                    ctx.fillStyle = isHovered ? '#00ffc3' : 'rgba(0, 242, 254, 0.2)';
+                    ctx.font = '8px monospace';
+                    ctx.fillText(node.name, nx + 10, ny + 3);
+                });
+                
+                ctx.restore();
             }
-        }
+        };
         
-        // Populate particles
-        for (let i = 0; i < PARTICLE_COUNT; i++) {
-            waterParticles.push(new WaterParticle());
-        }
-        
-        // --- Layered Ocean Waves (Sea Water Depth) ---
+        // --- 4. Layered Ocean Waves (Sea Water Background) ---
         function drawSeaWaves() {
             const waveLayers = [
-                { freq: 0.003, speed: 0.008, amp: 22, heightOffset: 120, color: 'rgba(0, 242, 254, 0.04)' },
-                { freq: 0.002, speed: -0.006, amp: 28, heightOffset: 80, color: 'rgba(58, 123, 213, 0.035)' },
-                { freq: 0.0015, speed: 0.004, amp: 35, heightOffset: 40, color: 'rgba(0, 255, 195, 0.03)' }
+                { freq: 0.003, speed: 0.008, amp: 22, heightOffset: 120, color: 'rgba(0, 242, 254, 0.02)' },
+                { freq: 0.002, speed: -0.006, amp: 28, heightOffset: 80, color: 'rgba(58, 123, 213, 0.015)' },
+                { freq: 0.0015, speed: 0.004, amp: 35, heightOffset: 40, color: 'rgba(0, 255, 195, 0.01)' }
             ];
             
             waveLayers.forEach((wave, idx) => {
@@ -1752,7 +2030,6 @@
                 ctx.lineTo(width, height);
                 ctx.closePath();
                 
-                // Vertical gradient for wave depth
                 const waveGradient = ctx.createLinearGradient(0, height - wave.heightOffset - wave.amp, 0, height);
                 waveGradient.addColorStop(0, wave.color);
                 waveGradient.addColorStop(1, 'rgba(5, 11, 20, 0)');
@@ -1765,18 +2042,22 @@
         // --- Main Animation Loop ---
         function animate() {
             time++;
-            
-            // Clear canvas
             ctx.clearRect(0, 0, width, height);
             
-            // 1. Update & Draw Fluid Water Flow Particles
-            waterParticles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-            
-            // 2. Draw Layered Sea Waves at bottom
+            // 1. Draw subtle sea waves background
             drawSeaWaves();
+            
+            // 2. Update & Draw Ship Hull Blueprint
+            hull.update();
+            hull.draw();
+            
+            // 3. Update & Draw Ballast Pumping impeller system
+            pump.update();
+            pump.draw();
+            
+            // 4. Update & Draw Electrical System circuit grid
+            circuit.update();
+            circuit.draw();
             
             requestAnimationFrame(animate);
         }
