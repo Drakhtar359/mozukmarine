@@ -946,7 +946,6 @@
         let modeTimer = 600; // 10 seconds at 60fps
         
         // --- 1. Ballast Tanks Configuration (Top View relative percentages) ---
-        // Both Double Bottom (DB) tanks are removed. 8 tanks remain.
         const tanks = [
             { id: 'aft', name: 'Ballast Aft Peak', relX: 0.06, relY: 0.3, relW: 0.08, relH: 0.4, fill: 0.6, valveOpen: true },
             // Wing Tanks Port
@@ -957,7 +956,7 @@
             { id: 'wing_s1', name: 'Ballast Wing Tank 1S', relX: 0.38, relY: 0.73, relW: 0.12, relH: 0.11, fill: 0.3, valveOpen: false },
             { id: 'wing_s2', name: 'Ballast Wing Tank 2S', relX: 0.52, relY: 0.73, relW: 0.12, relH: 0.11, fill: 0.5, valveOpen: true },
             { id: 'wing_s3', name: 'Ballast Wing Tank 3S', relX: 0.66, relY: 0.73, relW: 0.12, relH: 0.11, fill: 0.7, valveOpen: false },
-            // FWD Peak Tank
+            // FWD Peak Tank (relX is 0.84, so left wall is at 0.84)
             { id: 'fwd', name: 'Ballast Fwd Peak', relX: 0.84, relY: 0.3, relW: 0.08, relH: 0.4, fill: 0.5, valveOpen: true }
         ];
         
@@ -1117,8 +1116,8 @@
             const hullHalfWidth = shipHeight * 0.35;
             
             // Component coordinates
-            // Sea Chest relocated to the Port side (top of diagram) to prevent overlap with suction crossover
-            const seaChestX = shipX + 0.22 * shipWidth;
+            // Sea Chest shifted to X = 0.20 to separate inlet and outlet pipes
+            const seaChestX = shipX + 0.20 * shipWidth;
             const seaChestY = centerline - hullHalfWidth;
             
             const pumpX = shipX + 0.22 * shipWidth;
@@ -1162,7 +1161,7 @@
             ctx.stroke();
             ctx.setLineDash([]);
             
-            // Draw Sea Chest inside the vessel walls on Port side (box extending down from hull wall)
+            // Draw Sea Chest inside the vessel walls on Port side
             ctx.strokeStyle = 'rgba(0, 242, 254, 0.22)';
             ctx.strokeRect(seaChestX - 8, seaChestY, 16, 12);
             ctx.fillStyle = 'rgba(0, 242, 254, 0.05)';
@@ -1217,10 +1216,11 @@
             ctx.strokeStyle = 'rgba(0, 242, 254, 0.15)';
             ctx.lineWidth = 1.5;
             
-            // Intake Pipe: Port Sea Chest -> Pump suction junction (running vertically down across centerline)
+            // Intake Pipe: Port Sea Chest -> goes vertically down at X=0.20 -> then turns to Pump suction junction
             ctx.beginPath();
             ctx.moveTo(seaChestX, seaChestY + 12);
             ctx.lineTo(seaChestX, shipY + 0.72 * shipHeight);
+            ctx.lineTo(pumpX, shipY + 0.72 * shipHeight);
             ctx.stroke();
             
             // Suction crossover line (used for de-ballasting suction from header to pump inlet)
@@ -1257,13 +1257,13 @@
             ctx.lineTo(shipX + 0.14 * shipWidth, centerline);
             ctx.stroke();
             
-            // Draw FWD Pipe / Centerline distribution main
+            // Draw FWD Pipe (extended to reach 0.84 * shipWidth)
             ctx.beginPath();
             ctx.moveTo(outX, outY);
-            ctx.lineTo(shipX + 0.82 * shipWidth, outY);
+            ctx.lineTo(shipX + 0.84 * shipWidth, outY);
             ctx.stroke();
             
-            // Draw Header vertical block (distribution junction block)
+            // Draw Header vertical block
             ctx.strokeStyle = 'rgba(0, 242, 254, 0.3)';
             ctx.lineWidth = 2.0;
             ctx.beginPath();
@@ -1273,7 +1273,7 @@
             ctx.lineWidth = 1.5;
             ctx.strokeStyle = 'rgba(0, 242, 254, 0.15)';
             
-            // Draw 6 dedicated parallel pipes along the centerline, branching to wing tanks
+            // Draw 6 dedicated parallel pipes along the centerline
             // Pipe 1 (Wing 1P): centerline - 15
             ctx.beginPath();
             ctx.moveTo(headerX, centerline - 15);
@@ -1343,7 +1343,7 @@
                             { x: pumpX, y: bwtsY },
                             { x: bwtsX - 22, y: bwtsY },
                             { x: outX, y: outY },
-                            { x: shipX + 0.82 * shipWidth, y: outY }
+                            { x: shipX + 0.84 * shipWidth, y: outY }
                         ];
                     } else if (tank.id.startsWith('wing_p')) {
                         let offsetVal = tank.id === 'wing_p1' ? 15 : tank.id === 'wing_p2' ? 10 : 5;
@@ -1400,7 +1400,7 @@
                     } else if (tank.id === 'fwd') {
                         pipePaths[tank.id] = [
                             tankStart,
-                            { x: shipX + 0.82 * shipWidth, y: outY },
+                            { x: shipX + 0.84 * shipWidth, y: outY },
                             { x: headerX, y: outY },
                             { x: headerX, y: shipY + 0.72 * shipHeight },
                             { x: pumpX, y: shipY + 0.72 * shipHeight },
@@ -1452,7 +1452,7 @@
             });
             
             // --- 5. Draw Valve Symbols ---
-            // Sea chest valve (only open in ballast mode, shifted up to Port side vertical run to avoid sea chest box)
+            // Sea chest valve (only open in ballast mode, positioned on the separate inlet pipe at X=0.20)
             drawValveSymbol(seaChestX, centerline - 15, true, systemMode === 'ballast');
             // Overboard valve (only open in de-ballast mode)
             drawValveSymbol(overboardX, centerline - shipHeight * 0.18, true, systemMode === 'deballast');
@@ -1584,8 +1584,8 @@
             
             ctx.fillStyle = '#00f2fe';
             ctx.font = '9px monospace';
-            const remainingSecs = (modeTimer / 60).toFixed(1);
-            ctx.fillText(`MODE: ${systemMode.toUpperCase()} (${remainingSecs}s)`, btnX + 12, btnY + 15);
+            // Mode counter text removed, displaying only the Mode name
+            ctx.fillText(`MODE: ${systemMode.toUpperCase()}`, btnX + 12, btnY + 15);
             ctx.restore();
             
             ctx.restore();
