@@ -1914,36 +1914,31 @@
             ctx.lineTo(bwtsX - 22, bwtsY);
             ctx.stroke();
             
-            // BWTS Outlet: top middle of BWTS rectangle (bwtsX, bwtsY - 15) -> goes up to centerline - 22
+            // BWTS Overboard Outlet: top middle of BWTS rectangle (bwtsX, bwtsY - 15) -> goes up to centerline - 22
             ctx.beginPath();
             ctx.moveTo(bwtsX, bwtsY - 15);
             ctx.lineTo(bwtsX, centerline - 22);
             ctx.stroke();
             
-            // Overboard Pipe: BWTS outlet main (centerline - 22) -> Overboard Discharge Point
-            const outX = bwtsX + 22;
-            const outY = bwtsY;
+            // BWTS Header Outlet: right side of BWTS (bwtsX + 22, centerline) -> goes horizontally to (headerX, centerline)
+            ctx.beginPath();
+            ctx.moveTo(bwtsX + 22, centerline);
+            ctx.lineTo(headerX, centerline);
+            ctx.stroke();
             
+            // Overboard Pipe: BWTS top outlet (centerline - 22) -> Overboard Discharge Point
             ctx.beginPath();
             ctx.moveTo(bwtsX, centerline - 22);
             ctx.lineTo(overboardX, centerline - 22);
             ctx.lineTo(overboardX, overboardY);
             ctx.stroke();
             
-            // Manifold pipes branching to each tank from BWTS outlet main (centerline - 22)
-            // Draw AFT Pipe path lines (bypassing BWTS unit by running horizontally at centerline - 22)
+            // AFT Peak Pipe: runs from BWTS top outlet (centerline - 22) -> AFT Peak tank
             ctx.beginPath();
             ctx.moveTo(bwtsX, centerline - 22);
             ctx.lineTo(shipX + 0.18 * shipWidth, centerline - 22);
             ctx.lineTo(shipX + 0.18 * shipWidth, centerline);
             ctx.lineTo(shipX + 0.14 * shipWidth, centerline);
-            ctx.stroke();
-            
-            // BWTS Outlet to Header line: runs from (bwtsX, centerline - 22) right to (headerX, centerline - 22) -> down to header block
-            ctx.beginPath();
-            ctx.moveTo(bwtsX, centerline - 22);
-            ctx.lineTo(headerX, centerline - 22);
-            ctx.lineTo(headerX, centerline);
             ctx.stroke();
             
             // Draw FWD Pipe from header at centerline
@@ -2007,6 +2002,7 @@
             
             // Pipe path coordinates for particles (based on systemMode)
             const pipePaths = {};
+            const outX = bwtsX + 22;
             
             tanks.forEach(tank => {
                 if (systemMode === 'ballast') {
@@ -2016,10 +2012,10 @@
                             { x: seaChestX, y: shipY + 0.72 * shipHeight },
                             { x: pumpX, y: shipY + 0.72 * shipHeight },
                             { x: pumpX, y: pumpY },
-                            { x: pumpX, y: bwtsY },
-                            { x: bwtsX - 22, y: bwtsY },
-                            { x: bwtsX, y: bwtsY },
-                            { x: bwtsX, y: bwtsY - 15 },
+                            { x: pumpX, y: centerline },
+                            { x: bwtsX - 22, y: centerline },
+                            { x: bwtsX, y: centerline },
+                            { x: bwtsX, y: centerline - 15 },
                             { x: bwtsX, y: centerline - 22 },
                             { x: shipX + 0.18 * shipWidth, y: centerline - 22 },
                             { x: shipX + 0.18 * shipWidth, y: centerline },
@@ -2031,12 +2027,9 @@
                             { x: seaChestX, y: shipY + 0.72 * shipHeight },
                             { x: pumpX, y: shipY + 0.72 * shipHeight },
                             { x: pumpX, y: pumpY },
-                            { x: pumpX, y: bwtsY },
-                            { x: bwtsX - 22, y: bwtsY },
-                            { x: bwtsX, y: bwtsY },
-                            { x: bwtsX, y: bwtsY - 15 },
-                            { x: bwtsX, y: centerline - 22 },
-                            { x: headerX, y: centerline - 22 },
+                            { x: pumpX, y: centerline },
+                            { x: bwtsX - 22, y: centerline },
+                            { x: outX, y: centerline },
                             { x: headerX, y: centerline },
                             { x: shipX + 0.84 * shipWidth, y: centerline }
                         ];
@@ -2048,12 +2041,9 @@
                             { x: seaChestX, y: shipY + 0.72 * shipHeight },
                             { x: pumpX, y: shipY + 0.72 * shipHeight },
                             { x: pumpX, y: pumpY },
-                            { x: pumpX, y: bwtsY },
-                            { x: bwtsX - 22, y: bwtsY },
-                            { x: bwtsX, y: bwtsY },
-                            { x: bwtsX, y: bwtsY - 15 },
-                            { x: bwtsX, y: centerline - 22 },
-                            { x: headerX, y: centerline - 22 },
+                            { x: pumpX, y: centerline },
+                            { x: bwtsX - 22, y: centerline },
+                            { x: outX, y: centerline },
                             { x: headerX, y: centerline },
                             { x: headerX, y: centerline - offsetVal },
                             { x: inletX, y: centerline - offsetVal },
@@ -2067,12 +2057,9 @@
                             { x: seaChestX, y: shipY + 0.72 * shipHeight },
                             { x: pumpX, y: shipY + 0.72 * shipHeight },
                             { x: pumpX, y: pumpY },
-                            { x: pumpX, y: bwtsY },
-                            { x: bwtsX - 22, y: bwtsY },
-                            { x: bwtsX, y: bwtsY },
-                            { x: bwtsX, y: bwtsY - 15 },
-                            { x: bwtsX, y: centerline - 22 },
-                            { x: headerX, y: centerline - 22 },
+                            { x: pumpX, y: centerline },
+                            { x: bwtsX - 22, y: centerline },
+                            { x: outX, y: centerline },
                             { x: headerX, y: centerline },
                             { x: headerX, y: centerline + offsetVal },
                             { x: inletX, y: centerline + offsetVal },
@@ -2089,16 +2076,16 @@
                             { x: shipX + 0.18 * shipWidth, y: centerline },
                             { x: shipX + 0.18 * shipWidth, y: centerline - 22 },
                             { x: bwtsX, y: centerline - 22 },
-                            { x: bwtsX, y: bwtsY - 15 },
-                            { x: bwtsX, y: bwtsY },
-                            { x: bwtsX - 22, y: bwtsY },
-                            { x: headerX, y: outY }, // runs backward to header
+                            { x: bwtsX, y: centerline - 15 },
+                            { x: bwtsX, y: centerline },
+                            { x: bwtsX - 22, y: centerline },
+                            { x: headerX, y: centerline }, // flows backward to header
                             { x: headerX, y: shipY + 0.72 * shipHeight },
                             { x: pumpX, y: shipY + 0.72 * shipHeight },
                             { x: pumpX, y: pumpY },
-                            { x: pumpX, y: outY },
-                            { x: bwtsX - 22, y: outY },
-                            { x: bwtsX, y: bwtsY - 15 },
+                            { x: pumpX, y: centerline },
+                            { x: bwtsX - 22, y: centerline },
+                            { x: bwtsX, y: centerline - 15 },
                             { x: bwtsX, y: centerline - 22 },
                             { x: overboardX, y: centerline - 22 },
                             { x: overboardX, y: overboardY }
@@ -2106,15 +2093,14 @@
                     } else if (tank.id === 'fwd') {
                         pipePaths[tank.id] = [
                             tankStart,
-                            { x: shipX + 0.84 * shipWidth, y: outY },
-                            { x: headerX, y: outY },
+                            { x: shipX + 0.84 * shipWidth, y: centerline },
+                            { x: headerX, y: centerline },
                             { x: headerX, y: shipY + 0.72 * shipHeight },
                             { x: pumpX, y: shipY + 0.72 * shipHeight },
                             { x: pumpX, y: pumpY },
-                            { x: pumpX, y: bwtsY },
-                            { x: bwtsX - 22, y: bwtsY },
-                            { x: bwtsX, y: bwtsY },
-                            { x: bwtsX, y: bwtsY - 15 },
+                            { x: pumpX, y: centerline },
+                            { x: bwtsX - 22, y: centerline },
+                            { x: bwtsX, y: centerline - 15 },
                             { x: bwtsX, y: centerline - 22 },
                             { x: overboardX, y: centerline - 22 },
                             { x: overboardX, y: overboardY }
@@ -2131,10 +2117,9 @@
                             { x: headerX, y: shipY + 0.72 * shipHeight },
                             { x: pumpX, y: shipY + 0.72 * shipHeight },
                             { x: pumpX, y: pumpY },
-                            { x: pumpX, y: bwtsY },
-                            { x: bwtsX - 22, y: bwtsY },
-                            { x: bwtsX, y: bwtsY },
-                            { x: bwtsX, y: bwtsY - 15 },
+                            { x: pumpX, y: centerline },
+                            { x: bwtsX - 22, y: centerline },
+                            { x: bwtsX, y: centerline - 15 },
                             { x: bwtsX, y: centerline - 22 },
                             { x: overboardX, y: centerline - 22 },
                             { x: overboardX, y: overboardY }
@@ -2151,10 +2136,9 @@
                             { x: headerX, y: shipY + 0.72 * shipHeight },
                             { x: pumpX, y: shipY + 0.72 * shipHeight },
                             { x: pumpX, y: pumpY },
-                            { x: pumpX, y: bwtsY },
-                            { x: bwtsX - 22, y: bwtsY },
-                            { x: bwtsX, y: bwtsY },
-                            { x: bwtsX, y: bwtsY - 15 },
+                            { x: pumpX, y: centerline },
+                            { x: bwtsX - 22, y: centerline },
+                            { x: bwtsX, y: centerline - 15 },
                             { x: bwtsX, y: centerline - 22 },
                             { x: overboardX, y: centerline - 22 },
                             { x: overboardX, y: overboardY }
@@ -2164,7 +2148,8 @@
             });
             
             // --- 5. Draw Valve Symbols ---
-            drawValveSymbol(seaChestX, centerline - 15, true, systemMode === 'ballast');
+            // Sea chest valve shifted down next to the pump level (Y = pumpY) to avoid collision
+            drawValveSymbol(seaChestX, pumpY, true, systemMode === 'ballast');
             drawValveSymbol(overboardX, centerline - shipHeight * 0.18, true, systemMode === 'deballast');
             drawValveSymbol(headerX, shipY + 0.65 * shipHeight, true, systemMode === 'deballast');
             
@@ -2204,7 +2189,7 @@
                 // Draw branch valves (AFT Peak valve removed as requested)
                 let vx, vy, vVert = false;
                 let drawValve = false;
-                if (tank.id === 'fwd') { vx = shipX + 0.80 * shipWidth; vy = outY; drawValve = true; }
+                if (tank.id === 'fwd') { vx = shipX + 0.80 * shipWidth; vy = centerline; drawValve = true; }
                 else if (tank.id === 'wing_p1') { vx = shipX + 0.40 * shipWidth; vy = shipY + 0.30 * shipHeight; vVert = true; drawValve = true; }
                 else if (tank.id === 'wing_p2') { vx = shipX + 0.54 * shipWidth; vy = shipY + 0.30 * shipHeight; vVert = true; drawValve = true; }
                 else if (tank.id === 'wing_p3') { vx = shipX + 0.68 * shipWidth; vy = shipY + 0.30 * shipHeight; vVert = true; drawValve = true; }
