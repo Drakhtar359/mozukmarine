@@ -1619,6 +1619,7 @@
         });
         
         let time = 0;
+        let systemMode = 'ballast'; // 'ballast' or 'deballast'
         
         // --- 1. Ballast Tanks Configuration (Top View relative percentages) ---
         const tanks = [
@@ -1638,7 +1639,7 @@
             { id: 'fwd', name: 'FWD PEAK', relX: 0.84, relY: 0.3, relW: 0.08, relH: 0.4, fill: 0.5, valveOpen: true }
         ];
         
-        // Handle tank valve toggling via canvas click
+        // Handle tank valve toggling and mode switching via canvas click
         canvas.addEventListener('click', (e) => {
             const rect = canvas.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
@@ -1653,6 +1654,14 @@
             }
             const shipX = (width - shipWidth) / 2;
             const shipY = (height - shipHeight) / 2;
+            
+            // Toggle Mode Button check
+            if (clickX >= shipX + 10 && clickX <= shipX + 150 &&
+                clickY >= shipY + 55 && clickY <= shipY + 77) {
+                systemMode = (systemMode === 'ballast') ? 'deballast' : 'ballast';
+                flowParticles.length = 0; // Reset active flow
+                return;
+            }
             
             tanks.forEach(tank => {
                 const tx = shipX + tank.relX * shipWidth;
@@ -1669,6 +1678,7 @@
         
         // --- 2. Water Flow Particles & Piping Paths ---
         const flowParticles = [];
+        const overboardSprays = [];
         
         class FlowParticle {
             constructor(path, color, targetTank) {
@@ -1703,8 +1713,23 @@
                     this.segment++;
                     this.progress = 0;
                     if (this.segment >= this.path.length - 1) {
-                        // Particle arrived! Increment tank level
-                        this.targetTank.fill = Math.min(1.0, this.targetTank.fill + 0.0035);
+                        // Particle arrived!
+                        if (systemMode === 'deballast') {
+                            this.targetTank.fill = Math.max(0.0, this.targetTank.fill - 0.0035);
+                            // Spawn overboard sprays
+                            for (let k = 0; k < 5; k++) {
+                                overboardSprays.push({
+                                    x: this.x,
+                                    y: this.y,
+                                    vx: -(Math.random() * 1.5 + 1.0),
+                                    vy: -(Math.random() * 0.8 + 0.2),
+                                    life: Math.random() * 20 + 10,
+                                    maxLife: 30
+                                });
+                            }
+                        } else {
+                            this.targetTank.fill = Math.min(1.0, this.targetTank.fill + 0.0035);
+                        }
                         return false;
                     }
                 }
@@ -1774,9 +1799,13 @@
             const shipY = (height - shipHeight) / 2;
             const centerline = shipY + shipHeight / 2;
             
+            // Parallel vessel hull wall offsets (same width throughout hull mid-body)
+            const hullHalfWidth = shipHeight * 0.35;
+            
             // Component coordinates
+            // Sea Chest inside the hull wall (y position shifted inward)
             const seaChestX = shipX + 0.22 * shipWidth;
-            const seaChestY = shipY + 0.88 * shipHeight;
+            const seaChestY = centerline + hullHalfWidth - 25;
             
             const pumpX = shipX + 0.22 * shipWidth;
             const pumpY = shipY + 0.62 * shipHeight;
@@ -1784,23 +1813,26 @@
             const bwtsX = shipX + 0.31 * shipWidth;
             const bwtsY = centerline;
             
-            // Draw Ship Hull Top View
+            // Overboard discharge point on Port wall
+            const overboardX = shipX + 0.28 * shipWidth;
+            const overboardY = centerline - hullHalfWidth;
+            
+            // Draw Ship Hull Top View with Constant Width
             ctx.save();
             ctx.strokeStyle = 'rgba(0, 242, 254, 0.14)';
             ctx.lineWidth = 1.5;
             
             ctx.beginPath();
-            // Stern
-            ctx.moveTo(shipX + shipWidth * 0.05, centerline - shipHeight * 0.25);
-            ctx.quadraticCurveTo(shipX, centerline, shipX + shipWidth * 0.05, centerline + shipHeight * 0.25);
-            // Starboard Hull Side
-            ctx.lineTo(shipX + shipWidth * 0.75, centerline + shipHeight * 0.45);
+            // Stern curve
+            ctx.moveTo(shipX + shipWidth * 0.05, centerline - hullHalfWidth);
+            ctx.quadraticCurveTo(shipX, centerline, shipX + shipWidth * 0.05, centerline + hullHalfWidth);
+            // Starboard Hull Side (Straight line)
+            ctx.lineTo(shipX + shipWidth * 0.78, centerline + hullHalfWidth);
             // Bow Starboard
-            ctx.quadraticCurveTo(shipX + shipWidth * 0.95, centerline + shipHeight * 0.35, shipX + shipWidth, centerline);
+            ctx.quadraticCurveTo(shipX + shipWidth * 0.94, centerline + hullHalfWidth * 0.8, shipX + shipWidth, centerline);
             // Bow Port
-            ctx.quadraticCurveTo(shipX + shipWidth * 0.95, centerline - shipHeight * 0.35, shipX + shipWidth * 0.75, centerline - shipHeight * 0.45);
-            // Port Hull Side
-            ctx.lineTo(shipX + shipWidth * 0.05, centerline - shipHeight * 0.25);
+            ctx.quadraticCurveTo(shipX + shipWidth * 0.94, centerline - hullHalfWidth * 0.8, shipX + shipWidth * 0.78, centerline - hullHalfWidth);
+            // Port Hull Side (Straight line)
             ctx.closePath();
             ctx.stroke();
             
@@ -1808,20 +1840,34 @@
             ctx.strokeStyle = 'rgba(0, 242, 254, 0.08)';
             ctx.setLineDash([3, 3]);
             ctx.beginPath();
-            ctx.moveTo(shipX + shipWidth * 0.36, shipY + shipHeight * 0.08);
-            ctx.lineTo(shipX + shipWidth * 0.36, shipY + shipHeight * 0.92);
+            ctx.moveTo(shipX + shipWidth * 0.36, centerline - hullHalfWidth);
+            ctx.lineTo(shipX + shipWidth * 0.36, centerline + hullHalfWidth);
             ctx.stroke();
             ctx.setLineDash([]);
             
-            // Draw Sea Chest intake pocket
+            // Draw Sea Chest inside the vessel walls
             ctx.strokeStyle = 'rgba(0, 242, 254, 0.22)';
-            ctx.strokeRect(seaChestX - 8, seaChestY, 16, 6);
+            ctx.strokeRect(seaChestX - 8, seaChestY, 16, 12);
+            ctx.fillStyle = 'rgba(0, 242, 254, 0.05)';
+            ctx.fillRect(seaChestX - 8, seaChestY, 16, 12);
             ctx.beginPath();
             for (let lx = seaChestX - 5; lx <= seaChestX + 5; lx += 3) {
                 ctx.moveTo(lx, seaChestY);
-                ctx.lineTo(lx, seaChestY + 6);
+                ctx.lineTo(lx, seaChestY + 12);
             }
             ctx.stroke();
+            
+            // Connect Sea chest to side hull boundary
+            ctx.beginPath();
+            ctx.moveTo(seaChestX - 8, seaChestY + 12);
+            ctx.lineTo(seaChestX - 8, centerline + hullHalfWidth);
+            ctx.moveTo(seaChestX + 8, seaChestY + 12);
+            ctx.lineTo(seaChestX + 8, centerline + hullHalfWidth);
+            ctx.stroke();
+            
+            // Draw Overboard discharge nozzle flange outside hull
+            ctx.strokeStyle = 'rgba(0, 242, 254, 0.25)';
+            ctx.strokeRect(overboardX - 6, overboardY - 5, 12, 5);
             
             // Draw Ballast Pump centrifugal casing
             ctx.strokeStyle = 'rgba(0, 242, 254, 0.22)';
@@ -1856,14 +1902,23 @@
             ctx.fillText('SEA INLET', seaChestX - 22, seaChestY - 5);
             ctx.fillText('BALLAST PUMP', pumpX + 18, pumpY + 3);
             ctx.fillText('BWTS UNIT', bwtsX - 22, bwtsY - 20);
+            ctx.fillText('OVERBOARD', overboardX - 20, overboardY + 14);
             
             // --- 4. Draw Piping Grid ---
             ctx.strokeStyle = 'rgba(0, 242, 254, 0.15)';
             ctx.lineWidth = 1.5;
             
-            // Intake Pipe: Sea Chest -> Pump
+            // Intake Pipe: Sea Chest -> Pump suction junction
             ctx.beginPath();
             ctx.moveTo(seaChestX, seaChestY);
+            ctx.lineTo(pumpX, shipY + 0.72 * shipHeight);
+            ctx.stroke();
+            
+            // Suction crossover line (used for de-ballasting suction from manifold to pump inlet)
+            ctx.beginPath();
+            ctx.moveTo(shipX + 0.35 * shipWidth, centerline);
+            ctx.lineTo(shipX + 0.35 * shipWidth, shipY + 0.72 * shipHeight);
+            ctx.lineTo(pumpX, shipY + 0.72 * shipHeight);
             ctx.lineTo(pumpX, pumpY + 12);
             ctx.stroke();
             
@@ -1874,112 +1929,17 @@
             ctx.lineTo(bwtsX - 22, bwtsY);
             ctx.stroke();
             
-            // Manifold pipes branching to each tank from BWTS outlet
+            // Overboard Pipe: BWTS outlet -> Overboard Discharge Point
             const outX = bwtsX + 22;
             const outY = bwtsY;
             
-            // Pipe path coordinates for particles
-            const pipePaths = {
-                aft: [
-                    { x: seaChestX, y: seaChestY },
-                    { x: pumpX, y: pumpY },
-                    { x: pumpX, y: bwtsY },
-                    { x: bwtsX - 22, y: bwtsY },
-                    { x: outX, y: outY },
-                    { x: shipX + 0.18 * shipWidth, y: outY },
-                    { x: shipX + 0.18 * shipWidth, y: centerline },
-                    { x: shipX + 0.14 * shipWidth, y: centerline }
-                ],
-                wing_p1: [
-                    { x: seaChestX, y: seaChestY },
-                    { x: pumpX, y: pumpY },
-                    { x: pumpX, y: bwtsY },
-                    { x: bwtsX - 22, y: bwtsY },
-                    { x: outX, y: outY },
-                    { x: shipX + 0.35 * shipWidth, y: outY },
-                    { x: shipX + 0.35 * shipWidth, y: shipY + 0.14 * shipHeight },
-                    { x: shipX + 0.38 * shipWidth, y: shipY + 0.14 * shipHeight }
-                ],
-                wing_p2: [
-                    { x: seaChestX, y: seaChestY },
-                    { x: pumpX, y: pumpY },
-                    { x: pumpX, y: bwtsY },
-                    { x: bwtsX - 22, y: bwtsY },
-                    { x: outX, y: outY },
-                    { x: shipX + 0.35 * shipWidth, y: outY },
-                    { x: shipX + 0.35 * shipWidth, y: shipY + 0.14 * shipHeight },
-                    { x: shipX + 0.52 * shipWidth, y: shipY + 0.14 * shipHeight }
-                ],
-                wing_p3: [
-                    { x: seaChestX, y: seaChestY },
-                    { x: pumpX, y: pumpY },
-                    { x: pumpX, y: bwtsY },
-                    { x: bwtsX - 22, y: bwtsY },
-                    { x: outX, y: outY },
-                    { x: shipX + 0.35 * shipWidth, y: outY },
-                    { x: shipX + 0.35 * shipWidth, y: shipY + 0.14 * shipHeight },
-                    { x: shipX + 0.66 * shipWidth, y: shipY + 0.14 * shipHeight }
-                ],
-                wing_s1: [
-                    { x: seaChestX, y: seaChestY },
-                    { x: pumpX, y: pumpY },
-                    { x: pumpX, y: bwtsY },
-                    { x: bwtsX - 22, y: bwtsY },
-                    { x: outX, y: outY },
-                    { x: shipX + 0.35 * shipWidth, y: outY },
-                    { x: shipX + 0.35 * shipWidth, y: shipY + 0.86 * shipHeight },
-                    { x: shipX + 0.38 * shipWidth, y: shipY + 0.86 * shipHeight }
-                ],
-                wing_s2: [
-                    { x: seaChestX, y: seaChestY },
-                    { x: pumpX, y: pumpY },
-                    { x: pumpX, y: bwtsY },
-                    { x: bwtsX - 22, y: bwtsY },
-                    { x: outX, y: outY },
-                    { x: shipX + 0.35 * shipWidth, y: outY },
-                    { x: shipX + 0.35 * shipWidth, y: shipY + 0.86 * shipHeight },
-                    { x: shipX + 0.52 * shipWidth, y: shipY + 0.86 * shipHeight }
-                ],
-                wing_s3: [
-                    { x: seaChestX, y: seaChestY },
-                    { x: pumpX, y: pumpY },
-                    { x: pumpX, y: bwtsY },
-                    { x: bwtsX - 22, y: bwtsY },
-                    { x: outX, y: outY },
-                    { x: shipX + 0.35 * shipWidth, y: outY },
-                    { x: shipX + 0.35 * shipWidth, y: shipY + 0.86 * shipHeight },
-                    { x: shipX + 0.66 * shipWidth, y: shipY + 0.86 * shipHeight }
-                ],
-                db_p: [
-                    { x: seaChestX, y: seaChestY },
-                    { x: pumpX, y: pumpY },
-                    { x: pumpX, y: bwtsY },
-                    { x: bwtsX - 22, y: bwtsY },
-                    { x: outX, y: outY },
-                    { x: shipX + 0.35 * shipWidth, y: outY },
-                    { x: shipX + 0.35 * shipWidth, y: shipY + 0.38 * shipHeight },
-                    { x: shipX + 0.40 * shipWidth, y: shipY + 0.38 * shipHeight }
-                ],
-                db_s: [
-                    { x: seaChestX, y: seaChestY },
-                    { x: pumpX, y: pumpY },
-                    { x: pumpX, y: bwtsY },
-                    { x: bwtsX - 22, y: bwtsY },
-                    { x: outX, y: outY },
-                    { x: shipX + 0.35 * shipWidth, y: outY },
-                    { x: shipX + 0.35 * shipWidth, y: shipY + 0.62 * shipHeight },
-                    { x: shipX + 0.40 * shipWidth, y: shipY + 0.62 * shipHeight }
-                ],
-                fwd: [
-                    { x: seaChestX, y: seaChestY },
-                    { x: pumpX, y: pumpY },
-                    { x: pumpX, y: bwtsY },
-                    { x: bwtsX - 22, y: bwtsY },
-                    { x: outX, y: outY },
-                    { x: shipX + 0.82 * shipWidth, y: outY }
-                ]
-            };
+            ctx.beginPath();
+            ctx.moveTo(outX, outY);
+            ctx.lineTo(overboardX, outY);
+            ctx.lineTo(overboardX, overboardY);
+            ctx.stroke();
             
+            // Manifold pipes branching to each tank from BWTS outlet
             // Draw AFT Pipe path lines
             ctx.beginPath();
             ctx.moveTo(outX, outY);
@@ -2019,7 +1979,194 @@
             ctx.lineTo(shipX + 0.66 * shipWidth, shipY + 0.86 * shipHeight);
             ctx.stroke();
             
-            // --- 5. Draw Tanks & Check Mouse Hover ---
+            // Pipe path coordinates for particles (based on systemMode)
+            const pipePaths = {};
+            
+            tanks.forEach(tank => {
+                if (systemMode === 'ballast') {
+                    // Ballasting paths: Sea Chest -> Pump -> BWTS -> Tank
+                    if (tank.id === 'aft') {
+                        pipePaths[tank.id] = [
+                            { x: seaChestX, y: seaChestY },
+                            { x: pumpX, y: shipY + 0.72 * shipHeight },
+                            { x: pumpX, y: pumpY },
+                            { x: pumpX, y: bwtsY },
+                            { x: bwtsX - 22, y: bwtsY },
+                            { x: outX, y: outY },
+                            { x: shipX + 0.18 * shipWidth, y: outY },
+                            { x: shipX + 0.18 * shipWidth, y: centerline },
+                            { x: shipX + 0.14 * shipWidth, y: centerline }
+                        ];
+                    } else if (tank.id === 'fwd') {
+                        pipePaths[tank.id] = [
+                            { x: seaChestX, y: seaChestY },
+                            { x: pumpX, y: shipY + 0.72 * shipHeight },
+                            { x: pumpX, y: pumpY },
+                            { x: pumpX, y: bwtsY },
+                            { x: bwtsX - 22, y: bwtsY },
+                            { x: outX, y: outY },
+                            { x: shipX + 0.82 * shipWidth, y: outY }
+                        ];
+                    } else if (tank.id === 'db_p') {
+                        pipePaths[tank.id] = [
+                            { x: seaChestX, y: seaChestY },
+                            { x: pumpX, y: shipY + 0.72 * shipHeight },
+                            { x: pumpX, y: pumpY },
+                            { x: pumpX, y: bwtsY },
+                            { x: bwtsX - 22, y: bwtsY },
+                            { x: outX, y: outY },
+                            { x: shipX + 0.35 * shipWidth, y: outY },
+                            { x: shipX + 0.35 * shipWidth, y: shipY + 0.38 * shipHeight },
+                            { x: shipX + 0.40 * shipWidth, y: shipY + 0.38 * shipHeight }
+                        ];
+                    } else if (tank.id === 'db_s') {
+                        pipePaths[tank.id] = [
+                            { x: seaChestX, y: seaChestY },
+                            { x: pumpX, y: shipY + 0.72 * shipHeight },
+                            { x: pumpX, y: pumpY },
+                            { x: pumpX, y: bwtsY },
+                            { x: bwtsX - 22, y: bwtsY },
+                            { x: outX, y: outY },
+                            { x: shipX + 0.35 * shipWidth, y: outY },
+                            { x: shipX + 0.35 * shipWidth, y: shipY + 0.62 * shipHeight },
+                            { x: shipX + 0.40 * shipWidth, y: shipY + 0.62 * shipHeight }
+                        ];
+                    } else if (tank.id.startsWith('wing_p')) {
+                        let inletX = shipX + (tank.id === 'wing_p1' ? 0.38 : tank.id === 'wing_p2' ? 0.52 : 0.66) * shipWidth;
+                        pipePaths[tank.id] = [
+                            { x: seaChestX, y: seaChestY },
+                            { x: pumpX, y: shipY + 0.72 * shipHeight },
+                            { x: pumpX, y: pumpY },
+                            { x: pumpX, y: bwtsY },
+                            { x: bwtsX - 22, y: bwtsY },
+                            { x: outX, y: outY },
+                            { x: shipX + 0.35 * shipWidth, y: outY },
+                            { x: shipX + 0.35 * shipWidth, y: shipY + 0.14 * shipHeight },
+                            { x: inletX, y: shipY + 0.14 * shipHeight }
+                        ];
+                    } else if (tank.id.startsWith('wing_s')) {
+                        let inletX = shipX + (tank.id === 'wing_s1' ? 0.38 : tank.id === 'wing_s2' ? 0.52 : 0.66) * shipWidth;
+                        pipePaths[tank.id] = [
+                            { x: seaChestX, y: seaChestY },
+                            { x: pumpX, y: shipY + 0.72 * shipHeight },
+                            { x: pumpX, y: pumpY },
+                            { x: pumpX, y: bwtsY },
+                            { x: bwtsX - 22, y: bwtsY },
+                            { x: outX, y: outY },
+                            { x: shipX + 0.35 * shipWidth, y: outY },
+                            { x: shipX + 0.35 * shipWidth, y: shipY + 0.86 * shipHeight },
+                            { x: inletX, y: shipY + 0.86 * shipHeight }
+                        ];
+                    }
+                } else {
+                    // De-ballasting paths: Tank -> crossover suction -> Pump -> BWTS -> Overboard
+                    let tankStart = { x: shipX + tank.relX * shipWidth + tank.relW * shipWidth / 2, y: shipY + tank.relY * shipHeight + tank.relH * shipHeight / 2 };
+                    
+                    if (tank.id === 'aft') {
+                        pipePaths[tank.id] = [
+                            tankStart,
+                            { x: shipX + 0.14 * shipWidth, y: centerline },
+                            { x: shipX + 0.18 * shipWidth, y: centerline },
+                            { x: shipX + 0.18 * shipWidth, y: outY },
+                            { x: shipX + 0.35 * shipWidth, y: outY },
+                            { x: shipX + 0.35 * shipWidth, y: shipY + 0.72 * shipHeight },
+                            { x: pumpX, y: shipY + 0.72 * shipHeight },
+                            { x: pumpX, y: pumpY },
+                            { x: pumpX, y: bwtsY },
+                            { x: bwtsX - 22, y: bwtsY },
+                            { x: outX, y: outY },
+                            { x: overboardX, y: outY },
+                            { x: overboardX, y: overboardY }
+                        ];
+                    } else if (tank.id === 'fwd') {
+                        pipePaths[tank.id] = [
+                            tankStart,
+                            { x: shipX + 0.82 * shipWidth, y: outY },
+                            { x: shipX + 0.35 * shipWidth, y: outY },
+                            { x: shipX + 0.35 * shipWidth, y: shipY + 0.72 * shipHeight },
+                            { x: pumpX, y: shipY + 0.72 * shipHeight },
+                            { x: pumpX, y: pumpY },
+                            { x: pumpX, y: bwtsY },
+                            { x: bwtsX - 22, y: bwtsY },
+                            { x: outX, y: outY },
+                            { x: overboardX, y: outY },
+                            { x: overboardX, y: overboardY }
+                        ];
+                    } else if (tank.id === 'db_p') {
+                        pipePaths[tank.id] = [
+                            tankStart,
+                            { x: shipX + 0.40 * shipWidth, y: shipY + 0.38 * shipHeight },
+                            { x: shipX + 0.35 * shipWidth, y: shipY + 0.38 * shipHeight },
+                            { x: shipX + 0.35 * shipWidth, y: outY },
+                            { x: shipX + 0.35 * shipWidth, y: shipY + 0.72 * shipHeight },
+                            { x: pumpX, y: shipY + 0.72 * shipHeight },
+                            { x: pumpX, y: pumpY },
+                            { x: pumpX, y: bwtsY },
+                            { x: bwtsX - 22, y: bwtsY },
+                            { x: outX, y: outY },
+                            { x: overboardX, y: outY },
+                            { x: overboardX, y: overboardY }
+                        ];
+                    } else if (tank.id === 'db_s') {
+                        pipePaths[tank.id] = [
+                            tankStart,
+                            { x: shipX + 0.40 * shipWidth, y: shipY + 0.62 * shipHeight },
+                            { x: shipX + 0.35 * shipWidth, y: shipY + 0.62 * shipHeight },
+                            { x: shipX + 0.35 * shipWidth, y: outY },
+                            { x: shipX + 0.35 * shipWidth, y: shipY + 0.72 * shipHeight },
+                            { x: pumpX, y: shipY + 0.72 * shipHeight },
+                            { x: pumpX, y: pumpY },
+                            { x: pumpX, y: bwtsY },
+                            { x: bwtsX - 22, y: bwtsY },
+                            { x: outX, y: outY },
+                            { x: overboardX, y: outY },
+                            { x: overboardX, y: overboardY }
+                        ];
+                    } else if (tank.id.startsWith('wing_p')) {
+                        let inletX = shipX + (tank.id === 'wing_p1' ? 0.38 : tank.id === 'wing_p2' ? 0.52 : 0.66) * shipWidth;
+                        pipePaths[tank.id] = [
+                            tankStart,
+                            { x: inletX, y: shipY + 0.14 * shipHeight },
+                            { x: shipX + 0.35 * shipWidth, y: shipY + 0.14 * shipHeight },
+                            { x: shipX + 0.35 * shipWidth, y: outY },
+                            { x: shipX + 0.35 * shipWidth, y: shipY + 0.72 * shipHeight },
+                            { x: pumpX, y: shipY + 0.72 * shipHeight },
+                            { x: pumpX, y: pumpY },
+                            { x: pumpX, y: bwtsY },
+                            { x: bwtsX - 22, y: bwtsY },
+                            { x: outX, y: outY },
+                            { x: overboardX, y: outY },
+                            { x: overboardX, y: overboardY }
+                        ];
+                    } else if (tank.id.startsWith('wing_s')) {
+                        let inletX = shipX + (tank.id === 'wing_s1' ? 0.38 : tank.id === 'wing_s2' ? 0.52 : 0.66) * shipWidth;
+                        pipePaths[tank.id] = [
+                            tankStart,
+                            { x: inletX, y: shipY + 0.86 * shipHeight },
+                            { x: shipX + 0.35 * shipWidth, y: shipY + 0.86 * shipHeight },
+                            { x: shipX + 0.35 * shipWidth, y: outY },
+                            { x: shipX + 0.35 * shipWidth, y: shipY + 0.72 * shipHeight },
+                            { x: pumpX, y: shipY + 0.72 * shipHeight },
+                            { x: pumpX, y: pumpY },
+                            { x: pumpX, y: bwtsY },
+                            { x: bwtsX - 22, y: bwtsY },
+                            { x: outX, y: outY },
+                            { x: overboardX, y: outY },
+                            { x: overboardX, y: overboardY }
+                        ];
+                    }
+                }
+            });
+            
+            // --- 5. Draw Valve Symbols ---
+            // System Valves:
+            // Sea chest valve (only open in ballast mode)
+            drawValveSymbol(pumpX, shipY + 0.79 * shipHeight, true, systemMode === 'ballast');
+            // Overboard valve (only open in de-ballast mode)
+            drawValveSymbol(overboardX, centerline - shipHeight * 0.18, true, systemMode === 'deballast');
+            // Suction crossover valve (only open in de-ballast mode)
+            drawValveSymbol(shipX + 0.35 * shipWidth, shipY + 0.68 * shipHeight, true, systemMode === 'deballast');
+            
             let hoveredTank = null;
             
             tanks.forEach(tank => {
@@ -2028,7 +2175,7 @@
                 const tw = tank.relW * shipWidth;
                 const th = tank.relH * shipHeight;
                 
-                // Check if mouse is inside tank
+                // Check if mouse is inside tank for toggle clickability
                 const isHovered = (mouse.x !== null && mouse.y !== null &&
                                    mouse.x >= tx && mouse.x <= tx + tw &&
                                    mouse.y >= ty && mouse.y <= ty + th);
@@ -2037,7 +2184,7 @@
                     hoveredTank = tank;
                 }
                 
-                // Draw tank body (No hover illumination shifts)
+                // Draw tank outline (No hover illumination shifts)
                 ctx.strokeStyle = 'rgba(0, 242, 254, 0.16)';
                 ctx.lineWidth = 1.0;
                 ctx.strokeRect(tx, ty, tw, th);
@@ -2047,13 +2194,13 @@
                 const wHeight = th * tank.fill;
                 ctx.fillRect(tx + 1, ty + th - wHeight, tw - 2, wHeight - 1);
                 
-                // Tank labels inside tank (No hover styling shifts)
+                // Tank labels inside tank
                 ctx.fillStyle = 'rgba(0, 242, 254, 0.45)';
                 ctx.font = '8px monospace';
                 ctx.fillText(tank.name, tx + 4, ty + 12);
                 ctx.fillText(`QTY: ${Math.round(tank.fill * 100)}%`, tx + 4, ty + th - 6);
                 
-                // Draw Valve Symbol on this tank's pipe branch
+                // Draw tank branch valves (Green if open, gray if closed)
                 let vx, vy, vVert = false;
                 if (tank.id === 'aft') { vx = shipX + 0.20 * shipWidth; vy = outY; }
                 else if (tank.id === 'fwd') { vx = shipX + 0.80 * shipWidth; vy = outY; }
@@ -2070,20 +2217,25 @@
             });
             
             // Set canvas cursor to pointer if hover interactive to guide the user
-            canvas.style.cursor = hoveredTank ? 'pointer' : 'default';
+            canvas.style.cursor = hoveredTank || (mouse.x >= shipX + 10 && mouse.x <= shipX + 150 && mouse.y >= shipY + 55 && mouse.y <= shipY + 77) ? 'pointer' : 'default';
             
             // --- 6. Flow Particles Update & Spawn ---
-            const openTanks = tanks.filter(t => t.valveOpen && t.fill < 1.0);
-            
-            if (openTanks.length > 0 && Math.random() < 0.05 && flowParticles.length < 28) {
-                const target = openTanks[Math.floor(Math.random() * openTanks.length)];
-                const path = pipePaths[target.id];
-                
-                flowParticles.push(new FlowParticle(
-                    path,
-                    Math.random() > 0.4 ? '#00f2fe' : '#00ffc3',
-                    target
-                ));
+            // Spawn flow particle on open tank branches
+            if (systemMode === 'ballast') {
+                const openTanks = tanks.filter(t => t.valveOpen && t.fill < 1.0);
+                if (openTanks.length > 0 && Math.random() < 0.05 && flowParticles.length < 28) {
+                    const target = openTanks[Math.floor(Math.random() * openTanks.length)];
+                    const path = pipePaths[target.id];
+                    flowParticles.push(new FlowParticle(path, Math.random() > 0.4 ? '#00f2fe' : '#00ffc3', target));
+                }
+            } else {
+                // De-ballast suction: spawn particles inside the tank and pump out
+                const openTanks = tanks.filter(t => t.valveOpen && t.fill > 0.0);
+                if (openTanks.length > 0 && Math.random() < 0.05 && flowParticles.length < 28) {
+                    const target = openTanks[Math.floor(Math.random() * openTanks.length)];
+                    const path = pipePaths[target.id];
+                    flowParticles.push(new FlowParticle(path, Math.random() > 0.4 ? '#00f2fe' : '#00ffc3', target));
+                }
             }
             
             // Update and draw active particles
@@ -2096,18 +2248,47 @@
                 }
             }
             
-            // Simulate valve closure draining
+            // Update and draw overboard sprays
+            for (let i = overboardSprays.length - 1; i >= 0; i--) {
+                const sp = overboardSprays[i];
+                sp.x += sp.vx;
+                sp.y += sp.vy;
+                sp.life--;
+                if (sp.life <= 0) {
+                    overboardSprays.splice(i, 1);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(sp.x, sp.y, 1.5, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(0, 242, 254, ${sp.life / sp.maxLife})`;
+                    ctx.fill();
+                }
+            }
+            
+            // Simulate slow fill in ballast or slow drain in de-ballast if valve is closed
             tanks.forEach(tank => {
                 if (!tank.valveOpen && tank.fill > 0.0) {
-                    tank.fill = Math.max(0.0, tank.fill - 0.0001);
+                    tank.fill = Math.max(0.0, tank.fill - 0.00005);
                 }
             });
             
-            // Technical Header text
+            // Technical Header & Mode Button
             ctx.fillStyle = 'rgba(0, 242, 254, 0.2)';
             ctx.font = '10px "Space Grotesk", sans-serif';
             ctx.fillText('MOZUK BALASTING TOP-VIEW FLOW SCHEMATIC', shipX + 10, shipY + 25);
             ctx.fillText('CLICK TANKS TO TOGGLE VALVES (⋈)', shipX + 10, shipY + 38);
+            
+            // Draw Interactive Mode Toggle Button
+            ctx.strokeStyle = 'rgba(0, 242, 254, 0.3)';
+            ctx.fillStyle = 'rgba(5, 11, 20, 0.8)';
+            ctx.strokeRect(shipX + 10, shipY + 55, 140, 22);
+            ctx.fillRect(shipX + 10, shipY + 55, 140, 22);
+            
+            ctx.fillStyle = '#00f2fe';
+            ctx.font = '9px monospace';
+            ctx.fillText(`MODE: ${systemMode.toUpperCase()}`, shipX + 20, shipY + 69);
+            ctx.fillStyle = 'rgba(0, 242, 254, 0.4)';
+            ctx.fillText('[TOGGLE]', shipX + 105, shipY + 69);
+            
             ctx.restore();
         }
         
