@@ -2414,6 +2414,18 @@
         
         animate();
 
+        // 1.0 Force scroll to top on page load/refresh
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+        window.addEventListener('load', () => {
+            window.scrollTo(0, 0);
+            if (typeof updateScrollReveal === 'function') {
+                updateScrollReveal();
+            }
+        });
+
         // 1.1 Scroll-reveal opacity control for bg-canvas and cover elements
         const bpTitle = document.getElementById('blueprint-title');
         const bpScroll = document.getElementById('scroll-prompt');
