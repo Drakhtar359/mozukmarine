@@ -104,26 +104,13 @@
             pointer-events: none;
         }
 
-        .blueprint-overlay-title {
+        .blueprint-overlay-badge {
             position: fixed;
             top: 40%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 0;
             pointer-events: none;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            text-align: center;
-            width: 90%;
-            max-width: 800px;
-            background: linear-gradient(135deg, #ffffff 30%, #00f2fe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 30px rgba(0, 242, 254, 0.3);
             transition: opacity 0.05s ease-out;
         }
 
@@ -1294,7 +1281,9 @@
     <main class="container">
         <!-- Blueprint Cover Section (Full screen blank area showing diagram) -->
         <section class="blueprint-cover-section" id="blueprint-cover" style="height: 100vh; pointer-events: none;">
-            <h1 class="blueprint-overlay-title" id="blueprint-title">Pioneering BWTS Solutions</h1>
+            <div class="badge blueprint-overlay-badge" id="blueprint-title" data-i18n="hero_badge">
+                <i class="fa-solid fa-shield-halved"></i> Pioneering BWTS Solutions
+            </div>
             <div class="scroll-indicator" id="scroll-prompt">
                 <span>Scroll Down</span>
                 <i class="fa-solid fa-chevron-down"></i>
