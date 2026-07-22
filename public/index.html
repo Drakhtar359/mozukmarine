@@ -2438,8 +2438,16 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    
-                    // Trigger counters if within target element
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // 2.1 Dedicated Counter Observer (fires only when stats-bar is in viewport)
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
                     const counters = entry.target.querySelectorAll('.counter');
                     counters.forEach(counter => {
                         if (!counter.classList.contains('started')) {
@@ -2458,11 +2466,16 @@
                             }, 30);
                         }
                     });
+                    // Stop observing once animation has started
+                    statsObserver.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        const statsBarElement = document.querySelector('.stats-bar');
+        if (statsBarElement) {
+            statsObserver.observe(statsBarElement);
+        }
 
         // 3. Header Scroll Glass Effect
         const header = document.getElementById('main-header');
