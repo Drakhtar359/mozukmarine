@@ -1053,155 +1053,6 @@
             waterParticles.push(new WaterParticle());
         }
         
-        // --- Marine Sonar Navigation Grid ---
-        const sonar = {
-            centerX: width * 0.85,
-            centerY: height * 0.45,
-            maxRadius: Math.min(220, width * 0.25),
-            sweepAngle: 0,
-            sweepSpeed: 0.008,
-            blips: [
-                { angle: 0.8, distance: 0.6, size: 4, alpha: 0, active: false },
-                { angle: 2.3, distance: 0.4, size: 3, alpha: 0, active: false },
-                { angle: 4.1, distance: 0.75, size: 5, alpha: 0, active: false },
-                { angle: 5.5, distance: 0.3, size: 3.5, alpha: 0, active: false }
-            ]
-        };
-        
-        function updateSonar() {
-            // Update sweep angle
-            sonar.centerX = width * 0.85;
-            sonar.centerY = height * 0.45;
-            sonar.maxRadius = Math.min(220, width * 0.25);
-            
-            sonar.sweepAngle = (sonar.sweepAngle + sonar.sweepSpeed) % (Math.PI * 2);
-            
-            // Check blips collision with sweep line
-            sonar.blips.forEach(blip => {
-                // If blip is close to current sweep angle, trigger ping
-                const angleDiff = Math.abs(sonar.sweepAngle - blip.angle);
-                if (angleDiff < 0.05 && !blip.active) {
-                    blip.alpha = 1.0;
-                    blip.active = true;
-                }
-                
-                // Fade out blip
-                if (blip.alpha > 0) {
-                    blip.alpha -= 0.008;
-                } else {
-                    blip.active = false;
-                }
-            });
-        }
-        
-        function drawSonar() {
-            if (width < 600) return; // Hide on mobile for better performance & spacing
-            
-            ctx.save();
-            ctx.translate(sonar.centerX, sonar.centerY);
-            
-            // Draw Concentric Rings
-            ctx.strokeStyle = 'rgba(0, 242, 254, 0.05)';
-            ctx.lineWidth = 1;
-            
-            const ringSteps = 4;
-            for (let i = 1; i <= ringSteps; i++) {
-                ctx.beginPath();
-                ctx.arc(0, 0, (sonar.maxRadius / ringSteps) * i, 0, Math.PI * 2);
-                ctx.stroke();
-            }
-            
-            // Draw Crosshairs
-            ctx.beginPath();
-            ctx.moveTo(-sonar.maxRadius, 0);
-            ctx.lineTo(sonar.maxRadius, 0);
-            ctx.moveTo(0, -sonar.maxRadius);
-            ctx.lineTo(0, sonar.maxRadius);
-            ctx.stroke();
-            
-            // Draw Radar Sweep Area (fade trail)
-            ctx.beginPath();
-            ctx.moveTo(0, 0);
-            
-            // Draw trailing wedge
-            const trailResolution = 40;
-            for (let i = 0; i <= trailResolution; i++) {
-                const angle = sonar.sweepAngle - (i * 0.015);
-                const rx = Math.cos(angle) * sonar.maxRadius;
-                const ry = Math.sin(angle) * sonar.maxRadius;
-                ctx.lineTo(rx, ry);
-            }
-            ctx.closePath();
-            
-            // Sweep trail gradient
-            const sweepGradient = ctx.createRadialGradient(0, 0, 10, 0, 0, sonar.maxRadius);
-            sweepGradient.addColorStop(0, 'rgba(0, 242, 254, 0.06)');
-            sweepGradient.addColorStop(1, 'rgba(0, 242, 254, 0.005)');
-            ctx.fillStyle = sweepGradient;
-            ctx.fill();
-            
-            // Draw Sweep Line
-            const sweepX = Math.cos(sonar.sweepAngle) * sonar.maxRadius;
-            const sweepY = Math.sin(sonar.sweepAngle) * sonar.maxRadius;
-            ctx.beginPath();
-            ctx.moveTo(0, 0);
-            ctx.lineTo(sweepX, sweepY);
-            ctx.strokeStyle = 'rgba(0, 242, 254, 0.25)';
-            ctx.lineWidth = 1.5;
-            ctx.stroke();
-            
-            // Draw Blips (Detected Ships/Signals)
-            sonar.blips.forEach(blip => {
-                if (blip.alpha > 0) {
-                    const bx = Math.cos(blip.angle) * (sonar.maxRadius * blip.distance);
-                    const by = Math.sin(blip.angle) * (sonar.maxRadius * blip.distance);
-                    
-                    // Glow effect
-                    ctx.beginPath();
-                    ctx.arc(bx, by, blip.size * 2.5, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(0, 255, 195, ${blip.alpha * 0.15})`;
-                    ctx.fill();
-                    
-                    // Signal core
-                    ctx.beginPath();
-                    ctx.arc(bx, by, blip.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(0, 255, 195, ${blip.alpha})`;
-                    ctx.fill();
-                }
-            });
-            
-            ctx.restore();
-        }
-        
-        // --- Undersea Sunlight Caustic Rays ---
-        function drawSunRays() {
-            const rayCount = 3;
-            const rayWidth = width * 0.25;
-            
-            for (let i = 0; i < rayCount; i++) {
-                const angleOffset = Math.sin(time * 0.0015 + i * 2.0) * 0.06;
-                const startX = width * (0.15 + i * 0.3) + Math.sin(time * 0.0008 + i) * 60;
-                
-                ctx.beginPath();
-                ctx.moveTo(startX, -50);
-                
-                const endX1 = startX - rayWidth + Math.sin(angleOffset) * height;
-                const endX2 = startX + rayWidth + Math.sin(angleOffset) * height;
-                
-                ctx.lineTo(endX1, height);
-                ctx.lineTo(endX2, height);
-                ctx.closePath();
-                
-                const gradient = ctx.createLinearGradient(startX, 0, (endX1 + endX2) / 2, height);
-                gradient.addColorStop(0, `rgba(0, 242, 254, ${0.06 + Math.sin(time * 0.002 + i) * 0.02})`);
-                gradient.addColorStop(0.6, `rgba(58, 123, 213, 0.015)`);
-                gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-                
-                ctx.fillStyle = gradient;
-                ctx.fill();
-            }
-        }
-        
         // --- Layered Ocean Waves (Sea Water Depth) ---
         function drawSeaWaves() {
             const waveLayers = [
@@ -1241,20 +1092,13 @@
             // Clear canvas
             ctx.clearRect(0, 0, width, height);
             
-            // 1. Draw sun rays (deep background)
-            drawSunRays();
-            
-            // 2. Update & Draw Sonar radar grid
-            updateSonar();
-            drawSonar();
-            
-            // 3. Update & Draw Fluid Water Flow Particles
+            // 1. Update & Draw Fluid Water Flow Particles
             waterParticles.forEach(particle => {
                 particle.update();
                 particle.draw();
             });
             
-            // 4. Draw Layered Sea Waves at bottom
+            // 2. Draw Layered Sea Waves at bottom
             drawSeaWaves();
             
             requestAnimationFrame(animate);
