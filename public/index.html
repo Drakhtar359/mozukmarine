@@ -88,7 +88,8 @@
             height: 100vh;
             z-index: -1;
             pointer-events: none;
-            opacity: 0.35;
+            opacity: 1;
+            transition: opacity 0.05s ease-out;
         }
 
         .bg-overlay {
@@ -1232,6 +1233,9 @@
     </header>
 
     <main class="container">
+        <!-- Blueprint Cover Section (Full screen blank area showing diagram) -->
+        <section class="blueprint-cover-section" id="blueprint-cover" style="height: 100vh; pointer-events: none;"></section>
+
         <!-- Hero Section -->
         <section class="hero reveal active" id="home">
             <div class="hero-content">
@@ -2346,6 +2350,14 @@
         }
         
         animate();
+
+        // 1.1 Scroll-reveal opacity control for bg-canvas
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const fadeHeight = window.innerHeight * 0.8;
+            const opacity = Math.max(0, 1 - (scrollY / fadeHeight));
+            canvas.style.opacity = opacity;
+        });
 
         // 2. Scroll Reveal Animations
         const observerOptions = {
