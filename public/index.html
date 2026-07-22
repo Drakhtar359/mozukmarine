@@ -104,6 +104,65 @@
             pointer-events: none;
         }
 
+        .blueprint-overlay-title {
+            position: fixed;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            pointer-events: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
+            background: linear-gradient(135deg, #ffffff 30%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 242, 254, 0.3);
+            transition: opacity 0.05s ease-out;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 0;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            font-family: monospace;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            color: rgba(0, 242, 254, 0.6);
+            text-transform: uppercase;
+            transition: opacity 0.05s ease-out;
+        }
+
+        .scroll-indicator i {
+            font-size: 14px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-6px);
+            }
+            60% {
+                transform: translateY(-3px);
+            }
+        }
+
         /* Utility Classes */
         .container {
             width: 90%;
@@ -1234,7 +1293,13 @@
 
     <main class="container">
         <!-- Blueprint Cover Section (Full screen blank area showing diagram) -->
-        <section class="blueprint-cover-section" id="blueprint-cover" style="height: 100vh; pointer-events: none;"></section>
+        <section class="blueprint-cover-section" id="blueprint-cover" style="height: 100vh; pointer-events: none;">
+            <h1 class="blueprint-overlay-title" id="blueprint-title">Pioneering BWTS Solutions</h1>
+            <div class="scroll-indicator" id="scroll-prompt">
+                <span>Scroll Down</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </section>
 
         <!-- Hero Section -->
         <section class="hero reveal active" id="home">
@@ -2351,13 +2416,19 @@
         
         animate();
 
-        // 1.1 Scroll-reveal opacity control for bg-canvas
-        window.addEventListener('scroll', () => {
+        // 1.1 Scroll-reveal opacity control for bg-canvas and cover elements
+        const bpTitle = document.getElementById('blueprint-title');
+        const bpScroll = document.getElementById('scroll-prompt');
+        function updateScrollReveal() {
             const scrollY = window.scrollY;
             const fadeHeight = window.innerHeight * 0.8;
             const opacity = Math.max(0, 1 - (scrollY / fadeHeight));
             canvas.style.opacity = opacity;
-        });
+            if (bpTitle) bpTitle.style.opacity = opacity;
+            if (bpScroll) bpScroll.style.opacity = opacity;
+        }
+        window.addEventListener('scroll', updateScrollReveal);
+        updateScrollReveal();
 
         // 2. Scroll Reveal Animations
         const observerOptions = {
