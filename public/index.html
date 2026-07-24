@@ -1337,26 +1337,8 @@
                 transform: translateX(0);
             }
             100% {
-                transform: translateX(calc(-250px * 8 - 4rem * 8));
+                transform: translateX(calc(-250px * 11 - 4rem * 11));
             }
-        }
-
-        @keyframes scroll-rtl {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(calc(250px * 8 + 4rem * 8));
-            }
-        }
-
-        [dir="rtl"] .logo-track {
-            animation-name: scroll-rtl;
-        }
-
-        /* Pause scroll on hover */
-        .logo-slider:hover .logo-track {
-            animation-play-state: paused;
         }
 
         @media (max-width: 768px) {
@@ -1368,15 +1350,7 @@
                     transform: translateX(0);
                 }
                 100% {
-                    transform: translateX(calc(-250px * 8 - 2.5rem * 8));
-                }
-            }
-            @keyframes scroll-rtl {
-                0% {
-                    transform: translateX(0);
-                }
-                100% {
-                    transform: translateX(calc(250px * 8 + 2.5rem * 8));
+                    transform: translateX(calc(-250px * 11 - 2.5rem * 11));
                 }
             }
         }
@@ -1665,6 +1639,26 @@
                                     <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="currentColor" letter-spacing="1">BIO-UV</text>
                                 </svg>
                             </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="35" cy="30" r="12" fill="none" stroke="currentColor" stroke-width="3"/>
+                                    <path d="M 28 30 C 32 26, 38 26, 42 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="800" fill="currentColor" letter-spacing="1">OPTIMARIN</text>
+                                </svg>
+                            </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 20 20 L 20 40 M 35 20 L 35 40 M 20 30 L 35 30" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                                    <circle cx="48" cy="30" r="6" fill="currentColor"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="currentColor" letter-spacing="1">HYDE MARINE</text>
+                                </svg>
+                            </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 20 25 C 28 15, 32 45, 40 35 M 25 35 C 33 25, 37 55, 45 45" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="18" font-weight="800" fill="currentColor" letter-spacing="1.5">OCEANGUARD</text>
+                                </svg>
+                            </div>
 
                             <!-- Set 2 of Logos (Duplicated for seamless loop) -->
                             <div class="logo-slide">
@@ -1721,6 +1715,26 @@
                                     <path d="M 35 15 C 45 15, 48 25, 35 45 C 22 25, 25 15, 35 15 Z" fill="none" stroke="currentColor" stroke-width="3"/>
                                     <circle cx="35" cy="25" r="4" fill="currentColor"/>
                                     <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="currentColor" letter-spacing="1">BIO-UV</text>
+                                </svg>
+                            </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="35" cy="30" r="12" fill="none" stroke="currentColor" stroke-width="3"/>
+                                    <path d="M 28 30 C 32 26, 38 26, 42 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="800" fill="currentColor" letter-spacing="1">OPTIMARIN</text>
+                                </svg>
+                            </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 20 20 L 20 40 M 35 20 L 35 40 M 20 30 L 35 30" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                                    <circle cx="48" cy="30" r="6" fill="currentColor"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="currentColor" letter-spacing="1">HYDE MARINE</text>
+                                </svg>
+                            </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 20 25 C 28 15, 32 45, 40 35 M 25 35 C 33 25, 37 55, 45 45" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="18" font-weight="800" fill="currentColor" letter-spacing="1.5">OCEANGUARD</text>
                                 </svg>
                             </div>
                         </div>
