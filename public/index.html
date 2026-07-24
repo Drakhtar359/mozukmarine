@@ -1266,6 +1266,7 @@
             border-radius: var(--radius-md);
             border: 1px solid var(--color-glass-border);
             backdrop-filter: var(--glass-blur);
+            direction: ltr; /* Force left-to-right flow */
         }
 
         /* Gradient overlays for fading edge effect */
@@ -1290,19 +1291,12 @@
             background: linear-gradient(to left, #050b14, transparent);
         }
 
-        /* RTL support */
-        [dir="rtl"] .logo-slider::before {
-            background: linear-gradient(to right, transparent, #050b14);
-        }
-        [dir="rtl"] .logo-slider::after {
-            background: linear-gradient(to left, transparent, #050b14);
-        }
-
         .logo-track {
             display: flex;
-            width: calc(250px * 16 + 4rem * 16);
+            width: calc(250px * 22 + 4rem * 22); /* Support 11 logos (Set 1 + Set 2) */
             animation: scroll 30s linear infinite;
             gap: 4rem;
+            direction: ltr; /* Force left-to-right animation */
         }
 
         .logo-slide {
@@ -1483,7 +1477,7 @@
                     <!-- Service 1 -->
                     <div class="service-card">
                         <div class="service-image-wrap">
-                            <img src="./images/installation.png" alt="BWTS Installation">
+                            <img src="./images/installation.jpg" alt="BWTS Installation">
                             <div class="service-image-overlay"></div>
                         </div>
                         <div class="service-body">
@@ -1499,7 +1493,7 @@
                     <!-- Service 2 -->
                     <div class="service-card">
                         <div class="service-image-wrap">
-                            <img src="./images/maintenance.png" alt="Maintenance and Repair">
+                            <img src="./images/maintenance.jpg" alt="Maintenance and Repair">
                             <div class="service-image-overlay"></div>
                         </div>
                         <div class="service-body">
@@ -1515,7 +1509,7 @@
                     <!-- Service 3 -->
                     <div class="service-card">
                         <div class="service-image-wrap">
-                            <img src="./images/testing.png" alt="Commissioning and Testing">
+                            <img src="./images/testing.jpg" alt="Commissioning and Testing">
                             <div class="service-image-overlay"></div>
                         </div>
                         <div class="service-body">
@@ -1531,7 +1525,7 @@
                     <!-- Service 4 -->
                     <div class="service-card">
                         <div class="service-image-wrap">
-                            <img src="./images/spare-parts.png" alt="Spare Parts Support">
+                            <img src="./images/spare-parts.jpg" alt="Spare Parts Support">
                             <div class="service-image-overlay"></div>
                         </div>
                         <div class="service-body">
@@ -1547,7 +1541,7 @@
                     <!-- Service 5 -->
                     <div class="service-card">
                         <div class="service-image-wrap">
-                            <img src="./images/training.png" alt="Crew Training">
+                            <img src="./images/training.jpg" alt="Crew Training">
                             <div class="service-image-overlay"></div>
                         </div>
                         <div class="service-body">
@@ -1563,7 +1557,7 @@
                     <!-- Service 6 -->
                     <div class="service-card">
                         <div class="service-image-wrap">
-                            <img src="./images/documents.png" alt="Documentation Updates">
+                            <img src="./images/documents.jpg" alt="Documentation Updates">
                             <div class="service-image-overlay"></div>
                         </div>
                         <div class="service-body">
