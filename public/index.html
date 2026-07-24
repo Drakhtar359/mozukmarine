@@ -1311,8 +1311,8 @@
         }
 
         .logo-slide svg {
-            max-width: 180px;
-            max-height: 45px;
+            width: 180px;
+            height: 45px;
             fill: var(--text-muted);
             color: var(--text-muted);
             opacity: 0.5;
@@ -1337,6 +1337,19 @@
             }
         }
 
+        @keyframes scroll-rtl {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(250px * 8 + 4rem * 8));
+            }
+        }
+
+        [dir="rtl"] .logo-track {
+            animation-name: scroll-rtl;
+        }
+
         /* Pause scroll on hover */
         .logo-slider:hover .logo-track {
             animation-play-state: paused;
@@ -1352,6 +1365,14 @@
                 }
                 100% {
                     transform: translateX(calc(-250px * 8 - 2.5rem * 8));
+                }
+            }
+            @keyframes scroll-rtl {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(calc(250px * 8 + 2.5rem * 8));
                 }
             }
         }
