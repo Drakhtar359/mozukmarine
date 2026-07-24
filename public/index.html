@@ -1234,6 +1234,127 @@
                 align-items: flex-start;
             }
         }
+
+        /* ===== BWTS MANUFACTURERS LOGO SLIDER ===== */
+        .bwts-logos-slider-container {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px dashed rgba(0, 242, 254, 0.15);
+            text-align: center;
+        }
+
+        .bwts-logos-slider-container .slider-title {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .logo-slider {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            padding: 1.5rem 0;
+            background: rgba(10, 19, 34, 0.4);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-glass-border);
+            backdrop-filter: var(--glass-blur);
+        }
+
+        /* Gradient overlays for fading edge effect */
+        .logo-slider::before,
+        .logo-slider::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 150px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .logo-slider::before {
+            left: 0;
+            background: linear-gradient(to right, #050b14, transparent);
+        }
+
+        .logo-slider::after {
+            right: 0;
+            background: linear-gradient(to left, #050b14, transparent);
+        }
+
+        /* RTL support */
+        [dir="rtl"] .logo-slider::before {
+            background: linear-gradient(to right, transparent, #050b14);
+        }
+        [dir="rtl"] .logo-slider::after {
+            background: linear-gradient(to left, transparent, #050b14);
+        }
+
+        .logo-track {
+            display: flex;
+            width: calc(250px * 16 + 4rem * 16);
+            animation: scroll 30s linear infinite;
+            gap: 4rem;
+        }
+
+        .logo-slide {
+            width: 250px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .logo-slide svg {
+            max-width: 180px;
+            max-height: 45px;
+            fill: var(--text-muted);
+            color: var(--text-muted);
+            opacity: 0.5;
+            transition: all 0.3s var(--transition-smooth);
+            filter: drop-shadow(0 0 1px rgba(0, 242, 254, 0.1));
+        }
+
+        .logo-slide svg:hover {
+            fill: var(--color-primary);
+            color: var(--color-primary);
+            opacity: 0.95;
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.4));
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-250px * 8 - 4rem * 8));
+            }
+        }
+
+        /* Pause scroll on hover */
+        .logo-slider:hover .logo-track {
+            animation-play-state: paused;
+        }
+
+        @media (max-width: 768px) {
+            .logo-track {
+                gap: 2.5rem;
+            }
+            @keyframes scroll {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(calc(-250px * 8 - 2.5rem * 8));
+                }
+            }
+        }
     </style>
 </head>
 
@@ -1453,6 +1574,130 @@
                             <h3 data-i18n="bwts_c6_title">Documentation Updates</h3>
                             <p data-i18n="bwts_c6_desc">Digitization of technical schematics, CAD updates, and Ballast Water Management Plan (BWMP) revisions according to IMO regulations.</p>
                             <a href="contact.html" class="service-footer" data-i18n="bwts_c6_btn">Update Documentation <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BWTS Manufacturers Logo Slider -->
+                <div class="bwts-logos-slider-container">
+                    <h4 class="slider-title" data-i18n="bwts_slider_title">Certified Service & Support for Leading Manufacturers</h4>
+                    <div class="logo-slider">
+                        <div class="logo-track">
+                            <!-- Set 1 of Logos -->
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 15 45 L 35 15 L 55 45 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+                                    <path d="M 22 45 L 35 25 L 48 45 Z" fill="currentColor"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="bold" fill="currentColor" letter-spacing="1">ALFA LAVAL</text>
+                                </svg>
+                            </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="35" cy="30" r="18" fill="none" stroke="currentColor" stroke-width="3"/>
+                                    <path d="M 27 30 L 43 30 M 35 22 L 35 38" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="800" fill="currentColor" letter-spacing="2">TECHCROSS</text>
+                                </svg>
+                            </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 15 35 C 25 35, 25 25, 35 25 C 45 25, 45 35, 55 35" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                                    <path d="M 15 25 C 25 25, 25 15, 35 15 C 45 15, 45 25, 55 25" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="700" fill="currentColor" letter-spacing="1.5">WÄRTSILÄ</text>
+                                </svg>
+                            </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="28" cy="30" r="15" fill="none" stroke="currentColor" stroke-width="3"/>
+                                    <circle cx="42" cy="30" r="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3,3"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="currentColor" letter-spacing="1">ERMA FIRST</text>
+                                </svg>
+                            </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 15 42 A 22 22 0 0 1 55 42" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                                    <circle cx="35" cy="28" r="6" fill="currentColor"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="800" fill="currentColor" letter-spacing="1">PANASIA</text>
+                                </svg>
+                            </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="35" cy="30" r="14" fill="none" stroke="currentColor" stroke-width="3"/>
+                                    <path d="M 35 10 L 35 14 M 35 46 L 35 50 M 15 30 L 19 30 M 51 30 L 55 30" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="800" fill="currentColor" letter-spacing="1.5">SUNRUI</text>
+                                </svg>
+                            </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="18" y="18" width="24" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="3"/>
+                                    <path d="M 24 30 L 36 30" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="24" font-weight="900" fill="currentColor" letter-spacing="2">DESMI</text>
+                                </svg>
+                            </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 35 15 C 45 15, 48 25, 35 45 C 22 25, 25 15, 35 15 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+                                    <circle cx="35" cy="25" r="4" fill="currentColor"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="currentColor" letter-spacing="1">BIO-UV</text>
+                                </svg>
+                            </div>
+
+                            <!-- Set 2 of Logos (Duplicated for seamless loop) -->
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 15 45 L 35 15 L 55 45 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+                                    <path d="M 22 45 L 35 25 L 48 45 Z" fill="currentColor"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="bold" fill="currentColor" letter-spacing="1">ALFA LAVAL</text>
+                                </svg>
+                            </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="35" cy="30" r="18" fill="none" stroke="currentColor" stroke-width="3"/>
+                                    <path d="M 27 30 L 43 30 M 35 22 L 35 38" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="800" fill="currentColor" letter-spacing="2">TECHCROSS</text>
+                                </svg>
+                            </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 15 35 C 25 35, 25 25, 35 25 C 45 25, 45 35, 55 35" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                                    <path d="M 15 25 C 25 25, 25 15, 35 15 C 45 15, 45 25, 55 25" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="700" fill="currentColor" letter-spacing="1.5">WÄRTSILÄ</text>
+                                </svg>
+                            </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="28" cy="30" r="15" fill="none" stroke="currentColor" stroke-width="3"/>
+                                    <circle cx="42" cy="30" r="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3,3"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="currentColor" letter-spacing="1">ERMA FIRST</text>
+                                </svg>
+                            </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 15 42 A 22 22 0 0 1 55 42" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                                    <circle cx="35" cy="28" r="6" fill="currentColor"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="800" fill="currentColor" letter-spacing="1">PANASIA</text>
+                                </svg>
+                            </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="35" cy="30" r="14" fill="none" stroke="currentColor" stroke-width="3"/>
+                                    <path d="M 35 10 L 35 14 M 35 46 L 35 50 M 15 30 L 19 30 M 51 30 L 55 30" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="800" fill="currentColor" letter-spacing="1.5">SUNRUI</text>
+                                </svg>
+                            </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="18" y="18" width="24" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="3"/>
+                                    <path d="M 24 30 L 36 30" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="24" font-weight="900" fill="currentColor" letter-spacing="2">DESMI</text>
+                                </svg>
+                            </div>
+                            <div class="logo-slide">
+                                <svg viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 35 15 C 45 15, 48 25, 35 45 C 22 25, 25 15, 35 15 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+                                    <circle cx="35" cy="25" r="4" fill="currentColor"/>
+                                    <text x="70" y="38" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="currentColor" letter-spacing="1">BIO-UV</text>
+                                </svg>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2622,7 +2867,8 @@
                 chip_email_label: "Email Inquiry",
                 chip_phone_label: "Phone / WhatsApp",
                 chip_avail_label: "Availability",
-                chip_avail_val: "24/7 Global Dispatch"
+                chip_avail_val: "24/7 Global Dispatch",
+                bwts_slider_title: "Certified Service & Support for Leading Manufacturers"
             },
             es: {
                 nav_home: "Inicio",
@@ -2698,7 +2944,8 @@
                 chip_email_label: "Consulta por Correo",
                 chip_phone_label: "Teléfono / WhatsApp",
                 chip_avail_label: "Disponibilidad",
-                chip_avail_val: "Despacho Global 24/7"
+                chip_avail_val: "Despacho Global 24/7",
+                bwts_slider_title: "Servicio y Soporte Certificado para Fabricantes Líderes"
             },
             fr: {
                 nav_home: "Accueil",
@@ -2774,7 +3021,8 @@
                 chip_email_label: "Demande par E-mail",
                 chip_phone_label: "Téléphone / WhatsApp",
                 chip_avail_label: "Disponibilité",
-                chip_avail_val: "Intervention Mondiale 24/7"
+                chip_avail_val: "Intervention Mondiale 24/7",
+                bwts_slider_title: "Service et Support Certifiés pour les Principaux Fabricants"
             },
             ar: {
                 nav_home: "الرئيسية",
@@ -2850,7 +3098,8 @@
                 chip_email_label: "استفسار البريد الإلكتروني",
                 chip_phone_label: "الهاتف / واتساب",
                 chip_avail_label: "التوفر",
-                chip_avail_val: "إرسال عالمي على مدار 24/7"
+                chip_avail_val: "إرسال عالمي على مدار 24/7",
+                bwts_slider_title: "خدمة ودعم معتمد لكبرى الشركات المصنعة"
             },
             bg: {
                 nav_home: "Начало",
@@ -2926,7 +3175,8 @@
                 chip_email_label: "Имейл запитване",
                 chip_phone_label: "Телефон / WhatsApp",
                 chip_avail_label: "Наличност",
-                chip_avail_val: "24/7 Глобален диспечерски център"
+                chip_avail_val: "24/7 Глобален диспечерски център",
+                bwts_slider_title: "Сертифицирано обслужване и поддръжка за водещи производители"
             }
         };
 
