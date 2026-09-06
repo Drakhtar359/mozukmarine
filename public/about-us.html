@@ -747,6 +747,70 @@
             font-size: 0.9rem;
         }
 
+        /* ===== DIGITALIZATION ABOUT SECTION ===== */
+        .digi-about-section {
+            padding: 3rem 0 5rem;
+        }
+
+        .digi-about-card {
+            background: var(--color-surface);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--color-glass-border-hover);
+            border-radius: var(--radius-lg);
+            padding: 3.5rem 3rem;
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .digi-about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3.5rem;
+            align-items: center;
+        }
+
+        .digi-benefit-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .digi-benefit-box {
+            background: rgba(10, 19, 34, 0.6);
+            border: 1px solid var(--color-glass-border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .digi-benefit-box:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-4px);
+            background: rgba(0, 242, 254, 0.06);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .digi-benefit-box i {
+            font-size: 1.8rem;
+            color: var(--color-primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .digi-benefit-box h4 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.4rem;
+        }
+
+        .digi-benefit-box p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
         /* ===== CTA BANNER ===== */
         .cta-section {
             padding: 4rem 0 6rem;
@@ -1009,6 +1073,46 @@
             </div>
         </section>
 
+        <!-- Digitalization of Technical Documents Section -->
+        <section class="digi-about-section">
+            <div class="digi-about-card">
+                <div class="digi-about-grid">
+                    <div class="digi-about-info">
+                        <div class="badge" data-i18n="digi_about_badge"><i class="fa-solid fa-laptop-code"></i> Technical Documentation Innovation</div>
+                        <h2 style="font-family: var(--font-heading); font-size: 2.2rem; font-weight: 700; margin: 1rem 0 1.2rem; line-height: 1.2;" data-i18n="digi_about_title">Empowering Fleets Through <span class="text-gradient">Technical Digitalization</span></h2>
+                        <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 1.02rem; line-height: 1.65;" data-i18n="digi_about_p1">Traditional paper manuals, P&ID schematics, and manufacturer datasheets are often scattered across heavy binder archives on board. Finding the right wiring diagram or spare part code during urgent maintenance can take hours.</p>
+                        <p style="color: var(--text-muted); font-size: 1.02rem; line-height: 1.65;" data-i18n="digi_about_p2">Our end-to-end digitalization service eliminates paper chaos. We transform your vessel's complete technical library into an intuitive, searchable digital system accessible on workstations and ruggedized tablets—making life infinitely easier for ship engineers and superintendents.</p>
+                    </div>
+
+                    <div class="digi-benefit-grid">
+                        <div class="digi-benefit-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <h4 data-i18n="digi_b1_title">Instant Keyword Search</h4>
+                            <p data-i18n="digi_b1_desc">Locate any valve, circuit loop, or equipment manual in seconds with OCR-powered search.</p>
+                        </div>
+
+                        <div class="digi-benefit-box">
+                            <i class="fa-solid fa-tablet-screen-button"></i>
+                            <h4 data-i18n="digi_b2_title">On-the-Go Tablet Access</h4>
+                            <p data-i18n="digi_b2_desc">Engineers carry full technical documentation directly to the machinery space or deck.</p>
+                        </div>
+
+                        <div class="digi-benefit-box">
+                            <i class="fa-solid fa-diagram-project"></i>
+                            <h4 data-i18n="digi_b3_title">Connected Spare Catalogs</h4>
+                            <p data-i18n="digi_b3_desc">Seamless cross-referencing between machinery tags, OEM datasheets, and exploded diagrams.</p>
+                        </div>
+
+                        <div class="digi-benefit-box">
+                            <i class="fa-solid fa-clipboard-check"></i>
+                            <h4 data-i18n="digi_b4_title">Audit & Survey Readiness</h4>
+                            <p data-i18n="digi_b4_desc">Instant access to certificates and drawings for Port State Control (PSC) & Class audits.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Core Pillars Section -->
         <section class="pillars-section">
             <div class="container">
@@ -1189,6 +1293,18 @@
                 founder_bio1: "Driven by a passion for maritime engineering and marine environmental protection, Michel Akl founded Mozuk Marine to deliver specialized, high-reliability Ballast Water Treatment System (BWTS) engineering, retrofits, and global technical support.",
                 founder_bio2: "With extensive hands-on experience across major BWTS technologies, Michel established an agile, field-ready team of qualified marine engineers. Under his leadership, Mozuk Marine has grown into a trusted partner for shipowners, vessel managers, and drydocks worldwide, ensuring seamless compliance with IMO D-2 and USCG regulations.",
                 founder_quote: '"At Mozuk Marine, our mission is built on precision engineering, rapid global response, and an uncompromising commitment to clean oceans and vessel compliance."',
+                digi_about_badge: '<i class="fa-solid fa-laptop-code"></i> Technical Documentation Innovation',
+                digi_about_title: 'Empowering Fleets Through <span class="text-gradient">Technical Digitalization</span>',
+                digi_about_p1: "Traditional paper manuals, P&ID schematics, and manufacturer datasheets are often scattered across heavy binder archives on board. Finding the right wiring diagram or spare part code during urgent maintenance can take hours.",
+                digi_about_p2: "Our end-to-end digitalization service eliminates paper chaos. We transform your vessel's complete technical library into an intuitive, searchable digital system accessible on workstations and ruggedized tablets—making life infinitely easier for ship engineers and superintendents.",
+                digi_b1_title: "Instant Keyword Search",
+                digi_b1_desc: "Locate any valve, circuit loop, or equipment manual in seconds with OCR-powered search.",
+                digi_b2_title: "On-the-Go Tablet Access",
+                digi_b2_desc: "Engineers carry full technical documentation directly to the machinery space or deck.",
+                digi_b3_title: "Connected Spare Catalogs",
+                digi_b3_desc: "Seamless cross-referencing between machinery tags, OEM datasheets, and exploded diagrams.",
+                digi_b4_title: "Audit & Survey Readiness",
+                digi_b4_desc: "Instant access to certificates and drawings for Port State Control (PSC) & Class audits.",
                 pillars_badge: '<i class="fa-solid fa-star"></i> Why Choose Us',
                 pillars_title: "Our Core Engineering Pillars",
                 pillars_desc: "We deliver uncompromised quality and technical expertise tailored to the rigorous demands of modern shipping.",
@@ -1247,6 +1363,18 @@
                 founder_bio1: "Impulsado por la pasión por la ingeniería marítima y la protección ambiental marina, Michel Akl fundó Mozuk Marine para brindar servicios especializados de ingeniería en sistemas de tratamiento de agua de lastre (BWTS), instalaciones y soporte técnico global.",
                 founder_bio2: "Con amplia experiencia práctica en las principales tecnologías de BWTS, Michel formó un equipo ágil de ingenieros marítimos calificados. Bajo su liderazgo, Mozuk Marine se ha convertido en un socio de confianza para armadores y astilleros a nivel mundial, garantizando el cumplimiento normativo con IMO D-2 y USCG.",
                 founder_quote: '"En Mozuk Marine, nuestra misión se basa en la ingeniería de precisión, una rápida respuesta global y un compromiso inquebrantable con los océanos limpios."',
+                digi_about_badge: '<i class="fa-solid fa-laptop-code"></i> Innovación en Documentación Técnica',
+                digi_about_title: 'Potenciando a las Tripulaciones Mediante la <span class="text-gradient">Digitalización Técnica</span>',
+                digi_about_p1: "Los manuales de papel tradicionales, esquemas P&ID y fichas del fabricante suelen estar dispersos en pesados archivadores a bordo. Encontrar el diagrama o código de repuesto correcto durante un mantenimiento urgente puede llevar horas.",
+                digi_about_p2: "Nuestro servicio de digitalización de extremo a extremo elimina el caos del papel. Transformamos la biblioteca técnica completa de su buque en un sistema digital intuitivo y buscable, accesible en estaciones de trabajo y tablets resistentes para facilitar la vida a ingenieros y superintendentes.",
+                digi_b1_title: "Búsqueda Instantánea",
+                digi_b1_desc: "Localice cualquier válvula, bucle de circuito o manual en segundos mediante búsqueda con OCR.",
+                digi_b2_title: "Acceso Móvil en Tablet",
+                digi_b2_desc: "Los ingenieros llevan la documentación técnica completa directamente a la sala de máquinas o cubierta.",
+                digi_b3_title: "Catálogos de Repuestos Conectados",
+                digi_b3_desc: "Vínculo directo entre etiquetas de maquinaria, fichas OEM y diagramas de despiece.",
+                digi_b4_title: "Preparación para Inspecciones",
+                digi_b4_desc: "Acceso inmediato a certificados y planos para auditorías de Capitanía de Puerto (PSC) y Clasificación.",
                 pillars_badge: '<i class="fa-solid fa-star"></i> Por Qué Elegirnos',
                 pillars_title: "Nuestros Pilares Fundamentales",
                 pillars_desc: "Ofrecemos calidad sin concesiones y conocimientos técnicos adaptados a las exigencias del transporte marítimo moderno.",
@@ -1305,6 +1433,18 @@
                 founder_bio1: "Animé par une passion pour l'ingénierie maritime et la protection de l'environnement marin, Michel Akl a fondé Mozuk Marine pour offrir une ingénierie spécialisée et un support technique mondial pour les systèmes BWTS.",
                 founder_bio2: "Fort d'une solide expérience sur les principales technologies BWTS, Michel a constitué une équipe réactive d'ingénieurs maritimes qualifiés. Sous sa direction, Mozuk Marine est devenu un partenaire de confiance pour les armateurs et chantiers navals du monde entier.",
                 founder_quote: '"Chez Mozuk Marine, notre mission repose sur l\'ingénierie de précision, une réponse globale rapide et un engagement absolu pour la propreté des océans."',
+                digi_about_badge: '<i class="fa-solid fa-laptop-code"></i> Innovation en Documentation Technique',
+                digi_about_title: 'Optimiser la Gestion des Navires Grâce à la <span class="text-gradient">Digitalisation Technique</span>',
+                digi_about_p1: "Les manuels papier traditionnels, schémas P&ID et fiches constructeurs sont souvent dispersés dans de lourds classeurs à bord. Trouver le bon schéma électrique ou la référence d'une pièce en urgence peut prendre des heures.",
+                digi_about_p2: "Notre service de digitalisation élimine le papier. Nous transformons l'ensemble de la bibliothèque technique de votre navire en un système numérique intuitif et recherchable sur postes fixes et tablettes durcies pour faciliter la vie des mécaniciens et armateurs.",
+                digi_b1_title: "Recherche Instantanée",
+                digi_b1_desc: "Trouvez n'importe quelle vanne, boucle ou manuel en quelques secondes grâce à la recherche OCR.",
+                digi_b2_title: "Accès Nomade sur Tablette",
+                digi_b2_desc: "Les ingénieurs emportent toute la documentation technique directement sur le terrain.",
+                digi_b3_title: "Catalogues Interconnectés",
+                digi_b3_desc: "Correspondance directe entre étiquettes d'équipements, fiches OEM et vues éclatées.",
+                digi_b4_title: "Prêt pour Insfections",
+                digi_b4_desc: "Accès immédiat aux certificats et schémas pour le contrôle par l'État du port (PSC) et la Classification.",
                 pillars_badge: '<i class="fa-solid fa-star"></i> Pourquoi Nous Choisir',
                 pillars_title: "Nos Piliers d'Ingénierie",
                 pillars_desc: "Nous offrons une qualité irréprochable et une expertise technique adaptée aux exigences strictes du transport maritime moderne.",
@@ -1363,6 +1503,18 @@
                 founder_bio1: "مدفوعاً بشغفه بالهندسة البحرية والحفاظ على البيئة البحرية، أسس ميشال عقل شركة موزوك مارين لتقديم حلول هندسية متقدمة وموثوقة لأنظمة معالجة مياه التوازن (BWTS) وتحديثها ودعمها تقنياً عالمياً.",
                 founder_bio2: "بفضل خبرته الميدانية العميقة عبر مختلف تقنيات BWTS، أنشأ ميشال فريقاً مرناً وجاهزاً من المهندسين البحريين المؤهلين. وتحت قيادته، نمت موزوك مارين لتصبح شريكاً موثوقاً لملاك السفن والترسانات البحرية عالمياً، مع التركيز على الامتثال لمعايير IMO D-2 و USCG.",
                 founder_quote: '"في موزوك مارين، مهمتنا قائمة على الدقة الهندسية، الاستجابة العالمية السريعة، والالتزام المطلق بنظافة البحار وامتثال السفن."',
+                digi_about_badge: '<i class="fa-solid fa-laptop-code"></i> الابتكار في التوثيق الفني',
+                digi_about_title: 'تمكين طواقم السفن عبر <span class="text-gradient">الرقمنة الفنية الشاملة</span>',
+                digi_about_p1: "غالباً ما تكون الكتالوجات الورقية ومخططات P&ID وصحائف المصنعين مبعثرة داخل مجلدات ورقية ضخمة على متن السفينة. قد يستغرق البحث عن مخطط كهربائي أو رمز قطعة غيار أثناء الصيانة الطارئة ساعات طويلة.",
+                digi_about_p2: "خدمتنا المتكاملة لرقمنة المستندات تقضي تماماً على فوضى الأوراق. نعدل المكتبة الفنية الكاملة لسفينتك إلى نظام رقمي تفاعلي وقابل للبحث الفوري، متاح على أجهزة الكمبيوتر والأجهزة اللوحية المتينة لتسهيل عمل المهندسين والطاقم.",
+                digi_b1_title: "بحث فوري عن الكلمات والرموز",
+                digi_b1_desc: "تحديد أي صمام أو دائرة كهربائية أو كتالوج في ثوانٍ معدودة باستخدام تقنية OCR.",
+                digi_b2_title: "وصول مباشر عبر الأجهزة اللوحية",
+                digi_b2_desc: "حمل الوثائق الفنية الكاملة مباشرة إلى موقع المعدات أو سطح السفينة.",
+                digi_b3_title: "ربط كتالوجات قطع الغيار",
+                digi_b3_desc: "ربط مباشر بين الأرقام التسلسلية للمعدات ورسومات التفكيك وصحائف المصنعين.",
+                digi_b4_title: "جاهزية تامة للتفتيش والتدقيق",
+                digi_b4_desc: "وصول فوري للشهادات والمخططات أثناء تفتيش رقابة الدولة على الموانئ (PSC) وهيئات التصنيف.",
                 pillars_badge: '<i class="fa-solid fa-star"></i> لماذا تختارنا',
                 pillars_title: "ركائزنا الهندسية الأساسية",
                 pillars_desc: "نقدم جودة وخبرة فنية لا تهاون فيها مصممة خصيصاً لتلبية متطلبات الملاحة الحديثة.",
@@ -1421,6 +1573,18 @@
                 founder_bio1: "Вдъхновен от страстта към морското инженерство и опазването на морската среда, Мишел Акл основава Мозук Марин, за да предоставя специализиран инженеринг и глобална поддръжка за BWTS системи.",
                 founder_bio2: "С богат практически опит в основните BWTS технологии, Мишел създава бърз и висококвалифициран екип от морски инженери. Под негово ръководство компанията се превръща в доверен партньор за корабособственици и корабостроителници в цял свят.",
                 founder_quote: '"В Мозук Марин нашата мисия е изградена върху прецизен инженеринг, бърза глобална реакция и безкомпромисен ангажимент към чистите океани."',
+                digi_about_badge: '<i class="fa-solid fa-laptop-code"></i> Иновация в Техническата Документация',
+                digi_about_title: 'Улесняване на Корабните Екипажи Чрез <span class="text-gradient">Дигитализация</span>',
+                digi_about_p1: "Традиционните хартиени ръководства, P&ID схеми и спецификации са разпръснати в тежки класьори. Намирането на правилната схема или част по време на спешен ремонт може да отнеме часове.",
+                digi_about_p2: "Нашата услуга за дигитализация премахва хартиения хаос. Превръщаме цялата техническа библиотека на кораба в интуитивна дигитална система с търсене, достъпна през компютри и индустриални таблети за максимално улеснение на инженерите.",
+                digi_b1_title: "Моментално Търсене",
+                digi_b1_desc: "Намерете всеки клапан, верига или ръководство за секунди чрез OCR търсене.",
+                digi_b2_title: "Мобилен Достъп Чрез Таблет",
+                digi_b2_desc: "Инженерите носят пълната техническа документация директно при машините.",
+                digi_b3_title: "Свързани Каталози за Части",
+                digi_b3_desc: "Директна връзка между серийните номера, спецификациите и чертежите на частите.",
+                digi_b4_title: "Готовност за Инспекции",
+                digi_b4_desc: "Бърз достъп до сертификати и чертежи за инспекции от PSC и Класификационни организации.",
                 pillars_badge: '<i class="fa-solid fa-star"></i> Защо да изберете нас',
                 pillars_title: "Нашите Основни Инженерни стълбове",
                 pillars_desc: "Предоставяме безкомпромисно качество и техническа експертиза, съобразени с строгите изисквания на съвременното корабоплаване.",
