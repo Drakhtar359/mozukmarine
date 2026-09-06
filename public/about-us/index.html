@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Mozuk Marine Engineering</title>
-    <meta name="description" content="Learn more about Mozuk Marine - your trusted partner for Ballast Water Treatment System (BWTS) installation, maintenance, engineering, and regulatory compliance.">
+    <title>About Us & Founder Backstory - Mozuk Marine Engineering</title>
+    <meta name="description" content="Learn more about Mozuk Marine and Founder & CEO Michel Akl - your trusted partner for Ballast Water Treatment System (BWTS) installation, maintenance, engineering, and regulatory compliance.">
     <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
     <!-- Google Fonts & Font Awesome Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -418,7 +418,7 @@
 
         /* ===== STORY & MISSION SECTION ===== */
         .story-section {
-            padding: 2rem 0 5rem;
+            padding: 2rem 0 4rem;
         }
 
         .story-grid {
@@ -495,6 +495,111 @@
             color: var(--text-muted);
             margin-bottom: 1.2rem;
             font-size: 1.02rem;
+        }
+
+        /* ===== FOUNDER & LEADERSHIP SECTION ===== */
+        .founder-section {
+            padding: 3rem 0 5rem;
+        }
+
+        .founder-card {
+            background: var(--color-surface);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--color-glass-border-hover);
+            border-radius: var(--radius-lg);
+            padding: 3.5rem 3rem;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 3.5rem;
+            align-items: center;
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .founder-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .founder-avatar-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .founder-avatar-icon {
+            width: 170px;
+            height: 170px;
+            margin: 0 auto;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(58, 123, 213, 0.25));
+            border: 2px solid var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4.5rem;
+            color: var(--color-primary);
+            box-shadow: var(--shadow-glow);
+            transition: transform 0.4s ease;
+        }
+
+        .founder-avatar-icon:hover {
+            transform: scale(1.05);
+        }
+
+        .founder-info h2 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0.6rem 0 0.2rem;
+        }
+
+        .founder-info h3 {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.3rem;
+        }
+
+        .founder-role {
+            color: var(--color-accent);
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .founder-info p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-size: 1.02rem;
+            line-height: 1.65;
+        }
+
+        .founder-quote {
+            background: rgba(0, 242, 254, 0.06);
+            border-left: 3px solid var(--color-accent);
+            padding: 1.2rem 1.6rem;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            font-style: italic;
+            color: var(--text-main);
+            margin-top: 1.5rem;
+            font-size: 1.02rem;
+        }
+
+        [dir="rtl"] .founder-quote {
+            border-left: none;
+            border-right: 3px solid var(--color-accent);
+            border-radius: var(--radius-sm) 0 0 var(--radius-sm);
         }
 
         /* ===== PILLARS / VALUES SECTION ===== */
@@ -770,9 +875,13 @@
 
         /* ===== RESPONSIVE MEDIA QUERIES ===== */
         @media (max-width: 900px) {
-            .story-grid {
+            .story-grid, .founder-card {
                 grid-template-columns: 1fr;
-                gap: 3rem;
+                gap: 2.5rem;
+            }
+
+            .founder-card {
+                padding: 2.5rem 1.8rem;
             }
 
             .footer-grid {
@@ -923,6 +1032,33 @@
                     <h2 data-i18n="story_title">Protecting Marine Ecosystems Through <span class="text-gradient">Advanced Engineering</span></h2>
                     <p data-i18n="story_desc1">Mozuk Marine stands at the forefront of maritime environmental technology. With years of practical field experience and in-depth understanding of marine engineering, we serve shipowners, vessel operators, and shipyards worldwide.</p>
                     <p data-i18n="story_desc2">We specialize in turnkey retrofits, emergency repairs, commissioning, routine calibration, and genuine spare parts for UV, Electro-chlorination, and Chemical Ballast Water Treatment Systems (BWTS).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Founder & Leadership Backstory Section -->
+        <section class="founder-section">
+            <div class="founder-card">
+                <div class="founder-visual">
+                    <div class="founder-avatar-wrapper">
+                        <div class="founder-avatar-icon">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="founder-info">
+                    <div class="badge" data-i18n="founder_badge"><i class="fa-solid fa-user-tie"></i> Leadership & Backstory</div>
+                    <h2 data-i18n="founder_title">Meet Our Founder & <span class="text-gradient">CEO</span></h2>
+                    <h3 data-i18n="founder_name">Michel Akl</h3>
+                    <div class="founder-role" data-i18n="founder_role"><i class="fa-solid fa-circle-check"></i> Founder & Chief Executive Officer</div>
+                    <p data-i18n="founder_bio1">Driven by a passion for maritime engineering and marine environmental protection, Michel Akl founded Mozuk Marine to deliver specialized, high-reliability Ballast Water Treatment System (BWTS) engineering, retrofits, and global technical support.</p>
+                    <p data-i18n="founder_bio2">With extensive hands-on experience across major BWTS technologies, Michel established an agile, field-ready team of qualified marine engineers. Under his leadership, Mozuk Marine has grown into a trusted partner for shipowners, vessel managers, and drydocks worldwide, ensuring seamless compliance with IMO D-2 and USCG regulations.</p>
+
+                    <div class="founder-quote">
+                        <i class="fa-solid fa-quote-left" style="color: var(--color-primary); margin-right: 0.5rem;"></i>
+                        <span data-i18n="founder_quote">"At Mozuk Marine, our mission is built on precision engineering, rapid global response, and an uncompromising commitment to clean oceans and vessel compliance."</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1144,6 +1280,13 @@
                 story_desc1: "Mozuk Marine stands at the forefront of maritime environmental technology. With years of practical field experience and in-depth understanding of marine engineering, we serve shipowners, vessel operators, and shipyards worldwide.",
                 story_desc2: "We specialize in turnkey retrofits, emergency repairs, commissioning, routine calibration, and genuine spare parts for UV, Electro-chlorination, and Chemical Ballast Water Treatment Systems (BWTS).",
                 story_floating: "Certified Marine Specialists",
+                founder_badge: '<i class="fa-solid fa-user-tie"></i> Leadership & Backstory',
+                founder_title: 'Meet Our Founder & <span class="text-gradient">CEO</span>',
+                founder_name: "Michel Akl",
+                founder_role: '<i class="fa-solid fa-circle-check"></i> Founder & Chief Executive Officer',
+                founder_bio1: "Driven by a passion for maritime engineering and marine environmental protection, Michel Akl founded Mozuk Marine to deliver specialized, high-reliability Ballast Water Treatment System (BWTS) engineering, retrofits, and global technical support.",
+                founder_bio2: "With extensive hands-on experience across major BWTS technologies, Michel established an agile, field-ready team of qualified marine engineers. Under his leadership, Mozuk Marine has grown into a trusted partner for shipowners, vessel managers, and drydocks worldwide, ensuring seamless compliance with IMO D-2 and USCG regulations.",
+                founder_quote: '"At Mozuk Marine, our mission is built on precision engineering, rapid global response, and an uncompromising commitment to clean oceans and vessel compliance."',
                 pillars_badge: '<i class="fa-solid fa-star"></i> Why Choose Us',
                 pillars_title: "Our Core Engineering Pillars",
                 pillars_desc: "We deliver uncompromised quality and technical expertise tailored to the rigorous demands of modern shipping.",
@@ -1195,6 +1338,13 @@
                 story_desc1: "Mozuk Marine está a la vanguardia de la tecnología ambiental marítima. Con años de experiencia práctica en campo y profundo conocimiento de ingeniería naval, servimos a armadores y astilleros en todo el mundo.",
                 story_desc2: "Nos especializamos en instalaciones retrofits, reparaciones de emergencia, puesta en marcha, calibración y repuestos originales para sistemas UV, electrocloración y químicos.",
                 story_floating: "Especialistas Marítimos Certificados",
+                founder_badge: '<i class="fa-solid fa-user-tie"></i> Liderazgo e Historia',
+                founder_title: 'Conozca a Nuestro Fundador y <span class="text-gradient">CEO</span>',
+                founder_name: "Michel Akl",
+                founder_role: '<i class="fa-solid fa-circle-check"></i> Fundador y Director Ejecutivo',
+                founder_bio1: "Impulsado por la pasión por la ingeniería marítima y la protección ambiental marina, Michel Akl fundó Mozuk Marine para brindar servicios especializados de ingeniería en sistemas de tratamiento de agua de lastre (BWTS), instalaciones y soporte técnico global.",
+                founder_bio2: "Con amplia experiencia práctica en las principales tecnologías de BWTS, Michel formó un equipo ágil de ingenieros marítimos calificados. Bajo su liderazgo, Mozuk Marine se ha convertido en un socio de confianza para armadores y astilleros a nivel mundial, garantizando el cumplimiento normativo con IMO D-2 y USCG.",
+                founder_quote: '"En Mozuk Marine, nuestra misión se basa en la ingeniería de precisión, una rápida respuesta global y un compromiso inquebrantable con los océanos limpios."',
                 pillars_badge: '<i class="fa-solid fa-star"></i> Por Qué Elegirnos',
                 pillars_title: "Nuestros Pilares Fundamentales",
                 pillars_desc: "Ofrecemos calidad sin concesiones y conocimientos técnicos adaptados a las exigencias del transporte marítimo moderno.",
@@ -1246,6 +1396,13 @@
                 story_desc1: "Mozuk Marine est à la pointe de la technologie environnementale maritime. Grâce à des années d'expérience sur le terrain, nous servons armateurs et chantiers navals dans le monde entier.",
                 story_desc2: "Nous sommes spécialisés dans le retrofit clés en main, la réparation d'urgence, la mise en service, le calibrage et la fourniture de pièces de rechange d'origine pour systèmes UV, électro-chloration et chimiques.",
                 story_floating: "Spécialistes Maritimes Certifiés",
+                founder_badge: '<i class="fa-solid fa-user-tie"></i> Leadership & Histoire',
+                founder_title: 'Rencontrez Notre Fondateur & <span class="text-gradient">CEO</span>',
+                founder_name: "Michel Akl",
+                founder_role: '<i class="fa-solid fa-circle-check"></i> Fondateur & Directeur Général',
+                founder_bio1: "Animé par une passion pour l'ingénierie maritime et la protection de l'environnement marin, Michel Akl a fondé Mozuk Marine pour offrir une ingénierie spécialisée et un support technique mondial pour les systèmes BWTS.",
+                founder_bio2: "Fort d'une solide expérience sur les principales technologies BWTS, Michel a constitué une équipe réactive d'ingénieurs maritimes qualifiés. Sous sa direction, Mozuk Marine est devenu un partenaire de confiance pour les armateurs et chantiers navals du monde entier.",
+                founder_quote: '"Chez Mozuk Marine, notre mission repose sur l\'ingénierie de précision, une réponse globale rapide et un engagement absolu pour la propreté des océans."',
                 pillars_badge: '<i class="fa-solid fa-star"></i> Pourquoi Nous Choisir',
                 pillars_title: "Nos Piliers d'Ingénierie",
                 pillars_desc: "Nous offrons une qualité irréprochable et une expertise technique adaptée aux exigences strictes du transport maritime moderne.",
@@ -1297,6 +1454,13 @@
                 story_desc1: "تقف موزوك مارين في طليعة التكنولوجيا البيئية البحرية. مع سنوات من الخبرة العملية والفهم العميق للهندسة البحرية، نخدم ملاك السفن والترسانات البحرية عالمياً.",
                 story_desc2: "نحن متألقون في التحديث الشامل، الإصلاحات العاجلة، التكليف، المعايرة، وقطع الغيار الأصلية لأنظمة الأشعة فوق البنفسجية، الكلورة الكهرومائية، والأنظمة الكيميائية.",
                 story_floating: "متخصصون بحريون معتمدون",
+                founder_badge: '<i class="fa-solid fa-user-tie"></i> قصتنا وقيادتنا',
+                founder_title: 'قصة <span class="text-gradient">التأسيس والقيادة</span>',
+                founder_name: "ميشال عقل",
+                founder_role: '<i class="fa-solid fa-circle-check"></i> المؤسس والرئيس التنفيذي (CEO)',
+                founder_bio1: "مدفوعاً بشغفه بالهندسة البحرية والحفاظ على البيئة البحرية، أسس ميشال عقل شركة موزوك مارين لتقديم حلول هندسية متقدمة وموثوقة لأنظمة معالجة مياه التوازن (BWTS) وتحديثها ودعمها تقنياً عالمياً.",
+                founder_bio2: "بفضل خبرته الميدانية العميقة عبر مختلف تقنيات BWTS، أنشأ ميشال فريقاً مرناً وجاهزاً من المهندسين البحريين المؤهلين. وتحت قيادته، نمت موزوك مارين لتصبح شريكاً موثوقاً لملاك السفن والترسانات البحرية عالمياً، مع التركيز على الامتثال لمعايير IMO D-2 و USCG.",
+                founder_quote: '"في موزوك مارين، مهمتنا قائمة على الدقة الهندسية، الاستجابة العالمية السريعة، والالتزام المطلق بنظافة البحار وامتثال السفن."',
                 pillars_badge: '<i class="fa-solid fa-star"></i> لماذا تختارنا',
                 pillars_title: "ركائزنا الهندسية الأساسية",
                 pillars_desc: "نقدم جودة وخبرة فنية لا تهاون فيها مصممة خصيصاً لتلبية متطلبات الملاحة الحديثة.",
@@ -1348,6 +1512,13 @@
                 story_desc1: "Мозук Марин е на чело на морските екологични технологии. С години практически опит и задълбочени познания в корабостроенето и кораборемонта, ние обслужваме корабособственици и корабостроителници по целия свят.",
                 story_desc2: "Специализирани сме в цялостни преустройства (retrofit), спешни ремонти, въвеждане в експлоатация, калибриране и оригинални резервни части за UV, електрохлориращи и химически BWTS системи.",
                 story_floating: "Сертифицирани Морски Специалисти",
+                founder_badge: '<i class="fa-solid fa-user-tie"></i> Лидерство и История',
+                founder_title: 'Запознайте се с Нашия Основател & <span class="text-gradient">CEO</span>',
+                founder_name: "Мишел Акл (Michel Akl)",
+                founder_role: '<i class="fa-solid fa-circle-check"></i> Основател и Главен Изпълнителен Директор',
+                founder_bio1: "Вдъхновен от страстта към морското инженерство и опазването на морската среда, Мишел Акл основава Мозук Марин, за да предоставя специализиран инженеринг и глобална поддръжка за BWTS системи.",
+                founder_bio2: "С богат практически опит в основните BWTS технологии, Мишел създава бърз и висококвалифициран екип от морски инженери. Под негово ръководство компанията се превръща в доверен партньор за корабособственици и корабостроителници в цял свят.",
+                founder_quote: '"В Мозук Марин нашата мисия е изградена върху прецизен инженеринг, бърза глобална реакция и безкомпромисен ангажимент към чистите океани."',
                 pillars_badge: '<i class="fa-solid fa-star"></i> Защо да изберете нас',
                 pillars_title: "Нашите Основни Инженерни стълбове",
                 pillars_desc: "Предоставяме безкомпромисно качество и техническа експертиза, съобразени с строгите изисквания на съвременното корабоплаване.",
