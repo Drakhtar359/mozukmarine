@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Mozuk Marine Engineering</title>
+    <meta name="description" content="Learn more about Mozuk Marine - your trusted partner for Ballast Water Treatment System (BWTS) installation, maintenance, engineering, and regulatory compliance.">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* ===== CSS DESIGN SYSTEM & TOKENS ===== */
+        :root {
+            /* Color Palette - Cyber Marine Dark Mode */
+            --color-bg: #050b14;
+            --color-bg-alt: #0a1322;
+            --color-surface: rgba(13, 25, 44, 0.7);
+            --color-surface-hover: rgba(20, 38, 66, 0.85);
+            --color-glass-border: rgba(0, 242, 254, 0.15);
+            --color-glass-border-hover: rgba(0, 242, 254, 0.4);
+            
+            /* Cyan / Ocean Accent Gradients */
+            --color-primary: #00f2fe;
+            --color-primary-dark: #00c6ff;
+            --color-secondary: #3a7bd5;
+            --color-accent: #00ffc3;
+            
+            /* Text Colors */
+            --text-main: #f0f6fc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2.5rem;
+            --spacing-xl: 4rem;
+
+            /* Typography */
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-heading: 'Space Grotesk', sans-serif;
+
+            /* Effects */
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-full: 9999px;
+            --shadow-glow: 0 0 30px rgba(0, 242, 254, 0.25);
+            --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.4);
+            --glass-blur: blur(16px);
+            --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ===== GLOBAL RESETS ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Canvas Particle Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.15;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(0, 242, 254, 0.08) 0%, transparent 60%),
+                        radial-gradient(circle at 80% 80%, rgba(58, 123, 213, 0.06) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            #bg-canvas {
+                display: none !important;
+            }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-full);
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid var(--color-glass-border);
+            color: var(--color-primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            backdrop-filter: var(--glass-blur);
+        }
+
+        /* ===== NAVIGATION ===== */
+        .header-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(5, 11, 20, 0.75);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .header-nav.scrolled {
+            background: rgba(5, 11, 20, 0.92);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-bottom-color: var(--color-glass-border);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            height: 48px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover img {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-main);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            transition: all 0.3s var(--transition-smooth);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .btn-nav-cta, .btn-nav-cta:visited {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.4rem;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: #000;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+        }
+
+        .btn-nav-cta:hover, .btn-nav-cta:visited:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5);
+            color: #000;
+        }
+
+        /* Language Selector */
+        .lang-selector {
+            position: relative;
+            list-style: none;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--color-glass-border);
+            color: var(--text-main);
+            padding: 0.5rem 0.9rem;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: rgba(0, 242, 254, 0.1);
+            border-color: var(--color-primary);
+        }
+
+        .lang-dropdown {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: rgba(10, 19, 34, 0.95);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--color-glass-border);
+            border-radius: var(--radius-md);
+            padding: 0.5rem;
+            display: none;
+            flex-direction: column;
+            gap: 0.25rem;
+            min-width: 150px;
+            box-shadow: var(--shadow-card);
+            z-index: 1001;
+        }
+
+        [dir="rtl"] .lang-dropdown {
+            right: auto;
+            left: 0;
+        }
+
+        .lang-dropdown.active {
+            display: flex;
+        }
+
+        .lang-option {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.5rem 0.8rem;
+            text-align: left;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.2s ease;
+        }
+
+        [dir="rtl"] .lang-option {
+            text-align: right;
+        }
+
+        .lang-option:hover, .lang-option.active {
+            background: rgba(0, 242, 254, 0.12);
+            color: var(--color-primary);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .about-hero {
+            padding: 5rem 0 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .about-hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.2rem, 5vw, 3.6rem);
+            font-weight: 700;
+            line-height: 1.15;
+            margin: 1.2rem 0 1rem;
+        }
+
+        .about-hero p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 780px;
+            margin: 0 auto 2.5rem;
+        }
+
+        /* ===== STATS COUNTER GRID ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 5rem;
+        }
+
+        .stat-card {
+            background: var(--color-surface);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--color-glass-border);
+            border-radius: var(--radius-md);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-glass-border-hover);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            color: var(--color-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, var(--color-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* ===== STORY & MISSION SECTION ===== */
+        .story-section {
+            padding: 2rem 0 5rem;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .story-visual {
+            position: relative;
+        }
+
+        .story-image-wrapper {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--color-glass-border);
+            box-shadow: var(--shadow-card);
+        }
+
+        .story-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .story-image-wrapper:hover img {
+            transform: scale(1.03);
+        }
+
+        .story-floating-card {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: rgba(10, 19, 34, 0.9);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--color-glass-border-hover);
+            padding: 1.2rem 1.8rem;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: var(--shadow-glow);
+        }
+
+        [dir="rtl"] .story-floating-card {
+            right: auto;
+            left: -20px;
+        }
+
+        .story-floating-card i {
+            font-size: 1.8rem;
+            color: var(--color-accent);
+        }
+
+        .story-floating-card span {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .story-content h2 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 1rem 0 1.2rem;
+            line-height: 1.2;
+        }
+
+        .story-content p {
+            color: var(--text-muted);
+            margin-bottom: 1.2rem;
+            font-size: 1.02rem;
+        }
+
+        /* ===== PILLARS / VALUES SECTION ===== */
+        .pillars-section {
+            padding: 4rem 0;
+            background: var(--color-bg-alt);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3.5rem;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-heading);
+            font-size: 2.3rem;
+            font-weight: 700;
+            margin: 0.8rem 0 0.8rem;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+        }
+
+        .pillar-card {
+            background: var(--color-surface);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--color-glass-border);
+            border-radius: var(--radius-md);
+            padding: 2.2rem 1.8rem;
+            transition: all 0.3s var(--transition-smooth);
+            position: relative;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--color-glass-border-hover);
+            box-shadow: var(--shadow-glow);
+            background: var(--color-surface-hover);
+        }
+
+        .pillar-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-md);
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .pillar-card:hover .pillar-icon {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: #000;
+        }
+
+        .pillar-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--text-main);
+        }
+
+        .pillar-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ===== WORKFLOW / PROCESS SECTION ===== */
+        .workflow-section {
+            padding: 5rem 0;
+        }
+
+        .workflow-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.8rem;
+            position: relative;
+        }
+
+        .workflow-step {
+            background: var(--color-surface);
+            border: 1px solid var(--color-glass-border);
+            border-radius: var(--radius-md);
+            padding: 2rem 1.6rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .workflow-step:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-4px);
+        }
+
+        .step-number {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: rgba(0, 242, 254, 0.25);
+            position: absolute;
+            top: 1.2rem;
+            right: 1.5rem;
+        }
+
+        [dir="rtl"] .step-number {
+            right: auto;
+            left: 1.5rem;
+        }
+
+        .step-icon {
+            font-size: 1.6rem;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        .workflow-step h4 {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            color: var(--text-main);
+        }
+
+        .workflow-step p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ===== CTA BANNER ===== */
+        .cta-section {
+            padding: 4rem 0 6rem;
+        }
+
+        .cta-card {
+            background: linear-gradient(135deg, rgba(10, 25, 47, 0.9) 0%, rgba(0, 242, 254, 0.12) 100%);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--color-glass-border-hover);
+            border-radius: var(--radius-lg);
+            padding: 3.5rem 2.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-card h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-card p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 650px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn-cta-action, .btn-cta-action:visited {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.95rem 2.4rem;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            color: #000;
+            font-weight: 800;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.4);
+        }
+
+        .btn-cta-action:hover, .btn-cta-action:visited:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(0, 242, 254, 0.6);
+            color: #000;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #02060d;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1.5fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand img {
+            height: 42px;
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-brand p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            max-width: 360px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            color: var(--text-main);
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-contact-item i {
+            color: var(--color-primary);
+            font-size: 1rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 1.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        /* ===== RESPONSIVE MEDIA QUERIES ===== */
+        @media (max-width: 900px) {
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .story-floating-card {
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: rgba(5, 11, 20, 0.95);
+                backdrop-filter: var(--glass-blur);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--color-glass-border);
+                transform: translateY(-150%);
+                transition: transform 0.4s var(--transition-smooth);
+                z-index: 999;
+            }
+
+            .nav-menu.active {
+                transform: translateY(0);
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background Canvas and Ambient Overlay -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="bg-overlay"></div>
+
+    <!-- Header Navigation -->
+    <header class="header-nav" id="main-header">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="./images/logo.png" alt="Mozuk Marine Logo">
+            </a>
+
+            <button class="mobile-toggle" id="menu-toggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link" data-i18n="nav_home">Home</a></li>
+                <li><a href="index.html#services" class="nav-link" data-i18n="nav_services">Services</a></li>
+                <li><a href="about-us.html" class="nav-link active" data-i18n="nav_about">About Us</a></li>
+                <li><a href="contact.html" class="nav-link" data-i18n="nav_contact">Contact</a></li>
+                <li><a href="contact.html" class="btn-nav-cta" data-i18n="nav_quote"><i class="fa-solid fa-paper-plane"></i> Request Quote</a></li>
+                <li class="lang-selector">
+                    <button class="lang-btn" id="lang-btn" aria-label="Select Language">
+                        <span class="lang-flag" id="current-flag">🇬🇧</span>
+                        <span class="lang-code" id="current-lang">EN</span>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem; transition: transform 0.3s ease;"></i>
+                    </button>
+                    <div class="lang-dropdown" id="lang-dropdown">
+                        <button class="lang-option active" data-lang="en">
+                            <span class="lang-flag">🇬🇧</span> English (EN)
+                        </button>
+                        <button class="lang-option" data-lang="es">
+                            <span class="lang-flag">🇪🇸</span> Español (ES)
+                        </button>
+                        <button class="lang-option" data-lang="fr">
+                            <span class="lang-flag">🇫🇷</span> Français (FR)
+                        </button>
+                        <button class="lang-option" data-lang="ar">
+                            <span class="lang-flag">🇱🇧</span> العربية (AR)
+                        </button>
+                        <button class="lang-option" data-lang="bg">
+                            <span class="lang-flag">🇧🇬</span> Български (BG)
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="about-hero">
+            <div class="badge" data-i18n="hero_badge"><i class="fa-solid fa-building-flag"></i> About Mozuk Marine</div>
+            <h1 data-i18n="hero_title">Pioneering <span class="text-gradient">BWTS Excellence</span> & Marine Engineering</h1>
+            <p data-i18n="hero_desc">Dedicated to vessel compliance, environmental preservation, and operational efficiency across the global maritime industry.</p>
+        </section>
+
+        <!-- Stats Grid -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-ship"></i></div>
+                <div class="stat-number" data-i18n="stat_1_num">100+</div>
+                <div class="stat-label" data-i18n="stat_1_label">Vessels & Systems Serviced</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-globe"></i></div>
+                <div class="stat-number" data-i18n="stat_2_num">24/7</div>
+                <div class="stat-label" data-i18n="stat_2_label">Global Engineer Dispatch</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="stat-number" data-i18n="stat_3_num">100%</div>
+                <div class="stat-label" data-i18n="stat_3_label">IMO D-2 & USCG Compliance</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-gears"></i></div>
+                <div class="stat-number" data-i18n="stat_4_num">10+</div>
+                <div class="stat-label" data-i18n="stat_4_label">Major Brands Certified</div>
+            </div>
+        </section>
+
+        <!-- Story & Mission Section -->
+        <section class="story-section">
+            <div class="story-grid">
+                <div class="story-visual">
+                    <div class="story-image-wrapper">
+                        <img src="./images/about-us.png" alt="Mozuk Marine Engineering Team">
+                    </div>
+                    <div class="story-floating-card">
+                        <i class="fa-solid fa-anchor"></i>
+                        <span data-i18n="story_floating">Certified Marine Specialists</span>
+                    </div>
+                </div>
+
+                <div class="story-content">
+                    <div class="badge" data-i18n="story_badge"><i class="fa-solid fa-compass"></i> Our Engineering Mission</div>
+                    <h2 data-i18n="story_title">Protecting Marine Ecosystems Through <span class="text-gradient">Advanced Engineering</span></h2>
+                    <p data-i18n="story_desc1">Mozuk Marine stands at the forefront of maritime environmental technology. With years of practical field experience and in-depth understanding of marine engineering, we serve shipowners, vessel operators, and shipyards worldwide.</p>
+                    <p data-i18n="story_desc2">We specialize in turnkey retrofits, emergency repairs, commissioning, routine calibration, and genuine spare parts for UV, Electro-chlorination, and Chemical Ballast Water Treatment Systems (BWTS).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Pillars Section -->
+        <section class="pillars-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="badge" data-i18n="pillars_badge"><i class="fa-solid fa-star"></i> Why Choose Us</div>
+                    <h2 data-i18n="pillars_title">Our Core Engineering Pillars</h2>
+                    <p data-i18n="pillars_desc">We deliver uncompromised quality and technical expertise tailored to the rigorous demands of modern shipping.</p>
+                </div>
+
+                <div class="pillars-grid">
+                    <div class="pillar-card">
+                        <div class="pillar-icon"><i class="fa-solid fa-plane-departure"></i></div>
+                        <h3 data-i18n="p1_title">Global Dispatch Readiness</h3>
+                        <p data-i18n="p1_desc">Our qualified marine engineers and field technicians are available 24/7 for worldwide dispatch directly to ports, anchorage, or drydocks.</p>
+                    </div>
+
+                    <div class="pillar-card">
+                        <div class="pillar-icon"><i class="fa-solid fa-sliders"></i></div>
+                        <h3 data-i18n="p2_title">Multi-Brand Proficiency</h3>
+                        <p data-i18n="p2_desc">Deep technical expertise across top global BWTS manufacturers including Alfa Laval, Desmi, Wärtsilä, Techcross, ERMA FIRST, and Bio-Sea.</p>
+                    </div>
+
+                    <div class="pillar-card">
+                        <div class="pillar-icon"><i class="fa-solid fa-file-contract"></i></div>
+                        <h3 data-i18n="p3_title">Regulatory Compliance</h3>
+                        <p data-i18n="p3_desc">Ensuring full adherence to IMO D-2 biological discharge standards and USCG regulations to safeguard your fleet from port state penalties.</p>
+                    </div>
+
+                    <div class="pillar-card">
+                        <div class="pillar-icon"><i class="fa-solid fa-boxes-packing"></i></div>
+                        <h3 data-i18n="p4_title">Genuine Spare Parts</h3>
+                        <p data-i18n="p4_desc">Direct access to OEM and high-grade replacement components including UV lamps, quartz sleeves, sensors, valves, and electrolytic cells.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Operational Workflow -->
+        <section class="workflow-section">
+            <div class="section-header">
+                <div class="badge" data-i18n="flow_badge"><i class="fa-solid fa-list-check"></i> Structured Process</div>
+                <h2 data-i18n="flow_title">Our 4-Step Technical Workflow</h2>
+                <p data-i18n="flow_desc">From initial vessel inspection to final class certification and ongoing operational support.</p>
+            </div>
+
+            <div class="workflow-grid">
+                <div class="workflow-step">
+                    <div class="step-number">01</div>
+                    <div class="step-icon"><i class="fa-solid fa-magnifying-glass-location"></i></div>
+                    <h4 data-i18n="w1_title">Technical Audit & Survey</h4>
+                    <p data-i18n="w1_desc">Onboard physical assessment, 3D laser scanning, and piping integration evaluation.</p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">02</div>
+                    <div class="step-icon"><i class="fa-solid fa-drafting-compass"></i></div>
+                    <h4 data-i18n="w2_title">Engineering & Modeling</h4>
+                    <p data-i18n="w2_desc">3D CAD design, pressure drop calculations, and custom pipe spool drawings.</p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">03</div>
+                    <div class="step-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                    <h4 data-i18n="w3_title">Retrofit & Integration</h4>
+                    <p data-i18n="w3_desc">Precision mechanical installation, electrical wiring, and system commissioning.</p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">04</div>
+                    <div class="step-icon"><i class="fa-solid fa-award"></i></div>
+                    <h4 data-i18n="w4_title">Commissioning & Support</h4>
+                    <p data-i18n="w4_desc">Biological sampling, class approval testing, crew training, and lifetime maintenance.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Banner -->
+        <section class="cta-section">
+            <div class="cta-card">
+                <h2 data-i18n="cta_title">Ready to Ensure Full Vessel Compliance?</h2>
+                <p data-i18n="cta_desc">Contact our team of marine engineering specialists today for technical consultations, maintenance quotes, or emergency dispatch.</p>
+                <a href="contact.html" class="btn-cta-action" data-i18n="cta_btn"><i class="fa-solid fa-paper-plane"></i> Request a Quote</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="./images/logo.png" alt="Mozuk Marine Logo">
+                    <p data-i18n="footer_desc">Mozuk Marine is a premier marine engineering service provider specializing in Ballast Water Treatment Systems (BWTS) installation, maintenance, and compliance.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4 data-i18n="footer_quick_links">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+                        <li><a href="index.html#services" data-i18n="nav_services">Services</a></li>
+                        <li><a href="about-us.html" data-i18n="nav_about">About Us</a></li>
+                        <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 data-i18n="footer_contact_info">Contact Support</h4>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>tech@mozuk.net</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+961 70 821 721</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-clock"></i>
+                        <span>24/7 Global Response</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Mozuk Marine. All Rights Reserved.</p>
+                <p>Marine Environmental Engineering & BWTS Solutions</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Background Particle Canvas & Multilingual JS -->
+    <script>
+        // Particle Canvas Animation
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const particles = Array.from({ length: 45 }, () => ({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            radius: Math.random() * 2 + 1,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            alpha: Math.random() * 0.5 + 0.2
+        }));
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0) p.x = width;
+                if (p.x > width) p.x = 0;
+                if (p.y < 0) p.y = height;
+                if (p.y > height) p.y = 0;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 242, 254, ${p.alpha})`;
+                ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Header Scroll Effect
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.className = 'fa-solid fa-xmark';
+            } else {
+                icon.className = 'fa-solid fa-bars';
+            }
+        });
+
+        // i18n Translation Dictionary
+        const i18nData = {
+            en: {
+                nav_home: "Home",
+                nav_services: "Services",
+                nav_about: "About Us",
+                nav_contact: "Contact",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> Request Quote',
+                hero_badge: '<i class="fa-solid fa-building-flag"></i> About Mozuk Marine',
+                hero_title: 'Pioneering <span class="text-gradient">BWTS Excellence</span> & Marine Engineering',
+                hero_desc: "Dedicated to vessel compliance, environmental preservation, and operational efficiency across the global maritime industry.",
+                stat_1_num: "100+",
+                stat_1_label: "Vessels & Systems Serviced",
+                stat_2_num: "24/7",
+                stat_2_label: "Global Engineer Dispatch",
+                stat_3_num: "100%",
+                stat_3_label: "IMO D-2 & USCG Compliance",
+                stat_4_num: "10+",
+                stat_4_label: "Major Brands Certified",
+                story_badge: '<i class="fa-solid fa-compass"></i> Our Engineering Mission',
+                story_title: 'Protecting Marine Ecosystems Through <span class="text-gradient">Advanced Engineering</span>',
+                story_desc1: "Mozuk Marine stands at the forefront of maritime environmental technology. With years of practical field experience and in-depth understanding of marine engineering, we serve shipowners, vessel operators, and shipyards worldwide.",
+                story_desc2: "We specialize in turnkey retrofits, emergency repairs, commissioning, routine calibration, and genuine spare parts for UV, Electro-chlorination, and Chemical Ballast Water Treatment Systems (BWTS).",
+                story_floating: "Certified Marine Specialists",
+                pillars_badge: '<i class="fa-solid fa-star"></i> Why Choose Us',
+                pillars_title: "Our Core Engineering Pillars",
+                pillars_desc: "We deliver uncompromised quality and technical expertise tailored to the rigorous demands of modern shipping.",
+                p1_title: "Global Dispatch Readiness",
+                p1_desc: "Our qualified marine engineers and field technicians are available 24/7 for worldwide dispatch directly to ports, anchorage, or drydocks.",
+                p2_title: "Multi-Brand Proficiency",
+                p2_desc: "Deep technical expertise across top global BWTS manufacturers including Alfa Laval, Desmi, Wärtsilä, Techcross, ERMA FIRST, and Bio-Sea.",
+                p3_title: "Regulatory Compliance",
+                p3_desc: "Ensuring full adherence to IMO D-2 biological discharge standards and USCG regulations to safeguard your fleet from port state penalties.",
+                p4_title: "Genuine Spare Parts",
+                p4_desc: "Direct access to OEM and high-grade replacement components including UV lamps, quartz sleeves, sensors, valves, and electrolytic cells.",
+                flow_badge: '<i class="fa-solid fa-list-check"></i> Structured Process',
+                flow_title: "Our 4-Step Technical Workflow",
+                flow_desc: "From initial vessel inspection to final class certification and ongoing operational support.",
+                w1_title: "Technical Audit & Survey",
+                w1_desc: "Onboard physical assessment, 3D laser scanning, and piping integration evaluation.",
+                w2_title: "Engineering & Modeling",
+                w2_desc: "3D CAD design, pressure drop calculations, and custom pipe spool drawings.",
+                w3_title: "Retrofit & Integration",
+                w3_desc: "Precision mechanical installation, electrical wiring, and system commissioning.",
+                w4_title: "Commissioning & Support",
+                w4_desc: "Biological sampling, class approval testing, crew training, and lifetime maintenance.",
+                cta_title: "Ready to Ensure Full Vessel Compliance?",
+                cta_desc: "Contact our team of marine engineering specialists today for technical consultations, maintenance quotes, or emergency dispatch.",
+                cta_btn: '<i class="fa-solid fa-paper-plane"></i> Request a Quote',
+                footer_desc: "Mozuk Marine is a premier marine engineering service provider specializing in Ballast Water Treatment Systems (BWTS) installation, maintenance, and compliance.",
+                footer_quick_links: "Quick Links",
+                footer_contact_info: "Contact Support"
+            },
+            es: {
+                nav_home: "Inicio",
+                nav_services: "Servicios",
+                nav_about: "Nosotros",
+                nav_contact: "Contacto",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> Solicitar Cotización',
+                hero_badge: '<i class="fa-solid fa-building-flag"></i> Sobre Mozuk Marine',
+                hero_title: 'Pioneros en <span class="text-gradient">Excelencia BWTS</span> e Ingeniería Marítima',
+                hero_desc: "Dedicados al cumplimiento normativo del buque, la preservación ambiental y la eficiencia operativa en la industria marítima global.",
+                stat_1_num: "100+",
+                stat_1_label: "Buques y Sistemas Atendidos",
+                stat_2_num: "24/7",
+                stat_2_label: "Despacho Global de Ingenieros",
+                stat_3_num: "100%",
+                stat_3_label: "Cumplimiento IMO D-2 y USCG",
+                stat_4_num: "10+",
+                stat_4_label: "Marcas Principales Certificadas",
+                story_badge: '<i class="fa-solid fa-compass"></i> Nuestra Misión',
+                story_title: 'Protegiendo los Ecosistemas Marinos Mediante <span class="text-gradient">Ingeniería Avanzada</span>',
+                story_desc1: "Mozuk Marine está a la vanguardia de la tecnología ambiental marítima. Con años de experiencia práctica en campo y profundo conocimiento de ingeniería naval, servimos a armadores y astilleros en todo el mundo.",
+                story_desc2: "Nos especializamos en instalaciones retrofits, reparaciones de emergencia, puesta en marcha, calibración y repuestos originales para sistemas UV, electrocloración y químicos.",
+                story_floating: "Especialistas Marítimos Certificados",
+                pillars_badge: '<i class="fa-solid fa-star"></i> Por Qué Elegirnos',
+                pillars_title: "Nuestros Pilares Fundamentales",
+                pillars_desc: "Ofrecemos calidad sin concesiones y conocimientos técnicos adaptados a las exigencias del transporte marítimo moderno.",
+                p1_title: "Disponibilidad Global",
+                p1_desc: "Nuestros ingenieros navales y técnicos están disponibles 24/7 para desplazamiento inmediato a puertos o astilleros en todo el mundo.",
+                p2_title: "Dominio Multimarca",
+                p2_desc: "Conocimiento técnico profundo en los principales fabricantes de BWTS como Alfa Laval, Desmi, Wärtsilä, Techcross, ERMA FIRST y Bio-Sea.",
+                p3_title: "Cumplimiento Normativo",
+                p3_desc: "Garantizamos el cumplimiento total de los estándares IMO D-2 y regulaciones USCG para proteger su flota de sanciones.",
+                p4_title: "Repuestos Originales",
+                p4_desc: "Acceso directo a componentes OEM como lámparas UV, tubos de cuarzo, sensores, válvulas y celdas electrolíticas.",
+                flow_badge: '<i class="fa-solid fa-list-check"></i> Proceso Estructurado',
+                flow_title: "Nuestro Proceso Técnico en 4 Pasos",
+                flow_desc: "Desde la inspección inicial hasta la certificación final de la sociedad de clasificación.",
+                w1_title: "Auditoría Técnica y Levantamiento",
+                w1_desc: "Evaluación física a bordo, escaneo 3D con láser y diseño de tuberías.",
+                w2_title: "Ingeniería y Modelado",
+                w2_desc: "Diseño CAD 3D, cálculos de pérdida de carga y planos de fabricación de tuberías.",
+                w3_title: "Instalación e Integración",
+                w3_desc: "Montaje mecánico de precisión, cableado eléctrico y pruebas de integración.",
+                w4_title: "Puesta en Marcha y Soporte",
+                w4_desc: "Muestreo biológico, pruebas de homologación, capacitación de la tripulación y soporte continuo.",
+                cta_title: "¿Listo para Garantizar el Cumplimiento de su Buque?",
+                cta_desc: "Contáctenos hoy para consultas técnicas, cotizaciones de mantenimiento o servicio de emergencia.",
+                cta_btn: '<i class="fa-solid fa-paper-plane"></i> Solicitar Cotización',
+                footer_desc: "Mozuk Marine es un proveedor líder de servicios de ingeniería naval especializado en la instalación, mantenimiento y cumplimiento de BWTS.",
+                footer_quick_links: "Enlaces Rápidos",
+                footer_contact_info: "Soporte y Contacto"
+            },
+            fr: {
+                nav_home: "Accueil",
+                nav_services: "Services",
+                nav_about: "À Propos",
+                nav_contact: "Contact",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> Demander un Devis',
+                hero_badge: '<i class="fa-solid fa-building-flag"></i> À Propos de Mozuk Marine',
+                hero_title: 'Pionniers de l\'<span class="text-gradient">Excellence BWTS</span> & Ingénierie Maritime',
+                hero_desc: "Dédiés à la conformité des navires, à la préservation de l'environnement et à l'efficacité opérationnelle dans le secteur maritime mondial.",
+                stat_1_num: "100+",
+                stat_1_label: "Navires et Systèmes Entretenus",
+                stat_2_num: "24/7",
+                stat_2_label: "Déploiement d'Ingénieurs Mondial",
+                stat_3_num: "100%",
+                stat_3_label: "Conformité IMO D-2 & USCG",
+                stat_4_num: "10+",
+                stat_4_label: "Marques Principales Certifiées",
+                story_badge: '<i class="fa-solid fa-compass"></i> Notre Mission',
+                story_title: 'Protéger les Écosystèmes Marins par l\'<span class="text-gradient">Ingénierie Avancée</span>',
+                story_desc1: "Mozuk Marine est à la pointe de la technologie environnementale maritime. Grâce à des années d'expérience sur le terrain, nous servons armateurs et chantiers navals dans le monde entier.",
+                story_desc2: "Nous sommes spécialisés dans le retrofit clés en main, la réparation d'urgence, la mise en service, le calibrage et la fourniture de pièces de rechange d'origine pour systèmes UV, électro-chloration et chimiques.",
+                story_floating: "Spécialistes Maritimes Certifiés",
+                pillars_badge: '<i class="fa-solid fa-star"></i> Pourquoi Nous Choisir',
+                pillars_title: "Nos Piliers d'Ingénierie",
+                pillars_desc: "Nous offrons une qualité irréprochable et une expertise technique adaptée aux exigences strictes du transport maritime moderne.",
+                p1_title: "Disponibilité Mondiale",
+                p1_desc: "Nos ingénieurs et techniciens sont disponibles 24/7 pour des interventions rapides dans les ports ou chantiers navals du monde entier.",
+                p2_title: "Expertise Multi-Marques",
+                p2_desc: "Maîtrise technique des plus grands fabricants de BWTS tels qu'Alfa Laval, Desmi, Wärtsilä, Techcross, ERMA FIRST et Bio-Sea.",
+                p3_title: "Assurance Réglementaire",
+                p3_desc: "Conformité totale avec les normes IMO D-2 et USCG pour préserver votre flotte de toute pénalité.",
+                p4_title: "Pièces de Rechange d'Origine",
+                p4_desc: "Accès direct aux composants OEM : lampes UV, gaines en quartz, capteurs, vannes et cellules d'électrolyse.",
+                flow_badge: '<i class="fa-solid fa-list-check"></i> Processus Structuré',
+                flow_title: "Notre Processus Technique en 4 Étapes",
+                flow_desc: "De l'inspection initiale à la certification de classe et au support continuous.",
+                w1_title: "Audit Technique & Relevé",
+                w1_desc: "Évaluation physique à bord, numérisation laser 3D et étude d'intégration des tuyauteries.",
+                w2_title: "Ingénierie & Modélisation",
+                w2_desc: "Conception 3D CAD, calculs de perte de charge et plans de préfabrication.",
+                w3_title: "Installation & Intégration",
+                w3_desc: "Installation mécanique de précision, câblage électrique et essais d'intégration.",
+                w4_title: "Mise en Service & Support",
+                w4_desc: "Échantillonnage biologique, essais de réception, formation de l'équipage et maintenance continue.",
+                cta_title: "Prêt à Assurer la Conformité de Votre Navire ?",
+                cta_desc: "Contactez notre équipe d'ingénieurs maritimes dès aujourd'hui pour toute consultation ou demande d'intervention.",
+                cta_btn: '<i class="fa-solid fa-paper-plane"></i> Demander un Devis',
+                footer_desc: "Mozuk Marine est un prestataire de services d'ingénierie maritime spécialisé dans l'installation, la maintenance et la conformité des systèmes BWTS.",
+                footer_quick_links: "Liens Rapides",
+                footer_contact_info: "Support & Contact"
+            },
+            ar: {
+                nav_home: "الرئيسية",
+                nav_services: "الخدمات",
+                nav_about: "من نحن",
+                nav_contact: "تواصل معنا",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> طلب عرض سعر',
+                hero_badge: '<i class="fa-solid fa-building-flag"></i> عن موزوك مارين',
+                hero_title: 'ريادة في <span class="text-gradient">أنظمة معالجة مياه التوازن</span> والهندسة البحرية',
+                hero_desc: "كرسنا جهودنا للامتثال البحري، الحفاظ على البيئة البحرية، ورفع كفاءة تشغيل السفن في جميع أنحاء العالم.",
+                stat_1_num: "100+",
+                stat_1_label: "سفينة ونظام تمت خدمتها",
+                stat_2_num: "24/7",
+                stat_2_label: "إرسال المهندسين عالمياً",
+                stat_3_num: "100%",
+                stat_3_label: "امتثال IMO D-2 و USCG",
+                stat_4_num: "10+",
+                stat_4_label: "علامات تجارية معتمدة",
+                story_badge: '<i class="fa-solid fa-compass"></i> مهمتنا الهندسيّة',
+                story_title: 'حماية البيئة البحرية عبر <span class="text-gradient">هندسة متطورة</span>',
+                story_desc1: "تقف موزوك مارين في طليعة التكنولوجيا البيئية البحرية. مع سنوات من الخبرة العملية والفهم العميق للهندسة البحرية، نخدم ملاك السفن والترسانات البحرية عالمياً.",
+                story_desc2: "نحن متألقون في التحديث الشامل، الإصلاحات العاجلة، التكليف، المعايرة، وقطع الغيار الأصلية لأنظمة الأشعة فوق البنفسجية، الكلورة الكهرومائية، والأنظمة الكيميائية.",
+                story_floating: "متخصصون بحريون معتمدون",
+                pillars_badge: '<i class="fa-solid fa-star"></i> لماذا تختارنا',
+                pillars_title: "ركائزنا الهندسية الأساسية",
+                pillars_desc: "نقدم جودة وخبرة فنية لا تهاون فيها مصممة خصيصاً لتلبية متطلبات الملاحة الحديثة.",
+                p1_title: "الاستعداد للإرسال العالمي",
+                p1_desc: "مهندسونا وفنيونا متواجدون على مدار 24/7 للإرسال المباشر إلى الموانئ أو الترسانات البحرية في أي مكان بالعالم.",
+                p2_title: "كفاءة عبر متعدد العلامات",
+                p2_desc: "خبرة فنية عميقة عبر كبار مصنعي أنظمة معالجة مياه التوازن مثل Alfa Laval, Desmi, Wärtsilä, Techcross, ERMA FIRST, و Bio-Sea.",
+                p3_title: "ضمان الامتثال التنظيمي",
+                p3_desc: "ضمان الالتزام الكامل بمعايير IMO D-2 ولوائح خفر السواحل الأمريكي USCG لحماية أسطولك من الغرامات.",
+                p4_title: "قطع غيار أصلية",
+                p4_desc: "وصول مباشر لقطع الغيار الأصلية بما في ذلك مصابيح UV، أكمام الكوارتز، الحساسات، الصمامات، وخلايا التحليل الكهربائي.",
+                flow_badge: '<i class="fa-solid fa-list-check"></i> عملية منظمة',
+                flow_title: "مسار عملنا الفني من 4 خطوات",
+                flow_desc: "من التدقيق الأولي للسفينة حتى الاعتماد النهائي والدعم التشغيلي المستمر.",
+                w1_title: "التدقيق والمعاينة الفنية",
+                w1_desc: "تقييم ميداني على متن السفينة، مسح ليزري ثلاثي الأبعاد، ودراسة مسار الأنابيب.",
+                w2_title: "الهندسة والنمذجة",
+                w2_desc: "تصميم CAD ثلاثي الأبعاد، حسابات هبوط الضغط، ورسومات الأنابيب التفصيلية.",
+                w3_title: "التعديل والتركيب",
+                w3_desc: "تركيب ميكانيكي دقيق، تمديدات كهربائية، واختبارات التكامل التشغيلي.",
+                w4_title: "التكليف والدعم",
+                w4_desc: "أخذ عينات بيولوجية، اختبارات اعتماد الهيئات البحرية، تدريب الطاقم، والدعم المستمر.",
+                cta_title: "جاهز لضمان الامتثال الكامل لسفينتك؟",
+                cta_desc: "تواصل مع فريق المهندسين البحريين لدينا اليوم للحصول على الاستشارات الفنية، عروض الصيانة، أو الدعم الطارئ.",
+                cta_btn: '<i class="fa-solid fa-paper-plane"></i> طلب عرض سعر',
+                footer_desc: "موزوك مارين هي مزود خدمات هندسية بحرية رائد متخصص في تركيب وصيانة وامتثال أنظمة معالجة مياه التوازن (BWTS).",
+                footer_quick_links: "روابط سريعة",
+                footer_contact_info: "الدعم والتواصل"
+            },
+            bg: {
+                nav_home: "Начало",
+                nav_services: "Услуги",
+                nav_about: "За нас",
+                nav_contact: "Контакти",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> Поискайте оферта',
+                hero_badge: '<i class="fa-solid fa-building-flag"></i> За Мозук Марин',
+                hero_title: 'Пионери в <span class="text-gradient">BWTS Качеството</span> и Морското Инженерство',
+                hero_desc: "Посветени на съответствието на корабите, опазването на околната среда и оперативната ефективност в световната морска индустрия.",
+                stat_1_num: "100+",
+                stat_1_label: "Обслужени Кораби и Системи",
+                stat_2_num: "24/7",
+                stat_2_label: "Глобално Изпращане на Инженери",
+                stat_3_num: "100%",
+                stat_3_label: "IMO D-2 и USCG Съответствие",
+                stat_4_num: "10+",
+                stat_4_label: "Сертифицирани Основни Марки",
+                story_badge: '<i class="fa-solid fa-compass"></i> Нашата Мисия',
+                story_title: 'Защита на Морските Екосистеми Чрез <span class="text-gradient">Модерно Инженерство</span>',
+                story_desc1: "Мозук Марин е на чело на морските екологични технологии. С години практически опит и задълбочени познания в корабостроенето и кораборемонта, ние обслужваме корабособственици и корабостроителници по целия свят.",
+                story_desc2: "Специализирани сме в цялостни преустройства (retrofit), спешни ремонти, въвеждане в експлоатация, калибриране и оригинални резервни части за UV, електрохлориращи и химически BWTS системи.",
+                story_floating: "Сертифицирани Морски Специалисти",
+                pillars_badge: '<i class="fa-solid fa-star"></i> Защо да изберете нас',
+                pillars_title: "Нашите Основни Инженерни стълбове",
+                pillars_desc: "Предоставяме безкомпромисно качество и техническа експертиза, съобразени с строгите изисквания на съвременното корабоплаване.",
+                p1_title: "Глобална Готовност за Реагиране",
+                p1_desc: "Нашите квалифицирани инженери са на разположение 24/7 за незабавно изпращане до пристанища или корабостроителници в цял свят.",
+                p2_title: "Мултимаркова Експертиза",
+                p2_desc: "Задълбочени технически познания за водещи производители на BWTS като Alfa Laval, Desmi, Wärtsilä, Techcross, ERMA FIRST и Bio-Sea.",
+                p3_title: "Нормативно Съответствие",
+                p3_desc: "Гарантирано пълно спазване на стандартите IMO D-2 и изискванията на USCG за защита от пристанищни санкции.",
+                p4_title: "Оригинални Резервни Части",
+                p4_desc: "Директен достъп до OEM компоненти като UV лампи, кварцови ръкави, сензори, клапани и електролитни клетки.",
+                flow_badge: '<i class="fa-solid fa-list-check"></i> Структуриран Процес',
+                flow_title: "Нашият Технически Процес в 4 Стъпки",
+                flow_desc: "От първоначалния оглед до крайната сертификация от класификационна организация.",
+                w1_title: "Технически Оглед и Инспекция",
+                w1_desc: "Физическа оценка на борда, 3D лазерно сканиране и проектиране на тръбопроводи.",
+                w2_title: "Инженеринг и Моделиране",
+                w2_desc: "3D CAD проектиране, изчисления на спада на налягането и чертежи на тръбни заготовки.",
+                w3_title: "Монтаж и Интеграция",
+                w3_desc: "Точен механичен монтаж, електрическо окабеляване и тестове за съвместимост.",
+                w4_title: "Въвеждане в Експлоатация",
+                w4_desc: "Биологично вземане на проби, класификационни тестове, обучение на екипажа и поддръжка.",
+                cta_title: "Готови ли сте да гарантирате съответствието на вашия кораб?",
+                cta_desc: "Свържете се с нашите инженерни специалисти днес за консултации, оферти за поддръжка или спешни ремонти.",
+                cta_btn: '<i class="fa-solid fa-paper-plane"></i> Поискайте Оферта',
+                footer_desc: "Мозук Марин е водещ доставчик на морски инженерни услуги, специализиран в монтажа, поддръжката и съответствието на BWTS.",
+                footer_quick_links: "Бързи Връзки",
+                footer_contact_info: "Поддръжка и Контакти"
+            }
+        };
+
+        function setLanguage(lang) {
+            if (!i18nData[lang]) lang = 'en';
+            localStorage.setItem('mozuk_lang', lang);
+
+            document.documentElement.setAttribute('lang', lang);
+            if (lang === 'ar') {
+                document.documentElement.setAttribute('dir', 'rtl');
+            } else {
+                document.documentElement.setAttribute('dir', 'ltr');
+            }
+
+            const flags = { en: '🇬🇧', es: '🇪🇸', fr: '🇫🇷', ar: '🇱🇧', bg: '🇧🇬' };
+            const codes = { en: 'EN', es: 'ES', fr: 'FR', ar: 'AR', bg: 'BG' };
+            const flagEl = document.getElementById('current-flag');
+            const codeEl = document.getElementById('current-lang');
+            if (flagEl) flagEl.textContent = flags[lang];
+            if (codeEl) codeEl.textContent = codes[lang];
+
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                if (opt.getAttribute('data-lang') === lang) {
+                    opt.classList.add('active');
+                } else {
+                    opt.classList.remove('active');
+                }
+            });
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18nData[lang] && i18nData[lang][key]) {
+                    el.innerHTML = i18nData[lang][key];
+                }
+            });
+        }
+
+        const langBtn = document.getElementById('lang-btn');
+        const langDropdown = document.getElementById('lang-dropdown');
+
+        if (langBtn && langDropdown) {
+            langBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                langDropdown.classList.toggle('active');
+            });
+
+            document.addEventListener('click', () => {
+                langDropdown.classList.remove('active');
+            });
+
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                opt.addEventListener('click', () => {
+                    const selectedLang = opt.getAttribute('data-lang');
+                    setLanguage(selectedLang);
+                    langDropdown.classList.remove('active');
+                });
+            });
+        }
+
+        // Initialize saved language
+        const savedLang = localStorage.getItem('mozuk_lang') || 'en';
+        setLanguage(savedLang);
+    </script>
+</body>
+
+</html>
