@@ -603,6 +603,32 @@
             border-radius: var(--radius-sm) 0 0 var(--radius-sm);
         }
 
+        .btn-direct-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.12), rgba(58, 123, 213, 0.22));
+            border: 1px solid var(--color-glass-border-hover);
+            color: var(--text-main);
+            padding: 0.75rem 1.4rem;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            backdrop-filter: var(--glass-blur);
+            transition: all 0.3s ease;
+            margin-top: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.1);
+        }
+
+        .btn-direct-email:hover {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.25), rgba(58, 123, 213, 0.35));
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-2px);
+            color: #ffffff;
+        }
+
         /* ===== PILLARS / VALUES SECTION ===== */
         .pillars-section {
             padding: 4rem 0;
@@ -1006,6 +1032,11 @@
                         <i class="fa-solid fa-quote-left" style="color: var(--color-primary); margin-right: 0.5rem;"></i>
                         <span data-i18n="founder_quote">"At Mozuk Marine, our mission is built on precision engineering, rapid global response, and an uncompromising commitment to clean oceans and vessel compliance."</span>
                     </div>
+
+                    <a href="mailto:michel@mozuk.net" class="btn-direct-email">
+                        <i class="fa-solid fa-envelope" style="color: var(--color-primary);"></i>
+                        <span data-i18n="founder_email_direct">Contact Michel Directly: michel@mozuk.net</span>
+                    </a>
                 </div>
             </div>
         </section>
@@ -1191,6 +1222,7 @@
                 founder_bio2: "With extensive hands-on experience across major BWTS technologies, Michel established an agile, field-ready team of qualified marine engineers. Under his leadership, Mozuk Marine has grown into a trusted partner for shipowners, vessel managers, and drydocks worldwide, ensuring seamless compliance with IMO D-2 and USCG regulations.",
                 founder_bio3: "Recognizing firsthand how fragmented paper archives and heavy manuals delay urgent onboard repairs, Michel expanded Mozuk Marine's solutions to include complete Technical Document Digitalization. By transforming paper P&IDs, wiring schematics, and maker manuals into a searchable digital repository accessible on workstations and tablets, he empowered ship crews with instant field access—eliminating paper chaos and making daily life infinitely easier for marine engineers.",
                 founder_quote: '"At Mozuk Marine, our mission is built on precision engineering, rapid global response, and an uncompromising commitment to clean oceans and vessel compliance."',
+                founder_email_direct: "Contact Michel Directly: michel@mozuk.net",
                 pillars_badge: '<i class="fa-solid fa-star"></i> Why Choose Us',
                 pillars_title: "Our Core Engineering Pillars",
                 pillars_desc: "We deliver uncompromised quality and technical expertise tailored to the rigorous demands of modern shipping.",
@@ -1250,6 +1282,7 @@
                 founder_bio2: "Con amplia experiencia práctica en las principales tecnologías de BWTS, Michel formó un equipo ágil de ingenieros marítimos calificados. Bajo su liderazgo, Mozuk Marine se ha convertido en un socio de confianza para armadores y astilleros a nivel mundial, garantizando el cumplimiento normativo con IMO D-2 y USCG.",
                 founder_bio3: "Al comprender de primera mano cómo los archivos de papel fragmentados y los manuales pesados retrasan las reparaciones urgentes a bordo, Michel amplió las soluciones de Mozuk Marine para incluir la Digitalización Completa de Documentos Técnicos. Al transformar esquemas P&ID, diagramas de cableado y manuales en un repositorio digital buscable accesible en estaciones de trabajo y tablets, dotó a las tripulaciones de acceso instantáneo en campo, eliminando el caos del papel y facilitando la vida diaria de los ingenieros marinos.",
                 founder_quote: '"En Mozuk Marine, nuestra misión se basa en la ingeniería de precisión, una rápida respuesta global y un compromiso inquebrantable con los océanos limpios."',
+                founder_email_direct: "Contactar a Michel directamente: michel@mozuk.net",
                 pillars_badge: '<i class="fa-solid fa-star"></i> Por Qué Elegirnos',
                 pillars_title: "Nuestros Pilares Fundamentales",
                 pillars_desc: "Ofrecemos calidad sin concesiones y conocimientos técnicos adaptados a las exigencias del transporte marítimo moderno.",
@@ -1309,6 +1342,7 @@
                 founder_bio2: "Fort d'une solide expérience sur les principales technologies BWTS, Michel a constitué une équipe réactive d'ingénieurs maritimes qualifiés. Sous sa direction, Mozuk Marine est devenu un partenaire de confiance pour les armateurs et chantiers navals du monde entier.",
                 founder_bio3: "Conscient que les archives papier fragmentées et les manuels volumineux ralentissent les interventions d'urgence à bord, Michel a enrichi les solutions de Mozuk Marine avec la Digitalisation des Documents Techniques. En transformant les schémas P&ID, diagrammes électriques et manuels en un référentiel numérique recherchable sur postes de travail et tablettes, il a offert aux équipages un accès terrain instantané—éliminant le chaos du papier et simplifiant considérablement le quotidien des mécaniciens.",
                 founder_quote: '"Chez Mozuk Marine, notre mission repose sur l\'ingénierie de précision, une réponse globale rapide et un engagement absolu pour la propreté des océans."',
+                founder_email_direct: "Contacter Michel directement : michel@mozuk.net",
                 pillars_badge: '<i class="fa-solid fa-star"></i> Pourquoi Nous Choisir',
                 pillars_title: "Nos Piliers d'Ingénierie",
                 pillars_desc: "Nous offrons une qualité irréprochable et une expertise technique adaptée aux exigences strictes du transport maritime moderne.",
@@ -1368,6 +1402,7 @@
                 founder_bio2: "بفضل خبرته الميدانية العميقة عبر مختلف تقنيات BWTS، أنشأ ميشال فريقاً مرناً وجاهزاً من المهندسين البحريين المؤهلين. وتحت قيادته، نمت موزوك مارين لتصبح شريكاً موثوقاً لملاك السفن والترسانات البحرية عالمياً، مع التركيز على الامتثال لمعايير IMO D-2 و USCG.",
                 founder_bio3: "من واقع خبرته الميدانية في إدراك كيف تتسبب الأرشيفات الورقية المبعثرة والكتب الضخمة في تأخير الإصلاحات العاجلة، حرص ميشال على توسيع خدمات موزوك مارين لتشمل الرقمنة الشاملة للمستندات الفنية. ومن خلال تحويل مخططات P&ID والرسومات الكهربائية وكتالوجات المصنعين إلى مستودع رقمي تفاعلي وقابل للبحث الفوري عبر أجهزة الكمبيوتر والأجهزة اللوحية، مكن طواقم السفن والمهندسين من الوصول السريع للوثائق في موقع المعدات، مما قضى على فوضى الأوراق وسهل حياتهم اليومية بشكل كبير.",
                 founder_quote: '"في موزوك مارين، مهمتنا قائمة على الدقة الهندسية، الاستجابة العالمية السريعة، والالتزام المطلق بنظافة البحار وامتثال السفن."',
+                founder_email_direct: "التواصل مع ميشال مباشرة: michel@mozuk.net",
                 pillars_badge: '<i class="fa-solid fa-star"></i> لماذا تختارنا',
                 pillars_title: "ركائزنا الهندسية الأساسية",
                 pillars_desc: "نقدم جودة وخبرة فنية لا تهاون فيها مصممة خصيصاً لتلبية متطلبات الملاحة الحديثة.",
@@ -1427,6 +1462,7 @@
                 founder_bio2: "С богат практически опит в основните BWTS технологии, Мишел създава бърз и висококвалифициран екип от морски инженери. Под негово ръководство компанията се превръща в доверен партньор за корабособственици и корабостроителници в цял свят.",
                 founder_bio3: "Виждайки от първа ръка как разпръснатите хартиени архиви и тежки ръководства забавят спешните ремонти на борда, Мишел разшири решенията на Мозук Марин с дигитализация на техническата документация. Чрез превръщането на P&ID схемите, електрическите чертежи и ръководствата в търсим дигитален архив, достъпен през компютри и таблети, той осигури на екипажите моментален достъп на терен—премахвайки хартиения хаос и значително улеснявайки ежедневната работа на инженерите.",
                 founder_quote: '"В Мозук Марин нашата мисия е изградена върху прецизен инженеринг, бърза глобална реакция и безкомпромисен ангажимент към чистите океани."',
+                founder_email_direct: "Свържете се директно с Мишел: michel@mozuk.net",
                 pillars_badge: '<i class="fa-solid fa-star"></i> Защо да изберете нас',
                 pillars_title: "Нашите Основни Инженерни стълбове",
                 pillars_desc: "Предоставяме безкомпромисно качество и техническа експертиза, съобразени с строгите изисквания на съвременното корабоплаване.",
