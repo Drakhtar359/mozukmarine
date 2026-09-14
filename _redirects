@@ -1,0 +1,4 @@
+# Clean URLs and redirects
+/about-us.html    /about-us    301
+/contact.html     /contact     301
+/index.html       /            301

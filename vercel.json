@@ -1,0 +1,8 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    { "src": "/about-us", "dest": "/about-us/index.html" },
+    { "src": "/contact", "dest": "/contact/index.html" }
+  ]
+}
