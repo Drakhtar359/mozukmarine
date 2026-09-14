@@ -373,6 +373,7 @@
             align-items: center;
             gap: 2.5rem;
             list-style: none;
+            position: relative;
         }
 
         .nav-link {
@@ -380,7 +381,7 @@
             text-decoration: none;
             font-weight: 500;
             font-size: 0.95rem;
-            transition: all 0.3s ease;
+            transition: color 0.3s ease;
             position: relative;
             padding: 0.5rem 0;
         }
@@ -389,21 +390,44 @@
             color: var(--text-main);
         }
 
-        .nav-link::after {
-            content: '';
+        .nav-indicator-line {
             position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
+            bottom: -2px;
+            height: 3px;
             background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
-            transition: all 0.3s var(--transition-smooth);
-            transform: translateX(-50%);
-            border-radius: 2px;
+            border-radius: 3px;
+            transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1), width 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+            box-shadow: 0 0 12px var(--color-primary);
+            pointer-events: none;
+            opacity: 0;
+            left: 0;
+            width: 0;
         }
 
-        .nav-link:hover::after, .nav-link.active::after {
-            width: 100%;
+        [data-theme="light"] .nav-indicator-line {
+            background: linear-gradient(90deg, #0066cc, #0284c7);
+            box-shadow: 0 0 10px rgba(0, 102, 204, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .nav-indicator-line {
+                display: none !important;
+            }
+            .nav-link::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                width: 0;
+                height: 2px;
+                background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+                transition: all 0.3s var(--transition-smooth);
+                transform: translateX(-50%);
+                border-radius: 2px;
+            }
+            .nav-link:hover::after, .nav-link.active::after {
+                width: 100%;
+            }
         }
 
         .btn-nav-cta, .btn-nav-cta:visited {
@@ -1183,6 +1207,7 @@
             </button>
 
             <ul class="nav-menu" id="nav-menu">
+                <div class="nav-indicator-line" id="nav-indicator"></div>
                 <li><a href="/" class="nav-link" data-i18n="nav_home">Home</a></li>
                 <li><a href="/#services" class="nav-link" data-i18n="nav_services">Services</a></li>
                 <li><a href="/about-us" class="nav-link active" data-i18n="nav_about">About Us</a></li>
@@ -1405,6 +1430,48 @@
             } else {
                 icon.className = 'fa-solid fa-bars';
             }
+        });
+
+        // Dynamic Underline Indicator
+        const mainNavMenu = document.getElementById('nav-menu');
+        const mainNavLinks = document.querySelectorAll('.nav-menu .nav-link');
+        const navIndicator = document.getElementById('nav-indicator');
+
+        function updateNavIndicator(targetLink) {
+            if (!targetLink || !navIndicator || window.innerWidth <= 768) {
+                if (navIndicator) navIndicator.style.opacity = '0';
+                return;
+            }
+            const menuRect = mainNavMenu.getBoundingClientRect();
+            const linkRect = targetLink.getBoundingClientRect();
+            
+            const leftOffset = linkRect.left - menuRect.left;
+            const width = linkRect.width;
+            
+            navIndicator.style.left = leftOffset + 'px';
+            navIndicator.style.width = width + 'px';
+            navIndicator.style.opacity = '1';
+        }
+
+        function getActiveNavLink() {
+            return document.querySelector('.nav-menu .nav-link.active') || mainNavLinks[0];
+        }
+
+        mainNavLinks.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                updateNavIndicator(link);
+            });
+        });
+
+        if (mainNavMenu) {
+            mainNavMenu.addEventListener('mouseleave', () => {
+                updateNavIndicator(getActiveNavLink());
+            });
+        }
+
+        window.addEventListener('resize', () => updateNavIndicator(getActiveNavLink()));
+        window.addEventListener('load', () => {
+            setTimeout(() => updateNavIndicator(getActiveNavLink()), 100);
         });
 
         // i18n Translation Dictionary
