@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('mozuk_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | Mozuk Marine Engineering</title>
+    <meta name="description" content="The page or technical resource you requested could not be found on Mozuk Marine. Return to home port or contact technical support.">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* ===== CSS DESIGN SYSTEM & TOKENS ===== */
+        :root {
+            /* Color Palette - Cyber Marine Dark Mode */
+            --color-bg: #050b14;
+            --color-bg-alt: #0a1322;
+            --color-surface: rgba(13, 25, 44, 0.7);
+            --color-surface-hover: rgba(20, 38, 66, 0.85);
+            --color-glass-border: rgba(0, 242, 254, 0.15);
+            --color-glass-border-hover: rgba(0, 242, 254, 0.4);
+            
+            /* Cyan / Ocean Accent Gradients */
+            --color-primary: #00f2fe;
+            --color-primary-dark: #00c6ff;
+            --color-secondary: #3a7bd5;
+            --color-accent: #00ffc3;
+            
+            /* Text Colors */
+            --text-main: #f0f6fc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2.5rem;
+            --spacing-xl: 4rem;
+
+            /* Typography */
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-heading: 'Space Grotesk', sans-serif;
+
+            /* Effects */
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-full: 9999px;
+            --shadow-glow: 0 0 30px rgba(0, 242, 254, 0.25);
+            --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.4);
+            --glass-blur: blur(16px);
+            --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ===== LIGHT MODE DESIGN SYSTEM ===== */
+        [data-theme="light"] {
+            /* Color Palette - Marine Light Mode */
+            --color-bg: #f8fafc;
+            --color-bg-alt: #f1f5f9;
+            --color-surface: rgba(255, 255, 255, 0.88);
+            --color-surface-hover: rgba(255, 255, 255, 0.98);
+            --color-glass-border: rgba(0, 102, 204, 0.15);
+            --color-glass-border-hover: rgba(0, 102, 204, 0.35);
+            
+            /* Ocean Blue Accent Gradients */
+            --color-primary: #0066cc;
+            --color-primary-dark: #004b99;
+            --color-secondary: #0284c7;
+            --color-accent: #0284c7;
+            
+            /* Text Colors */
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --text-dim: #64748b;
+
+            /* Effects */
+            --shadow-glow: 0 10px 30px rgba(0, 102, 204, 0.15);
+            --shadow-card: 0 15px 35px rgba(15, 23, 42, 0.08);
+        }
+
+        [data-theme="light"] .header-nav {
+            background: rgba(255, 255, 255, 0.85);
+            border-bottom-color: rgba(0, 102, 204, 0.12);
+        }
+
+        [data-theme="light"] .header-nav.scrolled {
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        [data-theme="light"] .bg-overlay {
+            background: radial-gradient(circle at 50% 0%, rgba(0, 102, 204, 0.06) 0%, transparent 60%),
+                        radial-gradient(circle at 80% 80%, rgba(2, 132, 199, 0.05) 0%, transparent 50%);
+        }
+
+        [data-theme="light"] .btn-primary,
+        [data-theme="light"] .btn-primary:visited,
+        [data-theme="light"] .btn-nav-cta,
+        [data-theme="light"] .btn-nav-cta:visited {
+            background: linear-gradient(135deg, #0066cc, #0284c7);
+            color: #ffffff;
+            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.3);
+        }
+
+        [data-theme="light"] .btn-secondary {
+            background: rgba(0, 102, 204, 0.06);
+            border-color: rgba(0, 102, 204, 0.2);
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .btn-secondary:hover {
+            background: rgba(0, 102, 204, 0.12);
+            border-color: #0066cc;
+            color: #0066cc;
+        }
+
+        [data-theme="light"] .lang-btn,
+        [data-theme="light"] .theme-toggle-btn {
+            background: rgba(0, 102, 204, 0.06);
+            border-color: rgba(0, 102, 204, 0.2);
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .lang-btn:hover,
+        [data-theme="light"] .theme-toggle-btn:hover {
+            background: rgba(0, 102, 204, 0.12);
+            border-color: #0066cc;
+            color: #0066cc;
+        }
+
+        [data-theme="light"] .lang-dropdown {
+            background: rgba(255, 255, 255, 0.98);
+            border-color: rgba(0, 102, 204, 0.2);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+        }
+
+        [data-theme="light"] .lang-option:hover,
+        [data-theme="light"] .lang-option.active {
+            background: rgba(0, 102, 204, 0.1);
+            color: #0066cc;
+        }
+
+        [data-theme="light"] .badge {
+            background: rgba(0, 102, 204, 0.08);
+            border-color: rgba(0, 102, 204, 0.2);
+            color: #0066cc;
+        }
+
+        [data-theme="light"] .footer {
+            background: #f1f5f9;
+            border-top-color: rgba(0, 102, 204, 0.1);
+        }
+
+        [data-theme="light"] .footer-bottom {
+            border-top-color: rgba(0, 102, 204, 0.1);
+        }
+
+        .theme-selector {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--color-glass-border);
+            color: var(--text-main);
+            font-size: 1rem;
+            cursor: pointer;
+            backdrop-filter: var(--glass-blur);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            background: rgba(0, 242, 254, 0.12);
+            border-color: var(--color-primary);
+            transform: rotate(15deg);
+        }
+
+        /* ===== GLOBAL RESETS ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+            height: 100%;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Canvas Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.15;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(0, 242, 254, 0.08) 0%, transparent 60%),
+                        radial-gradient(circle at 80% 80%, rgba(58, 123, 213, 0.06) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-full);
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid var(--color-glass-border);
+            color: var(--color-primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            backdrop-filter: var(--glass-blur);
+        }
+
+        /* ===== NAVIGATION ===== */
+        .header-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(5, 11, 20, 0.75);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .header-nav.scrolled {
+            background: rgba(5, 11, 20, 0.92);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-bottom-color: var(--color-glass-border);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            height: 48px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover img {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-main);
+        }
+
+        .btn-nav-cta, .btn-nav-cta:visited {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.4rem;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: #000;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+        }
+
+        .btn-nav-cta:hover, .btn-nav-cta:visited:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5);
+            color: #000;
+        }
+
+        /* Language Selector */
+        .lang-selector {
+            position: relative;
+            list-style: none;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--color-glass-border);
+            color: var(--text-main);
+            padding: 0.5rem 0.9rem;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: rgba(0, 242, 254, 0.1);
+            border-color: var(--color-primary);
+        }
+
+        .lang-dropdown {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: rgba(10, 19, 34, 0.95);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--color-glass-border);
+            border-radius: var(--radius-md);
+            padding: 0.5rem;
+            display: none;
+            flex-direction: column;
+            gap: 0.25rem;
+            min-width: 150px;
+            box-shadow: var(--shadow-card);
+            z-index: 1001;
+        }
+
+        [dir="rtl"] .lang-dropdown {
+            right: auto;
+            left: 0;
+        }
+
+        .lang-dropdown.active {
+            display: flex;
+        }
+
+        .lang-option {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.5rem 0.8rem;
+            text-align: left;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.2s ease;
+        }
+
+        [dir="rtl"] .lang-option {
+            text-align: right;
+        }
+
+        .lang-option:hover, .lang-option.active {
+            background: rgba(0, 242, 254, 0.12);
+            color: var(--color-primary);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== 404 ERROR HERO SECTION ===== */
+        .error-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 0 5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .error-card {
+            background: var(--color-surface);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--color-glass-border);
+            border-radius: var(--radius-lg);
+            padding: 4rem 3rem;
+            max-width: 860px;
+            width: 100%;
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .error-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+        }
+
+        .error-code {
+            font-family: var(--font-heading);
+            font-size: clamp(5rem, 12vw, 9rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -2px;
+            margin: 1rem 0;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 10px 20px rgba(0, 242, 254, 0.2));
+        }
+
+        .error-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .error-desc {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 640px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+
+        .error-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            margin-bottom: 3.5rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.9rem 2rem;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: #050b14;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s var(--transition-smooth);
+            box-shadow: 0 8px 22px rgba(0, 242, 254, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 242, 254, 0.5);
+            color: #050b14;
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.9rem 2rem;
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--color-glass-border);
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            backdrop-filter: var(--glass-blur);
+            transition: all 0.3s var(--transition-smooth);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 242, 254, 0.1);
+            border-color: var(--color-primary);
+            transform: translateY(-3px);
+            color: var(--color-primary);
+        }
+
+        /* Helpful Links Grid */
+        .quick-nav-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .quick-nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            text-align: left;
+        }
+
+        [dir="rtl"] .quick-nav-grid {
+            text-align: right;
+        }
+
+        .quick-nav-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--color-glass-border);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .quick-nav-card:hover {
+            background: rgba(0, 242, 254, 0.08);
+            border-color: var(--color-primary);
+            transform: translateY(-3px);
+        }
+
+        .quick-nav-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-sm);
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+        }
+
+        .quick-nav-text strong {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.1rem;
+        }
+
+        .quick-nav-text span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #03070d;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 3rem 0 2rem;
+            margin-top: auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1.5fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand img {
+            height: 42px;
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-brand p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            max-width: 360px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            color: var(--text-main);
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-contact-item i {
+            color: var(--color-primary);
+            font-size: 1rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 1.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: rgba(5, 11, 20, 0.95);
+                backdrop-filter: var(--glass-blur);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--color-glass-border);
+                transform: translateY(-150%);
+                transition: transform 0.4s var(--transition-smooth);
+                z-index: 999;
+            }
+
+            .nav-menu.active {
+                transform: translateY(0);
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background Canvas and Ambient Overlay -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="bg-overlay"></div>
+
+    <!-- Header Navigation -->
+    <header class="header-nav" id="main-header">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="./images/logo.png" alt="Mozuk Marine Logo">
+            </a>
+
+            <button class="mobile-toggle" id="menu-toggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link" data-i18n="nav_home">Home</a></li>
+                <li><a href="index.html#services" class="nav-link" data-i18n="nav_services">Services</a></li>
+                <li><a href="about-us.html" class="nav-link" data-i18n="nav_about">About Us</a></li>
+                <li><a href="contact.html" class="nav-link" data-i18n="nav_contact">Contact</a></li>
+                <li><a href="contact.html" class="btn-nav-cta" data-i18n="nav_quote"><i class="fa-solid fa-paper-plane"></i> Request Quote</a></li>
+                <li class="lang-selector">
+                    <button class="lang-btn" id="lang-btn" aria-label="Select Language">
+                        <span class="lang-code" id="current-lang">EN</span>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem; transition: transform 0.3s ease;"></i>
+                    </button>
+                    <div class="lang-dropdown" id="lang-dropdown">
+                        <button class="lang-option active" data-lang="en">
+                            English (EN)
+                        </button>
+                        <button class="lang-option" data-lang="es">
+                            Español (ES)
+                        </button>
+                        <button class="lang-option" data-lang="fr">
+                            Français (FR)
+                        </button>
+                        <button class="lang-option" data-lang="ar">
+                            العربية (AR)
+                        </button>
+                        <button class="lang-option" data-lang="bg">
+                            Български (BG)
+                        </button>
+                    </div>
+                </li>
+                <li class="theme-selector">
+                    <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle Light/Dark Theme" title="Toggle Light/Dark Theme">
+                        <i class="fa-solid fa-sun" id="theme-icon"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- 404 Hero Section -->
+    <main class="container error-section">
+        <div class="error-card">
+            <div class="badge" data-i18n="err_badge">
+                <i class="fa-solid fa-compass"></i> Signal Lost | Error 404
+            </div>
+            
+            <div class="error-code">404</div>
+
+            <h1 class="error-title" data-i18n="err_title">
+                Vessel Off Course
+            </h1>
+
+            <p class="error-desc" data-i18n="err_desc">
+                The technical page, schematic, or coordinates you requested could not be located on our marine network. It may have been relocated or updated.
+            </p>
+
+            <div class="error-actions">
+                <a href="index.html" class="btn-primary" data-i18n="err_btn_home">
+                    <i class="fa-solid fa-house"></i> Return to Home Port
+                </a>
+                <a href="contact.html" class="btn-secondary" data-i18n="err_btn_contact">
+                    <i class="fa-solid fa-headset"></i> Contact Technical Support
+                </a>
+            </div>
+
+            <div class="quick-nav">
+                <div class="quick-nav-title" data-i18n="err_quick_title">Or Explore Key Engineering Portals</div>
+                <div class="quick-nav-grid">
+                    <a href="index.html#services" class="quick-nav-card">
+                        <div class="quick-nav-icon"><i class="fa-solid fa-anchor"></i></div>
+                        <div class="quick-nav-text">
+                            <strong data-i18n="q1_title">BWTS Services</strong>
+                            <span data-i18n="q1_desc">Retrofits, overhauls & testing</span>
+                        </div>
+                    </a>
+                    <a href="about-us.html" class="quick-nav-card">
+                        <div class="quick-nav-icon"><i class="fa-solid fa-building-flag"></i></div>
+                        <div class="quick-nav-text">
+                            <strong data-i18n="q2_title">About Mozuk Marine</strong>
+                            <span data-i18n="q2_desc">Company history & mission</span>
+                        </div>
+                    </a>
+                    <a href="contact.html" class="quick-nav-card">
+                        <div class="quick-nav-icon"><i class="fa-solid fa-calculator"></i></div>
+                        <div class="quick-nav-text">
+                            <strong data-i18n="q3_title">Request a Quote</strong>
+                            <span data-i18n="q3_desc">24/7 global dispatch & quotes</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="./images/logo.png" alt="Mozuk Marine Logo">
+                    <p data-i18n="footer_desc">Mozuk Marine is a premier marine engineering service provider specializing in Ballast Water Treatment Systems (BWTS) installation, maintenance, and compliance.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4 data-i18n="footer_quick_links">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+                        <li><a href="index.html#services" data-i18n="nav_services">Services</a></li>
+                        <li><a href="about-us.html" data-i18n="nav_about">About Us</a></li>
+                        <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 data-i18n="footer_contact_info">Contact Support</h4>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <a href="mailto:marine-services@mozuk.net" style="color: inherit; text-decoration: none;"><span>marine-services@mozuk.net</span></a>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <a href="tel:+96179083906" style="color: inherit; text-decoration: none;"><span>+961 79 083 906</span></a>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-clock"></i>
+                        <span>24/7 Global Response</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Mozuk Marine. All Rights Reserved.</p>
+                <p>Marine Environmental Engineering & BWTS Solutions</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Background Canvas & Multilingual Engine JS -->
+    <script>
+        // Interactive Canvas Waves / Particles Background
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const particles = [];
+        for (let i = 0; i < 45; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.8,
+                vy: (Math.random() - 0.5) * 0.8,
+                radius: Math.random() * 2 + 1
+            });
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, width, height);
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            const color = isLight ? 'rgba(0, 102, 204, 0.4)' : 'rgba(0, 242, 254, 0.4)';
+            const lineColor = isLight ? 'rgba(0, 102, 204, 0.08)' : 'rgba(0, 242, 254, 0.08)';
+
+            particles.forEach((p, idx) => {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > width) p.vx *= -1;
+                if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+
+                for (let j = idx + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p2.x - p.x, p2.y - p.y);
+                    if (dist < 140) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = lineColor;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            });
+
+            requestAnimationFrame(drawParticles);
+        }
+        drawParticles();
+
+        // Multilingual Translation Engine
+        const i18nData = {
+            en: {
+                nav_home: "Home",
+                nav_services: "Services",
+                nav_about: "About Us",
+                nav_contact: "Contact",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> Request Quote',
+                err_badge: '<i class="fa-solid fa-compass"></i> Signal Lost | Error 404',
+                err_title: 'Vessel Off Course',
+                err_desc: "The technical page, schematic, or coordinates you requested could not be located on our marine network. It may have been relocated or updated.",
+                err_btn_home: '<i class="fa-solid fa-house"></i> Return to Home Port',
+                err_btn_contact: '<i class="fa-solid fa-headset"></i> Contact Technical Support',
+                err_quick_title: "Or Explore Key Engineering Portals",
+                q1_title: "BWTS Services",
+                q1_desc: "Retrofits, overhauls & testing",
+                q2_title: "About Mozuk Marine",
+                q2_desc: "Company history & mission",
+                q3_title: "Request a Quote",
+                q3_desc: "24/7 global dispatch & quotes",
+                footer_desc: "Mozuk Marine is a premier marine engineering service provider specializing in Ballast Water Treatment Systems (BWTS) installation, maintenance, and compliance.",
+                footer_quick_links: "Quick Links",
+                footer_contact_info: "Contact Support"
+            },
+            es: {
+                nav_home: "Inicio",
+                nav_services: "Servicios",
+                nav_about: "Nosotros",
+                nav_contact: "Contacto",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> Solicitar Cotización',
+                err_badge: '<i class="fa-solid fa-compass"></i> Señal Perdida | Error 404',
+                err_title: 'Embarcación Fuera de Curso',
+                err_desc: "La página técnica o coordenadas solicitadas no se pudieron ubicar en nuestra red marítima. Es posible que hayan sido reubicadas o actualizadas.",
+                err_btn_home: '<i class="fa-solid fa-house"></i> Volver al Puerto Base',
+                err_btn_contact: '<i class="fa-solid fa-headset"></i> Contactar Soporte Técnico',
+                err_quick_title: "O Explore Portales de Ingeniería Destacados",
+                q1_title: "Servicios BWTS",
+                q1_desc: "Retrofits, revisiones y pruebas",
+                q2_title: "Sobre Mozuk Marine",
+                q2_desc: "Historia y misión de la empresa",
+                q3_title: "Solicitar Cotización",
+                q3_desc: "Despacho global 24/7 y cotizaciones",
+                footer_desc: "Mozuk Marine es un proveedor líder de servicios de ingeniería naval especializado en la instalación, mantenimiento y cumplimiento de BWTS.",
+                footer_quick_links: "Enlaces Rápidos",
+                footer_contact_info: "Soporte y Contacto"
+            },
+            fr: {
+                nav_home: "Accueil",
+                nav_services: "Services",
+                nav_about: "À Propos",
+                nav_contact: "Contact",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> Demander un Devis',
+                err_badge: '<i class="fa-solid fa-compass"></i> Signal Perdu | Erreur 404',
+                err_title: 'Navire Hors de Route',
+                err_desc: "La page technique ou les coordonnées demandées n'ont pas pu être localisées sur notre réseau maritime.",
+                err_btn_home: '<i class="fa-solid fa-house"></i> Retour au Port d\'Attache',
+                err_btn_contact: '<i class="fa-solid fa-headset"></i> Contacter le Support Technique',
+                err_quick_title: "Ou Explorez Nos Principaux Portails",
+                q1_title: "Services BWTS",
+                q1_desc: "Retrofit, révision & essais",
+                q2_title: "À Propos de Mozuk Marine",
+                q2_desc: "Histoire & mission de la société",
+                q3_title: "Demander un Devis",
+                q3_desc: "Interventions & devis 24/7",
+                footer_desc: "Mozuk Marine est un prestataire de services d'ingénierie maritime spécialisé dans l'installation, la maintenance et la conformité des systèmes BWTS.",
+                footer_quick_links: "Liens Rapides",
+                footer_contact_info: "Support & Contact"
+            },
+            ar: {
+                nav_home: "الرئيسية",
+                nav_services: "الخدمات",
+                nav_about: "من نحن",
+                nav_contact: "تواصل معنا",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> طلب عرض سعر',
+                err_badge: '<i class="fa-solid fa-compass"></i> فقدان الإشارة | خطأ 404',
+                err_title: 'السفينة خارج المسار',
+                err_desc: "لم نتمكن من العثور على الصفحة الفنية أو الإحداثيات المطلوبة على شبكتنا البحرية. ربما تم نقلها أو تحديثها.",
+                err_btn_home: '<i class="fa-solid fa-house"></i> العودة للميناء الرئيسي',
+                err_btn_contact: '<i class="fa-solid fa-headset"></i> التواصل مع الدعم الفني',
+                err_quick_title: "أو تصفح أقسام الهندسة الرئيسية",
+                q1_title: "خدمات BWTS",
+                q1_desc: "تركيب، صيانة واختبارات",
+                q2_title: "عن موزوك مارين",
+                q2_desc: "تاريخ الشركة ومهمتها",
+                q3_title: "طلب عرض سعر",
+                q3_desc: "دعم وإرسال عالمي 24/7",
+                footer_desc: "موزوك مارين هي مزود خدمات هندسية بحرية رائد متخصص في تركيب وصيانة وامتثال أنظمة معالجة مياه التوازن (BWTS).",
+                footer_quick_links: "روابط سريعة",
+                footer_contact_info: "الدعم والتواصل"
+            },
+            bg: {
+                nav_home: "Начало",
+                nav_services: "Услуги",
+                nav_about: "За нас",
+                nav_contact: "Контакти",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> Поискайте оферта',
+                err_badge: '<i class="fa-solid fa-compass"></i> Загубен Сигнал | Грешка 404',
+                err_title: 'Корабът е Извън Курс',
+                err_desc: "Запрашената техническа страница или координати не бяха намерени в нашата морска мрежа. Възможно е да са преместени.",
+                err_btn_home: '<i class="fa-solid fa-house"></i> Обратно в Пристанището',
+                err_btn_contact: '<i class="fa-solid fa-headset"></i> Техническа Поддръжка',
+                err_quick_title: "Или Разгледайте Основните Портали",
+                q1_title: "BWTS Услуги",
+                q1_desc: "Монтаж, ремонт и тестове",
+                q2_title: "За Мозук Марин",
+                q2_desc: "История и мисия на компанията",
+                q3_title: "Поискайте Оферта",
+                q3_desc: "24/7 глобално изпращане",
+                footer_desc: "Мозук Марин е водещ доставчик на морски инженерни услуги, специализиран в монтажа, поддръжката и съответствието на BWTS.",
+                footer_quick_links: "Бързи Връзки",
+                footer_contact_info: "Поддръжка и Контакти"
+            }
+        };
+
+        function setLanguage(lang) {
+            if (!i18nData[lang]) lang = 'en';
+            localStorage.setItem('mozuk_lang', lang);
+
+            document.documentElement.setAttribute('lang', lang);
+            if (lang === 'ar') {
+                document.documentElement.setAttribute('dir', 'rtl');
+            } else {
+                document.documentElement.setAttribute('dir', 'ltr');
+            }
+
+            const codes = { en: 'EN', es: 'ES', fr: 'FR', ar: 'AR', bg: 'BG' };
+            const codeEl = document.getElementById('current-lang');
+            if (codeEl) codeEl.textContent = codes[lang];
+
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                if (opt.getAttribute('data-lang') === lang) {
+                    opt.classList.add('active');
+                } else {
+                    opt.classList.remove('active');
+                }
+            });
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18nData[lang] && i18nData[lang][key]) {
+                    el.innerHTML = i18nData[lang][key];
+                }
+            });
+        }
+
+        const langBtn = document.getElementById('lang-btn');
+        const langDropdown = document.getElementById('lang-dropdown');
+
+        if (langBtn && langDropdown) {
+            langBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                langDropdown.classList.toggle('active');
+            });
+
+            document.addEventListener('click', () => {
+                langDropdown.classList.remove('active');
+            });
+
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                opt.addEventListener('click', () => {
+                    const selectedLang = opt.getAttribute('data-lang');
+                    setLanguage(selectedLang);
+                    langDropdown.classList.remove('active');
+                });
+            });
+        }
+
+        // Initialize saved language
+        const savedLang = localStorage.getItem('mozuk_lang') || 'en';
+        setLanguage(savedLang);
+
+        // ===== THEME SWITCHER CONTROLLER =====
+        function setTheme(theme) {
+            if (theme !== 'light' && theme !== 'dark') theme = 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('mozuk_theme', theme);
+            
+            const themeIcon = document.getElementById('theme-icon');
+            if (themeIcon) {
+                if (theme === 'light') {
+                    themeIcon.className = 'fa-solid fa-moon';
+                } else {
+                    themeIcon.className = 'fa-solid fa-sun';
+                }
+            }
+        }
+
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                setTheme(newTheme);
+            });
+        }
+
+        const initialTheme = localStorage.getItem('mozuk_theme') || 'light';
+        setTheme(initialTheme);
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        if (menuToggle && navMenu) {
+            menuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+
+</html>
