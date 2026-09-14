@@ -3212,18 +3212,7 @@
             return document.querySelector('.nav-menu .nav-link.active') || mainNavLinks[0];
         }
 
-        // Hover glide effects
-        mainNavLinks.forEach(link => {
-            link.addEventListener('mouseenter', () => {
-                updateNavIndicator(link);
-            });
-        });
 
-        if (mainNavMenu) {
-            mainNavMenu.addEventListener('mouseleave', () => {
-                updateNavIndicator(getActiveNavLink());
-            });
-        }
 
         // ScrollSpy to toggle active state between Home, Services, and Contact
         function handleHomeScrollSpy() {

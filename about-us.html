@@ -1457,17 +1457,7 @@
             return document.querySelector('.nav-menu .nav-link.active') || mainNavLinks[0];
         }
 
-        mainNavLinks.forEach(link => {
-            link.addEventListener('mouseenter', () => {
-                updateNavIndicator(link);
-            });
-        });
 
-        if (mainNavMenu) {
-            mainNavMenu.addEventListener('mouseleave', () => {
-                updateNavIndicator(getActiveNavLink());
-            });
-        }
 
         window.addEventListener('resize', () => updateNavIndicator(getActiveNavLink()));
         window.addEventListener('load', () => {
