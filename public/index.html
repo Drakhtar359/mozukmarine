@@ -2404,6 +2404,7 @@
         
         // --- 3. Main Marine System Simulation Draw Loop ---
         function drawSystemSchematic() {
+            const theme = getCanvasTheme();
             // Absolute layout sizing
             let shipWidth = Math.min(width * 0.78, 850);
             let shipHeight = Math.min(height * 0.45, 260);
