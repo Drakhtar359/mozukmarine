@@ -2324,21 +2324,56 @@
                 return true;
             }
             
+        function getCanvasTheme() {
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            return {
+                isLight: isLight,
+                hullStroke: isLight ? 'rgba(0, 80, 180, 0.45)' : 'rgba(0, 242, 254, 0.14)',
+                bulkheadStroke: isLight ? 'rgba(0, 80, 180, 0.3)' : 'rgba(0, 242, 254, 0.08)',
+                componentStroke: isLight ? 'rgba(0, 80, 180, 0.65)' : 'rgba(0, 242, 254, 0.25)',
+                componentFill: isLight ? 'rgba(0, 102, 204, 0.08)' : 'rgba(0, 242, 254, 0.05)',
+                textFill: isLight ? '#004099' : 'rgba(0, 242, 254, 0.6)',
+                textFillMuted: isLight ? '#004099' : 'rgba(0, 242, 254, 0.25)',
+                pipeStroke: isLight ? 'rgba(0, 80, 180, 0.4)' : 'rgba(0, 242, 254, 0.15)',
+                headerBlockStroke: isLight ? 'rgba(0, 80, 180, 0.7)' : 'rgba(0, 242, 254, 0.3)',
+                tankStroke: isLight ? 'rgba(0, 80, 180, 0.45)' : 'rgba(0, 242, 254, 0.16)',
+                tankFill: isLight ? 'rgba(0, 102, 204, 0.06)' : 'rgba(0, 242, 254, 0.055)',
+                tankWaterFill: isLight ? 'rgba(2, 132, 199, 0.35)' : 'rgba(0, 242, 254, 0.25)',
+                tankText: isLight ? '#004099' : 'rgba(0, 242, 254, 0.45)',
+                modeBoxBg: isLight ? 'rgba(255, 255, 255, 0.95)' : 'rgba(5, 11, 20, 0.8)',
+                modeBoxBorder: isLight ? 'rgba(0, 80, 180, 0.5)' : 'rgba(0, 242, 254, 0.25)',
+                modeBoxProgress: isLight ? 'rgba(0, 102, 204, 0.2)' : 'rgba(0, 242, 254, 0.15)',
+                modeBoxText: isLight ? '#004099' : '#00f2fe',
+                particle1: isLight ? '#0055b3' : '#00f2fe',
+                particle2: isLight ? '#0284c7' : '#00ffc3',
+                particleShadow: isLight ? 'rgba(0, 80, 180, 0.4)' : '#00f2fe',
+                valveOpenStroke: isLight ? '#0055b3' : '#00f2fe',
+                valveOpenFill: isLight ? 'rgba(0, 102, 204, 0.25)' : 'rgba(0, 242, 254, 0.25)',
+                valveClosedStroke: isLight ? '#64748b' : '#64748b',
+                valveClosedFill: isLight ? 'rgba(100, 116, 139, 0.15)' : 'rgba(100, 116, 139, 0.1)',
+                wave1: isLight ? 'rgba(0, 102, 204, 0.05)' : 'rgba(0, 242, 254, 0.02)',
+                wave2: isLight ? 'rgba(2, 132, 199, 0.04)' : 'rgba(58, 123, 213, 0.015)',
+                wave3: isLight ? 'rgba(0, 102, 204, 0.03)' : 'rgba(0, 255, 195, 0.01)'
+            };
+        }
+
             draw() {
+                const theme = getCanvasTheme();
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
+                ctx.fillStyle = theme.isLight ? (this.color === '#00f2fe' ? theme.particle1 : theme.particle2) : this.color;
                 ctx.shadowBlur = 5;
-                ctx.shadowColor = '#00f2fe';
+                ctx.shadowColor = theme.particleShadow;
                 ctx.fill();
             }
         }
         
         // Helper to draw standard valve symbol ⋈
         function drawValveSymbol(vx, vy, vertical = false, isOpen = true) {
+            const theme = getCanvasTheme();
             ctx.save();
-            ctx.strokeStyle = isOpen ? '#00f2fe' : '#64748b';
-            ctx.fillStyle = isOpen ? 'rgba(0, 242, 254, 0.25)' : 'rgba(100, 116, 139, 0.1)';
+            ctx.strokeStyle = isOpen ? theme.valveOpenStroke : theme.valveClosedStroke;
+            ctx.fillStyle = isOpen ? theme.valveOpenFill : theme.valveClosedFill;
             ctx.lineWidth = 1;
             
             ctx.translate(vx, vy);
@@ -2402,7 +2437,7 @@
             
             // Draw Ship Hull Top View with Constant Width
             ctx.save();
-            ctx.strokeStyle = 'rgba(0, 242, 254, 0.14)';
+            ctx.strokeStyle = theme.hullStroke;
             ctx.lineWidth = 1.5;
             
             ctx.beginPath();
@@ -2420,7 +2455,7 @@
             ctx.stroke();
             
             // Draw engine room bulkhead dividing line
-            ctx.strokeStyle = 'rgba(0, 242, 254, 0.08)';
+            ctx.strokeStyle = theme.bulkheadStroke;
             ctx.setLineDash([3, 3]);
             ctx.beginPath();
             ctx.moveTo(shipX + shipWidth * 0.36, centerline - hullHalfWidth);
@@ -2429,9 +2464,9 @@
             ctx.setLineDash([]);
             
             // Draw Sea Chest inside the vessel walls, halfway between wall and centerline
-            ctx.strokeStyle = 'rgba(0, 242, 254, 0.22)';
+            ctx.strokeStyle = theme.componentStroke;
             ctx.strokeRect(seaChestX - 8, seaChestY, 16, 12);
-            ctx.fillStyle = 'rgba(0, 242, 254, 0.05)';
+            ctx.fillStyle = theme.componentFill;
             ctx.fillRect(seaChestX - 8, seaChestY, 16, 12);
             ctx.beginPath();
             for (let lx = seaChestX - 5; lx <= seaChestX + 5; lx += 3) {
@@ -2441,11 +2476,11 @@
             ctx.stroke();
             
             // Draw Overboard discharge nozzle flange outside hull
-            ctx.strokeStyle = 'rgba(0, 242, 254, 0.25)';
+            ctx.strokeStyle = theme.componentStroke;
             ctx.strokeRect(overboardX - 6, overboardY - 5, 12, 5);
             
             // Draw Ballast Pump centrifugal casing
-            ctx.strokeStyle = 'rgba(0, 242, 254, 0.22)';
+            ctx.strokeStyle = theme.componentStroke;
             ctx.lineWidth = 1.2;
             ctx.beginPath();
             ctx.arc(pumpX, pumpY, 12, 0, Math.PI * 2);
@@ -2455,14 +2490,14 @@
             ctx.lineTo(pumpX + 5, pumpY + 3);
             ctx.lineTo(pumpX - 5, pumpY + 3);
             ctx.closePath();
-            ctx.fillStyle = 'rgba(0, 242, 254, 0.08)';
+            ctx.fillStyle = theme.componentFill;
             ctx.fill();
             ctx.stroke();
             
             // Draw BWTS Treatment chamber
-            ctx.strokeStyle = 'rgba(0, 242, 254, 0.25)';
+            ctx.strokeStyle = theme.componentStroke;
             ctx.strokeRect(bwtsX - 22, bwtsY - 15, 44, 30);
-            ctx.fillStyle = 'rgba(0, 242, 254, 0.05)';
+            ctx.fillStyle = theme.componentFill;
             ctx.fillRect(bwtsX - 22, bwtsY - 15, 44, 30);
             ctx.beginPath();
             ctx.setLineDash([2, 2]);
@@ -2471,8 +2506,8 @@
             ctx.stroke();
             ctx.setLineDash([]);
             
-            // BWTS / Pump Labels (BWTS unit label moved up to centerline - 28 to avoid overlap with centerline - 22 pipe)
-            ctx.fillStyle = 'rgba(0, 242, 254, 0.25)';
+            // BWTS / Pump Labels
+            ctx.fillStyle = theme.textFillMuted;
             ctx.font = '8px monospace';
             ctx.fillText('SEA INLET', seaChestX - 22, seaChestY + 23);
             ctx.fillText('BALLAST PUMP', pumpX + 18, pumpY + 3);
@@ -2480,7 +2515,7 @@
             ctx.fillText('OVERBOARD', overboardX - 20, overboardY + 14);
             
             // --- 4. Draw Piping Grid ---
-            ctx.strokeStyle = 'rgba(0, 242, 254, 0.15)';
+            ctx.strokeStyle = theme.pipeStroke;
             ctx.lineWidth = 1.5;
             
             // Intake Pipe: Port Sea Chest -> goes vertically down at X=0.20 -> then turns to Pump suction junction
@@ -2539,14 +2574,14 @@
             ctx.stroke();
             
             // Draw Header vertical block
-            ctx.strokeStyle = 'rgba(0, 242, 254, 0.3)';
+            ctx.strokeStyle = theme.headerBlockStroke;
             ctx.lineWidth = 2.0;
             ctx.beginPath();
             ctx.moveTo(headerX, centerline - 16);
             ctx.lineTo(headerX, centerline + 16);
             ctx.stroke();
             ctx.lineWidth = 1.5;
-            ctx.strokeStyle = 'rgba(0, 242, 254, 0.15)';
+            ctx.strokeStyle = theme.pipeStroke;
             
             // Draw 6 dedicated parallel pipes along the centerline
             // Pipe 1 (Wing 1P): centerline - 15
@@ -2763,18 +2798,18 @@
                     hoveredTank = tank;
                 }
                 
-                // Draw tank outline (No hover illumination shifts)
-                ctx.strokeStyle = 'rgba(0, 242, 254, 0.16)';
+                // Draw tank outline
+                ctx.strokeStyle = theme.tankStroke;
                 ctx.lineWidth = 1.0;
                 ctx.strokeRect(tx, ty, tw, th);
                 
                 // Fill tank water
-                ctx.fillStyle = 'rgba(0, 242, 254, 0.055)';
+                ctx.fillStyle = theme.tankWaterFill;
                 const wHeight = th * tank.fill;
                 ctx.fillRect(tx + 1, ty + th - wHeight, tw - 2, wHeight - 1);
                 
                 // Tank labels inside tank
-                ctx.fillStyle = 'rgba(0, 242, 254, 0.45)';
+                ctx.fillStyle = theme.tankText;
                 ctx.font = '8px monospace';
                 ctx.fillText(tank.name, tx + 4, ty + 12);
                 ctx.fillText(`QTY: ${Math.round(tank.fill * 100)}%`, tx + 4, ty + th - 6);
@@ -2836,7 +2871,7 @@
                 } else {
                     ctx.beginPath();
                     ctx.arc(sp.x, sp.y, 1.5, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(0, 242, 254, ${sp.life / sp.maxLife})`;
+                    ctx.fillStyle = theme.isLight ? `rgba(0, 102, 204, ${sp.life / sp.maxLife})` : `rgba(0, 242, 254, ${sp.life / sp.maxLife})`;
                     ctx.fill();
                 }
             }
@@ -2850,7 +2885,7 @@
             
             // Technical Header text centered above the ship diagram
             ctx.save();
-            ctx.fillStyle = 'rgba(0, 242, 254, 0.22)';
+            ctx.fillStyle = theme.textFillMuted;
             ctx.font = '10px "Space Grotesk", sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText('MOZUK BALASTING TOP-VIEW FLOW SCHEMATIC', width / 2, centerline - hullHalfWidth - 25);
@@ -2863,17 +2898,17 @@
             const btnY = centerline + hullHalfWidth + 22;
             
             ctx.save();
-            ctx.strokeStyle = 'rgba(0, 242, 254, 0.25)';
-            ctx.fillStyle = 'rgba(5, 11, 20, 0.8)';
+            ctx.strokeStyle = theme.modeBoxBorder;
+            ctx.fillStyle = theme.modeBoxBg;
             ctx.strokeRect(btnX, btnY, btnWidth, btnHeight);
             ctx.fillRect(btnX, btnY, btnWidth, btnHeight);
             
             // Draw a subtle animated progress bar at the bottom of the button
-            ctx.fillStyle = 'rgba(0, 242, 254, 0.15)';
+            ctx.fillStyle = theme.modeBoxProgress;
             const progressWidth = btnWidth * (modeTimer / 600);
             ctx.fillRect(btnX + 1, btnY + btnHeight - 3, progressWidth - 2, 2);
             
-            ctx.fillStyle = '#00f2fe';
+            ctx.fillStyle = theme.modeBoxText;
             ctx.font = '9px monospace';
             ctx.fillText(`MODE: ${systemMode.toUpperCase()}`, btnX + 12, btnY + 15);
             ctx.restore();
@@ -2883,10 +2918,11 @@
         
         // --- 4. Layered Ocean Waves (Sea Water Background) ---
         function drawSeaWaves() {
+            const theme = getCanvasTheme();
             const waveLayers = [
-                { freq: 0.003, speed: 0.008, amp: 22, heightOffset: 120, color: 'rgba(0, 242, 254, 0.02)' },
-                { freq: 0.002, speed: -0.006, amp: 28, heightOffset: 80, color: 'rgba(58, 123, 213, 0.015)' },
-                { freq: 0.0015, speed: 0.004, amp: 35, heightOffset: 40, color: 'rgba(0, 255, 195, 0.01)' }
+                { freq: 0.003, speed: 0.008, amp: 22, heightOffset: 120, color: theme.wave1 },
+                { freq: 0.002, speed: -0.006, amp: 28, heightOffset: 80, color: theme.wave2 },
+                { freq: 0.0015, speed: 0.004, amp: 35, heightOffset: 40, color: theme.wave3 }
             ];
             
             waveLayers.forEach((wave, idx) => {
@@ -2905,7 +2941,7 @@
                 
                 const waveGradient = ctx.createLinearGradient(0, height - wave.heightOffset - wave.amp, 0, height);
                 waveGradient.addColorStop(0, wave.color);
-                waveGradient.addColorStop(1, 'rgba(5, 11, 20, 0)');
+                waveGradient.addColorStop(1, theme.isLight ? 'rgba(248, 250, 252, 0)' : 'rgba(5, 11, 20, 0)');
                 
                 ctx.fillStyle = waveGradient;
                 ctx.fill();
