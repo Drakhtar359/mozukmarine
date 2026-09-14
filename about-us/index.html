@@ -4,7 +4,7 @@
 <head>
     <script>
         (function() {
-            const savedTheme = localStorage.getItem('mozuk_theme') || 'dark';
+            const savedTheme = localStorage.getItem('mozuk_theme') || 'light';
             document.documentElement.setAttribute('data-theme', savedTheme);
         })();
     </script>
@@ -1190,25 +1190,24 @@
                 <li><a href="contact.html" class="btn-nav-cta" data-i18n="nav_quote"><i class="fa-solid fa-paper-plane"></i> Request Quote</a></li>
                 <li class="lang-selector">
                     <button class="lang-btn" id="lang-btn" aria-label="Select Language">
-                        <span class="lang-flag" id="current-flag">🇬🇧</span>
                         <span class="lang-code" id="current-lang">EN</span>
                         <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem; transition: transform 0.3s ease;"></i>
                     </button>
                     <div class="lang-dropdown" id="lang-dropdown">
                         <button class="lang-option active" data-lang="en">
-                            <span class="lang-flag">🇬🇧</span> English (EN)
+                            English (EN)
                         </button>
                         <button class="lang-option" data-lang="es">
-                            <span class="lang-flag">🇪🇸</span> Español (ES)
+                            Español (ES)
                         </button>
                         <button class="lang-option" data-lang="fr">
-                            <span class="lang-flag">🇫🇷</span> Français (FR)
+                            Français (FR)
                         </button>
                         <button class="lang-option" data-lang="ar">
-                            <span class="lang-flag">🇱🇧</span> العربية (AR)
+                            العربية (AR)
                         </button>
                         <button class="lang-option" data-lang="bg">
-                            <span class="lang-flag">🇧🇬</span> Български (BG)
+                            Български (BG)
                         </button>
                     </div>
                 </li>
@@ -1728,11 +1727,8 @@
                 document.documentElement.setAttribute('dir', 'ltr');
             }
 
-            const flags = { en: '🇬🇧', es: '🇪🇸', fr: '🇫🇷', ar: '🇱🇧', bg: '🇧🇬' };
             const codes = { en: 'EN', es: 'ES', fr: 'FR', ar: 'AR', bg: 'BG' };
-            const flagEl = document.getElementById('current-flag');
             const codeEl = document.getElementById('current-lang');
-            if (flagEl) flagEl.textContent = flags[lang];
             if (codeEl) codeEl.textContent = codes[lang];
 
             document.querySelectorAll('.lang-option').forEach(opt => {
@@ -1779,7 +1775,7 @@
 
         // ===== THEME SWITCHER CONTROLLER =====
         function setTheme(theme) {
-            if (theme !== 'light' && theme !== 'dark') theme = 'dark';
+            if (theme !== 'light' && theme !== 'dark') theme = 'light';
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('mozuk_theme', theme);
             
@@ -1796,13 +1792,13 @@
         const themeToggleBtn = document.getElementById('theme-toggle-btn');
         if (themeToggleBtn) {
             themeToggleBtn.addEventListener('click', () => {
-                const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+                const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
                 const newTheme = currentTheme === 'light' ? 'dark' : 'light';
                 setTheme(newTheme);
             });
         }
 
-        const initialTheme = localStorage.getItem('mozuk_theme') || 'dark';
+        const initialTheme = localStorage.getItem('mozuk_theme') || 'light';
         setTheme(initialTheme);
     </script>
 </body>
