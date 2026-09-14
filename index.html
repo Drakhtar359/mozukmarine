@@ -3260,27 +3260,40 @@
             updateNavIndicator(getActiveNavLink());
         }
 
-        // Smooth scroll for hash links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        // Smooth scroll for hash links and keep URL clean without hash fragments in address bar
+        document.querySelectorAll('a[href^="#"], a[href*="/#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                const targetId = this.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
+                const href = this.getAttribute('href');
+                let targetId = '';
+                if (href.startsWith('#')) {
+                    targetId = href.substring(1);
+                } else if (href.includes('/#')) {
+                    targetId = href.split('/#')[1];
+                }
+                
+                const targetElement = targetId ? document.getElementById(targetId) : null;
                 if (targetElement) {
                     e.preventDefault();
                     const headerHeight = document.getElementById('main-header')?.offsetHeight || 80;
                     const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight + 5;
+                    
                     window.scrollTo({
                         top: targetPosition,
                         behavior: 'smooth'
                     });
+
+                    // Keep URL in address bar clean as homepage URL without hash fragment
+                    if (window.history && window.history.replaceState) {
+                        window.history.replaceState(null, '', window.location.pathname);
+                    }
                 }
             });
         });
 
-        // Handle hash navigation on initial page load (e.g. landing on /#services or /#contact-us)
+        // Clean URL address bar on initial page load if arriving with hash (e.g. landing from another page)
         if (window.location.hash) {
             const targetHash = window.location.hash.substring(1);
-            if (targetHash === 'services' || targetHash === 'contact-us') {
+            if (targetHash === 'services' || targetHash === 'contact-us' || targetHash === 'home') {
                 setTimeout(() => {
                     const targetEl = document.getElementById(targetHash);
                     if (targetEl) {
@@ -3291,7 +3304,11 @@
                             behavior: 'smooth'
                         });
                     }
-                }, 200);
+                    // Strip the hash fragment from the URL address bar so it displays clean homepage URL
+                    if (window.history && window.history.replaceState) {
+                        window.history.replaceState(null, '', window.location.pathname);
+                    }
+                }, 150);
             }
         }
 
