@@ -3,10 +3,11 @@
   "trailingSlash": false,
   "redirects": [
     { "source": "/services", "destination": "/#services", "permanent": true },
-    { "source": "/services.html", "destination": "/#services", "permanent": true }
+    { "source": "/services.html", "destination": "/#services", "permanent": true },
+    { "source": "/contact", "destination": "/#contact-us", "permanent": true },
+    { "source": "/contact.html", "destination": "/#contact-us", "permanent": true }
   ],
   "routes": [
-    { "src": "/about-us", "dest": "/about-us/index.html" },
-    { "src": "/contact", "dest": "/contact/index.html" }
+    { "src": "/about-us", "dest": "/about-us/index.html" }
   ]
 }

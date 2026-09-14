@@ -5,6 +5,9 @@
   # Redirect /services to /#services
   RewriteRule ^services/?$ /#services [R=301,L]
 
+  # Redirect /contact to /#contact-us
+  RewriteRule ^contact/?$ /#contact-us [R=301,L]
+
   # Redirect .html URLs to clean URLs
   RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
   RewriteRule ^ /%1 [R=301,L]
