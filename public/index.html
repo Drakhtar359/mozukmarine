@@ -2261,67 +2261,6 @@
         const flowParticles = [];
         const overboardSprays = [];
         
-        class FlowParticle {
-            constructor(path, color, targetTank) {
-                this.path = path;
-                this.segment = 0;
-                this.progress = 0;
-                this.speed = Math.random() * 1.5 + 2.0; // Pixels per frame
-                this.color = color;
-                this.targetTank = targetTank;
-                this.x = path[0].x;
-                this.y = path[0].y;
-            }
-            
-            update() {
-                if (this.segment >= this.path.length - 1) return false;
-                
-                const p1 = this.path[this.segment];
-                const p2 = this.path[this.segment + 1];
-                const dx = p2.x - p1.x;
-                const dy = p2.y - p1.y;
-                const dist = Math.hypot(dx, dy);
-                
-                if (dist === 0) {
-                    this.segment++;
-                    this.progress = 0;
-                    return true;
-                }
-                
-                this.progress += this.speed / dist;
-                
-                if (this.progress >= 1) {
-                    this.segment++;
-                    this.progress = 0;
-                    if (this.segment >= this.path.length - 1) {
-                        // Particle arrived!
-                        if (systemMode === 'deballast') {
-                            this.targetTank.fill = Math.max(0.0, this.targetTank.fill - 0.0035);
-                            // Spawn overboard sprays
-                            for (let k = 0; k < 5; k++) {
-                                overboardSprays.push({
-                                    x: this.x,
-                                    y: this.y,
-                                    vx: -(Math.random() * 1.5 + 1.0),
-                                    vy: -(Math.random() * 0.8 + 0.2),
-                                    life: Math.random() * 20 + 10,
-                                    maxLife: 30
-                                });
-                            }
-                        } else {
-                            this.targetTank.fill = Math.min(1.0, this.targetTank.fill + 0.0035);
-                        }
-                        return false;
-                    }
-                }
-                
-                const currentProgress = Math.min(1.0, this.progress);
-                const nextSegment = Math.min(this.path.length - 1, this.segment + 1);
-                const start = this.path[this.segment];
-                const end = this.path[nextSegment];
-                this.x = start.x + (end.x - start.x) * currentProgress;
-                this.y = start.y + (end.y - start.y) * currentProgress;
-                return true;
         function getCanvasTheme() {
             const isLight = document.documentElement.getAttribute('data-theme') === 'light';
             return {
