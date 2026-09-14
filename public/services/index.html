@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('mozuk_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - BWTS Installation, Maintenance & Maritime Engineering | Mozuk Marine</title>
+    <meta name="description" content="Explore Mozuk Marine's specialized services: Ballast Water Treatment System (BWTS) installation, maintenance, electrical engineering, and technical document digitalization.">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* ===== CSS DESIGN SYSTEM & TOKENS ===== */
+        :root {
+            --color-bg: #050b14;
+            --color-bg-alt: #0a1322;
+            --color-surface: rgba(13, 25, 44, 0.7);
+            --color-surface-hover: rgba(20, 38, 66, 0.85);
+            --color-glass-border: rgba(0, 242, 254, 0.15);
+            --color-glass-border-hover: rgba(0, 242, 254, 0.4);
+            
+            --color-primary: #00f2fe;
+            --color-primary-dark: #00c6ff;
+            --color-secondary: #3a7bd5;
+            --color-accent: #00ffc3;
+            
+            --text-main: #f0f6fc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2.5rem;
+            --spacing-xl: 4rem;
+            --spacing-2xl: 6rem;
+
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-heading: 'Space Grotesk', sans-serif;
+
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-full: 9999px;
+            --shadow-glow: 0 0 30px rgba(0, 242, 254, 0.25);
+            --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.4);
+            --glass-blur: blur(16px);
+            --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ===== LIGHT MODE DESIGN SYSTEM ===== */
+        [data-theme="light"] {
+            --color-bg: #f8fafc;
+            --color-bg-alt: #f1f5f9;
+            --color-surface: rgba(255, 255, 255, 0.88);
+            --color-surface-hover: rgba(255, 255, 255, 0.98);
+            --color-glass-border: rgba(0, 102, 204, 0.15);
+            --color-glass-border-hover: rgba(0, 102, 204, 0.35);
+            
+            --color-primary: #0066cc;
+            --color-primary-dark: #004b99;
+            --color-secondary: #0284c7;
+            --color-accent: #0284c7;
+            
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --text-dim: #64748b;
+
+            --shadow-glow: 0 10px 30px rgba(0, 102, 204, 0.15);
+            --shadow-card: 0 15px 35px rgba(15, 23, 42, 0.08);
+        }
+
+        [data-theme="light"] .header-nav {
+            background: rgba(255, 255, 255, 0.85);
+            border-bottom-color: rgba(0, 102, 204, 0.12);
+        }
+
+        [data-theme="light"] .header-nav.scrolled {
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        [data-theme="light"] .bg-overlay {
+            background: radial-gradient(circle at 50% 0%, rgba(0, 102, 204, 0.06) 0%, transparent 60%),
+                        radial-gradient(circle at 80% 80%, rgba(2, 132, 199, 0.05) 0%, transparent 50%);
+        }
+
+        [data-theme="light"] .btn-primary,
+        [data-theme="light"] .btn-primary:visited,
+        [data-theme="light"] .btn-nav-cta,
+        [data-theme="light"] .btn-nav-cta:visited {
+            background: linear-gradient(135deg, #0066cc, #0284c7);
+            color: #ffffff;
+            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.3);
+        }
+
+        [data-theme="light"] .btn-secondary {
+            background: rgba(0, 102, 204, 0.06);
+            border-color: rgba(0, 102, 204, 0.2);
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .btn-secondary:hover {
+            background: rgba(0, 102, 204, 0.12);
+            border-color: #0066cc;
+            color: #0066cc;
+        }
+
+        [data-theme="light"] .tab-btn {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: rgba(0, 102, 204, 0.18);
+            color: #475569;
+        }
+
+        [data-theme="light"] .tab-btn:hover {
+            background: rgba(0, 102, 204, 0.08);
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .tab-btn.active {
+            background: linear-gradient(135deg, #0066cc, #0284c7);
+            color: #ffffff;
+            box-shadow: 0 6px 25px rgba(0, 102, 204, 0.3);
+        }
+
+        [data-theme="light"] .lang-btn,
+        [data-theme="light"] .theme-toggle-btn {
+            background: rgba(0, 102, 204, 0.06);
+            border-color: rgba(0, 102, 204, 0.2);
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .lang-btn:hover,
+        [data-theme="light"] .theme-toggle-btn:hover {
+            background: rgba(0, 102, 204, 0.12);
+            border-color: #0066cc;
+            color: #0066cc;
+        }
+
+        [data-theme="light"] .lang-dropdown {
+            background: rgba(255, 255, 255, 0.98);
+            border-color: rgba(0, 102, 204, 0.2);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+        }
+
+        [data-theme="light"] .lang-option:hover,
+        [data-theme="light"] .lang-option.active {
+            background: rgba(0, 102, 204, 0.1);
+            color: #0066cc;
+        }
+
+        [data-theme="light"] .badge {
+            background: rgba(0, 102, 204, 0.08);
+            border-color: rgba(0, 102, 204, 0.2);
+            color: #0066cc;
+        }
+
+        [data-theme="light"] .elec-spec-box {
+            background: rgba(241, 245, 249, 0.85);
+            border-color: rgba(0, 102, 204, 0.15);
+        }
+
+        [data-theme="light"] .tag-pill {
+            background: rgba(0, 102, 204, 0.08);
+            color: #0066cc;
+            border-color: rgba(0, 102, 204, 0.2);
+        }
+
+        [data-theme="light"] .logo-slider {
+            background: rgba(241, 245, 249, 0.6);
+            border-color: rgba(0, 102, 204, 0.15);
+        }
+
+        [data-theme="light"] .logo-slider::before {
+            background: linear-gradient(to right, #f8fafc, transparent);
+        }
+
+        [data-theme="light"] .logo-slider::after {
+            background: linear-gradient(to left, #f8fafc, transparent);
+        }
+
+        [data-theme="light"] .bwts-logos-slider-container {
+            border-top-color: rgba(0, 102, 204, 0.15);
+        }
+
+        [data-theme="light"] .footer {
+            background: #f1f5f9;
+            border-top-color: rgba(0, 102, 204, 0.1);
+        }
+
+        [data-theme="light"] .footer-bottom {
+            border-top-color: rgba(0, 102, 204, 0.1);
+        }
+
+        .theme-selector {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--color-glass-border);
+            color: var(--text-main);
+            font-size: 1rem;
+            cursor: pointer;
+            backdrop-filter: var(--glass-blur);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            background: rgba(0, 242, 254, 0.12);
+            border-color: var(--color-primary);
+            transform: rotate(15deg);
+        }
+
+        /* ===== GLOBAL RESETS ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Canvas Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.15;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(0, 242, 254, 0.08) 0%, transparent 60%),
+                        radial-gradient(circle at 80% 80%, rgba(58, 123, 213, 0.06) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-full);
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid var(--color-glass-border);
+            color: var(--color-primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            backdrop-filter: var(--glass-blur);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto var(--spacing-xl);
+        }
+
+        .section-header h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            margin-top: 0.75rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .header-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(5, 11, 20, 0.75);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .header-nav.scrolled {
+            background: rgba(5, 11, 20, 0.92);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-bottom-color: var(--color-glass-border);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            height: 48px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover img {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-main);
+        }
+
+        .btn-nav-cta, .btn-nav-cta:visited {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.4rem;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: #000;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+        }
+
+        .btn-nav-cta:hover, .btn-nav-cta:visited:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5);
+            color: #000;
+        }
+
+        /* Language Selector */
+        .lang-selector {
+            position: relative;
+            list-style: none;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--color-glass-border);
+            color: var(--text-main);
+            padding: 0.5rem 0.9rem;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: rgba(0, 242, 254, 0.1);
+            border-color: var(--color-primary);
+        }
+
+        .lang-dropdown {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: rgba(10, 19, 34, 0.95);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--color-glass-border);
+            border-radius: var(--radius-md);
+            padding: 0.5rem;
+            display: none;
+            flex-direction: column;
+            gap: 0.25rem;
+            min-width: 150px;
+            box-shadow: var(--shadow-card);
+            z-index: 1001;
+        }
+
+        [dir="rtl"] .lang-dropdown {
+            right: auto;
+            left: 0;
+        }
+
+        .lang-dropdown.active {
+            display: flex;
+        }
+
+        .lang-option {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.5rem 0.8rem;
+            text-align: left;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.2s ease;
+        }
+
+        [dir="rtl"] .lang-option {
+            text-align: right;
+        }
+
+        .lang-option:hover, .lang-option.active {
+            background: rgba(0, 242, 254, 0.12);
+            color: var(--color-primary);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== SERVICES HERO HEADER ===== */
+        .services-hero {
+            padding: 4.5rem 0 2.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .services-hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin: 1.2rem 0 1rem;
+        }
+
+        .services-hero p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 780px;
+            margin: 0 auto 2.5rem;
+        }
+
+        /* ===== SERVICES SECTION & TABS ===== */
+        .services-section {
+            padding: 1rem 0 var(--spacing-2xl);
+            position: relative;
+        }
+
+        .services-tabs-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.85rem 2.2rem;
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--color-glass-border);
+            color: var(--text-muted);
+            font-family: var(--font-main);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s var(--transition-smooth);
+            backdrop-filter: var(--glass-blur);
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+            background: rgba(0, 242, 254, 0.08);
+            border-color: var(--color-glass-border-hover);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: #050b14;
+            border-color: transparent;
+            box-shadow: 0 6px 25px rgba(0, 242, 254, 0.4);
+            font-weight: 700;
+        }
+
+        .tab-content {
+            display: none;
+
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--color-surface);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--color-glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2.25rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.35s var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--color-glass-border-hover);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-md);
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid var(--color-glass-border);
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.85rem;
+            color: var(--text-main);
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.75rem;
+            flex: 1;
+            line-height: 1.65;
+        }
+
+        .service-footer {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: gap 0.3s ease;
+        }
+
+        .service-card:hover .service-footer {
+            gap: 0.8rem;
+        }
+
+        /* Electrical & Digital Feature Styles */
+        .elec-hero-box {
+            background: var(--color-surface);
+            border: 1px solid var(--color-glass-border);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            backdrop-filter: var(--glass-blur);
+            box-shadow: var(--shadow-card);
+            margin-bottom: 2.5rem;
+        }
+
+        .elec-specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .elec-spec-box {
+            background: rgba(5, 11, 20, 0.6);
+            border: 1px solid var(--color-glass-border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+        }
+
+        .elec-spec-box h4 {
+            color: var(--color-primary);
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .elec-spec-box p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        /* BWTS Manufacturers Slider */
+        .bwts-logos-slider-container {
+            margin-top: 5rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+        }
+
+        .bwts-slider-title {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+        }
+
+        .logo-slider {
+            display: flex;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            background: rgba(5, 11, 20, 0.4);
+            border: 1px solid var(--color-glass-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 0;
+            backdrop-filter: var(--glass-blur);
+        }
+
+        .logo-slider::before,
+        .logo-slider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 120px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .logo-slider::before {
+            left: 0;
+            background: linear-gradient(to right, var(--color-bg), transparent);
+        }
+
+        .logo-slider::after {
+            right: 0;
+            background: linear-gradient(to left, var(--color-bg), transparent);
+        }
+
+        .logo-track {
+            display: flex;
+            gap: 3.5rem;
+            animation: scroll 30s linear infinite;
+            white-space: nowrap;
+            align-items: center;
+        }
+
+        .logo-track:hover {
+            animation-play-state: paused;
+        }
+
+        .logo-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            opacity: 0.75;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .logo-item:hover {
+            opacity: 1;
+            color: var(--color-primary);
+            transform: scale(1.05);
+        }
+
+        .logo-item i {
+            font-size: 1.4rem;
+            color: var(--color-primary);
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* CTA CARD */
+        .cta-section {
+            padding: 3rem 0 5rem;
+        }
+
+        .cta-card {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.08), rgba(58, 123, 213, 0.12));
+            border: 1px solid var(--color-glass-border-hover);
+            border-radius: var(--radius-lg);
+            padding: 4rem 2.5rem;
+            text-align: center;
+            backdrop-filter: var(--glass-blur);
+            box-shadow: var(--shadow-card), var(--shadow-glow);
+        }
+
+        .cta-card h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 4vw, 2.75rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-card p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 680px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.2rem;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: #050b14;
+            font-weight: 700;
+            font-size: 1.05rem;
+            text-decoration: none;
+            transition: all 0.3s var(--transition-smooth);
+            box-shadow: 0 10px 25px rgba(0, 242, 254, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 242, 254, 0.5);
+            color: #050b14;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #03070d;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 3rem 0 2rem;
+            margin-top: auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1.5fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand img {
+            height: 42px;
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-brand p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            max-width: 360px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            color: var(--text-main);
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-contact-item i {
+            color: var(--color-primary);
+            font-size: 1rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 1.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: rgba(5, 11, 20, 0.95);
+                backdrop-filter: var(--glass-blur);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--color-glass-border);
+                transform: translateY(-150%);
+                transition: transform 0.4s var(--transition-smooth);
+                z-index: 999;
+            }
+
+            .nav-menu.active {
+                transform: translateY(0);
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background Canvas and Ambient Overlay -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="bg-overlay"></div>
+
+    <!-- Header Navigation -->
+    <header class="header-nav" id="main-header">
+        <div class="container nav-container">
+            <a href="/" class="nav-logo">
+                <img src="./images/logo.png" alt="Mozuk Marine Logo">
+            </a>
+
+            <button class="mobile-toggle" id="menu-toggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/" class="nav-link" data-i18n="nav_home">Home</a></li>
+                <li><a href="/services" class="nav-link active" data-i18n="nav_services">Services</a></li>
+                <li><a href="/about-us" class="nav-link" data-i18n="nav_about">About Us</a></li>
+                <li><a href="/contact" class="nav-link" data-i18n="nav_contact">Contact</a></li>
+                <li><a href="/contact" class="btn-nav-cta" data-i18n="nav_quote"><i class="fa-solid fa-paper-plane"></i> Request Quote</a></li>
+                <li class="lang-selector">
+                    <button class="lang-btn" id="lang-btn" aria-label="Select Language">
+                        <span class="lang-code" id="current-lang">EN</span>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem; transition: transform 0.3s ease;"></i>
+                    </button>
+                    <div class="lang-dropdown" id="lang-dropdown">
+                        <button class="lang-option active" data-lang="en">
+                            English (EN)
+                        </button>
+                        <button class="lang-option" data-lang="es">
+                            Español (ES)
+                        </button>
+                        <button class="lang-option" data-lang="fr">
+                            Français (FR)
+                        </button>
+                        <button class="lang-option" data-lang="ar">
+                            العربية (AR)
+                        </button>
+                        <button class="lang-option" data-lang="bg">
+                            Български (BG)
+                        </button>
+                    </div>
+                </li>
+                <li class="theme-selector">
+                    <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle Light/Dark Theme" title="Toggle Light/Dark Theme">
+                        <i class="fa-solid fa-sun" id="theme-icon"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Services Hero Header -->
+        <section class="services-hero">
+            <div class="badge" data-i18n="sec_capabilities"><i class="fa-solid fa-gears"></i> Core Capabilities</div>
+            <h1 data-i18n="sec_title">Our Engineering <span class="text-gradient">Services</span></h1>
+            <p data-i18n="sec_subtitle">Select a service category below to explore our specialized marine engineering solutions for vessels worldwide.</p>
+        </section>
+
+        <!-- Services Section & Tabs -->
+        <section class="services-section" id="services">
+            <!-- Services Category Tabs -->
+            <div class="services-tabs-nav">
+                <button class="tab-btn active" data-tab="tab-bwts" data-i18n="tab_bwts">
+                    <i class="fa-solid fa-anchor"></i> BWTS Services
+                </button>
+                <button class="tab-btn" data-tab="tab-elec" data-i18n="tab_elec">
+                    <i class="fa-solid fa-bolt"></i> Electrical Services
+                </button>
+                <button class="tab-btn" data-tab="tab-digital" data-i18n="tab_digital">
+                    <i class="fa-solid fa-laptop-code"></i> Digitalization of Technical Documents
+                </button>
+            </div>
+
+            <!-- Tab Panel 1: BWTS Services -->
+            <div class="tab-content active" id="tab-bwts">
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fa-solid fa-wrench"></i></div>
+                        <h3 data-i18n="bwts_c1_title">BWTS Installation</h3>
+                        <p data-i18n="bwts_c1_desc">Turnkey retrofit and newbuild installation of top-tier Ballast Water Treatment Systems customized to your vessel layout.</p>
+                        <a href="/contact" class="service-footer" data-i18n="bwts_c1_btn">Request Installation Quote <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                        <h3 data-i18n="bwts_c2_title">Maintenance & Repair</h3>
+                        <p data-i18n="bwts_c2_desc">Scheduled overhauls, sensor calibration, UV lamp replacements, filter maintenance, and emergency troubleshooting for all major brands.</p>
+                        <a href="/contact" class="service-footer" data-i18n="bwts_c2_btn">Schedule Maintenance <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fa-solid fa-clipboard-check"></i></div>
+                        <h3 data-i18n="bwts_c3_title">Commissioning & Testing</h3>
+                        <p data-i18n="bwts_c3_desc">Rigorous operational testing, biological sampling validation, and commissioning to guarantee compliance with international standards.</p>
+                        <a href="/contact" class="service-footer" data-i18n="bwts_c3_btn">Book Commissioning <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fa-solid fa-boxes-packing"></i></div>
+                        <h3 data-i18n="bwts_c4_title">Spare Parts & Support</h3>
+                        <p data-i18n="bwts_c4_desc">Rapid sourcing and dispatch of genuine OEM spare parts, valves, sensors, and 24/7 technical helpdesk assistance.</p>
+                        <a href="/contact" class="service-footer" data-i18n="bwts_c4_btn">Order Spare Parts <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fa-solid fa-user-graduate"></i></div>
+                        <h3 data-i18n="bwts_c5_title">Crew Training</h3>
+                        <p data-i18n="bwts_c5_desc">Hands-on operational and safety training programs empowering your marine officers and engineers with full BWTS mastery.</p>
+                        <a href="/contact" class="service-footer" data-i18n="bwts_c5_btn">Enquire Training <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fa-solid fa-file-pen"></i></div>
+                        <h3 data-i18n="bwts_c6_title">Documentation Updates</h3>
+                        <p data-i18n="bwts_c6_desc">Digitization of technical schematics, CAD updates, and Ballast Water Management Plan (BWMP) revisions according to IMO regulations.</p>
+                        <a href="/contact" class="service-footer" data-i18n="bwts_c6_btn">Update Documentation <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Panel 2: Electrical Services -->
+            <div class="tab-content" id="tab-elec">
+                <div class="elec-hero-box">
+                    <div class="badge" style="margin-bottom: 1rem;" data-i18n="elec_badge"><i class="fa-solid fa-bolt-lightning"></i> Engine Room Power & Automation</div>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem;" data-i18n="elec_title">Custom Electrical Solutions</h3>
+                    <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.7;" data-i18n="elec_desc">Turnkey power generation, main switchboard (MSB) maintenance, automated alarm monitoring systems (AMS), and motor drive solutions engineered for heavy-duty marine operation.</p>
+                    
+                    <div class="elec-specs-grid">
+                        <div class="elec-spec-box">
+                            <h4 data-i18n="elec_spec1_title"><i class="fa-solid fa-charging-station"></i> Switchboard & PMS</h4>
+                            <p data-i18n="elec_spec1_desc">Load sharing, breaker calibration, generator sync.</p>
+                        </div>
+                        <div class="elec-spec-box">
+                            <h4 data-i18n="elec_spec2_title"><i class="fa-solid fa-display"></i> AMS & Automation</h4>
+                            <p data-i18n="elec_spec2_desc">PLC programming, engine alarm panel loops.</p>
+                        </div>
+                        <div class="elec-spec-box">
+                            <h4 data-i18n="elec_spec3_title"><i class="fa-solid fa-fan"></i> VFD Motor Drives</h4>
+                            <p data-i18n="elec_spec3_desc">Energy-efficient pump starters & motor rewinding.</p>
+                        </div>
+                        <div class="elec-spec-box">
+                            <h4 data-i18n="elec_spec4_title"><i class="fa-solid fa-triangle-exclamation"></i> Emergency Shutdown</h4>
+                            <p data-i18n="elec_spec4_desc">ESD safety loops & 24V DC battery restoration.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fa-solid fa-network-wired"></i></div>
+                        <h3 data-i18n="elec_feat1_title">Main Switchboard (MSB) & Power Management</h3>
+                        <p data-i18n="elec_feat1_desc">Precision overhaul of generator breaker panels, busbar insulation testing, automatic power restoration, and primary distribution protection.</p>
+                        <a href="/contact" class="service-footer" data-i18n="bwts_c1_btn">Request Electrical Quote <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fa-solid fa-microchip"></i></div>
+                        <h3 data-i18n="elec_feat2_title">Engine Room Automation & Monitoring (AMS)</h3>
+                        <p data-i18n="elec_feat2_desc">Custom PLC automation, exhaust temperature sensor loops, tank level gauging, and high-temperature shutdown interlocks.</p>
+                        <a href="/contact" class="service-footer" data-i18n="bwts_c1_btn">Request Automation Quote <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                        <h3 data-i18n="elec_feat3_title">Variable Frequency Drives (VFD) & Heavy Motors</h3>
+                        <p data-i18n="elec_feat3_desc">Custom VFD panel retrofits for sea water cooling pumps, ballast pumps, and engine room ventilation fans to reduce power consumption.</p>
+                        <a href="/contact" class="service-footer" data-i18n="bwts_c1_btn">Request VFD Quote <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Panel 3: Digitalization of Technical Documents -->
+            <div class="tab-content" id="tab-digital">
+                <div class="elec-hero-box">
+                    <div class="badge" style="margin-bottom: 1rem;" data-i18n="digital_badge"><i class="fa-solid fa-folder-tree"></i> Complete Vessel Paperless Transformation</div>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem;" data-i18n="digital_title">Digitalization of Technical Documents</h3>
+                    <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.7;" data-i18n="digital_desc">We deliver a full end-to-end solution to convert paper datasheets, engineering drawings, P&IDs, deck & engine manuals, and classification documents into a dynamic digital repository, accessible directly on dedicated onboard computer and tablet interfaces.</p>
+                    
+                    <div class="elec-specs-grid">
+                        <div class="elec-spec-box">
+                            <h4 data-i18n="digital_spec1_title"><i class="fa-solid fa-file-pdf"></i> Datasheet & Drawing Digitization</h4>
+                            <p data-i18n="digital_spec1_desc">High-resolution scanning, OCR, and indexing of vessel schematics & manuals.</p>
+                        </div>
+                        <div class="elec-spec-box">
+                            <h4 data-i18n="digital_spec2_title"><i class="fa-solid fa-tablet-screen-button"></i> Interactive Tablet & PC Software</h4>
+                            <p data-i18n="digital_spec2_desc">Custom intuitive interface for instantaneous search and field access across all decks.</p>
+                        </div>
+                        <div class="elec-spec-box">
+                            <h4 data-i18n="digital_spec3_title"><i class="fa-solid fa-tags"></i> Equipment & Tag Linking</h4>
+                            <p data-i18n="digital_spec3_desc">Direct cross-referencing between machinery tags, deck systems, and spare parts.</p>
+                        </div>
+                        <div class="elec-spec-box">
+                            <h4 data-i18n="digital_spec4_title"><i class="fa-solid fa-toolbox"></i> Turnkey Onboard Deployment</h4>
+                            <p data-i18n="digital_spec4_desc">Hardware & software setup for offline marine tablets & workstations.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fa-solid fa-box-archive"></i></div>
+                        <h3 data-i18n="digital_feat1_title">End-to-End Technical Document Archiving</h3>
+                        <p data-i18n="digital_feat1_desc">We digitize legacy paper archives, maker manuals, wiring diagrams, P&ID drawings, and safety certs into searchable, high-clarity digital formats tailored for shipboard crews.</p>
+                        <a href="/contact" class="service-footer" data-i18n="bwts_c1_btn">Request Digitization Quote <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fa-solid fa-desktop"></i></div>
+                        <h3 data-i18n="digital_feat2_title">Custom Computer & Tablet Software Interface</h3>
+                        <p data-i18n="digital_feat2_desc">Crew members and engineers gain instant access to technical documentation anywhere on board using ruggedized tablets or workstation software with instant key-phrase searching.</p>
+                        <a href="/contact" class="service-footer" data-i18n="bwts_c1_btn">Request Demo & Quote <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fa-solid fa-diagram-project"></i></div>
+                        <h3 data-i18n="digital_feat3_title">Smart Equipment Cross-Referencing & Maintenance Logs</h3>
+                        <p data-i18n="digital_feat3_desc">Connect vessel equipment serial numbers, deck machinery, and engine components directly to OEM datasheets, maintenance schedules, and spare part breakdown diagrams.</p>
+                        <a href="/contact" class="service-footer" data-i18n="bwts_c1_btn">Request Integration Quote <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certified BWTS Manufacturers Slider -->
+            <div class="bwts-logos-slider-container">
+                <div class="bwts-slider-title" data-i18n="bwts_slider_title">Certified Service & Support for Leading Manufacturers</div>
+                <div class="logo-slider">
+                    <div class="logo-track">
+                        <div class="logo-item"><i class="fa-solid fa-shield"></i> Alfa Laval</div>
+                        <div class="logo-item"><i class="fa-solid fa-shield"></i> Techcross</div>
+                        <div class="logo-item"><i class="fa-solid fa-shield"></i> ERMA FIRST</div>
+                        <div class="logo-item"><i class="fa-solid fa-shield"></i> Desmi Ocean Guard</div>
+                        <div class="logo-item"><i class="fa-solid fa-shield"></i> Wärtsilä</div>
+                        <div class="logo-item"><i class="fa-solid fa-shield"></i> BIO-SEA by BIO-UV</div>
+                        <div class="logo-item"><i class="fa-solid fa-shield"></i> SunRui BalClor</div>
+                        <div class="logo-item"><i class="fa-solid fa-shield"></i> Headway OceanGuard</div>
+                        <!-- Duplicate for Seamless Infinite Loop -->
+                        <div class="logo-item"><i class="fa-solid fa-shield"></i> Alfa Laval</div>
+                        <div class="logo-item"><i class="fa-solid fa-shield"></i> Techcross</div>
+                        <div class="logo-item"><i class="fa-solid fa-shield"></i> ERMA FIRST</div>
+                        <div class="logo-item"><i class="fa-solid fa-shield"></i> Desmi Ocean Guard</div>
+                        <div class="logo-item"><i class="fa-solid fa-shield"></i> Wärtsilä</div>
+                        <div class="logo-item"><i class="fa-solid fa-shield"></i> BIO-SEA by BIO-UV</div>
+                        <div class="logo-item"><i class="fa-solid fa-shield"></i> SunRui BalClor</div>
+                        <div class="logo-item"><i class="fa-solid fa-shield"></i> Headway OceanGuard</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA SECTION -->
+        <section class="cta-section">
+            <div class="cta-card">
+                <h2 data-i18n="cta_title">Ready to Upgrade or Service Your BWTS?</h2>
+                <p data-i18n="cta_desc">Get in touch with our engineering team for a custom quote, technical audit, or urgent service request.</p>
+                <a href="/contact" class="btn-primary" data-i18n="cta_btn">
+                    <i class="fa-solid fa-paper-plane"></i> Request a Quote Now
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="./images/logo.png" alt="Mozuk Marine Logo">
+                    <p data-i18n="footer_desc">Mozuk Marine is a premier marine engineering service provider specializing in Ballast Water Treatment Systems (BWTS) installation, maintenance, and compliance.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4 data-i18n="footer_quick_links">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/" data-i18n="nav_home">Home</a></li>
+                        <li><a href="/services" data-i18n="nav_services">Services</a></li>
+                        <li><a href="/about-us" data-i18n="nav_about">About Us</a></li>
+                        <li><a href="/contact" data-i18n="nav_contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 data-i18n="footer_contact_info">Contact Support</h4>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <a href="mailto:marine-services@mozuk.net" style="color: inherit; text-decoration: none;"><span>marine-services@mozuk.net</span></a>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <a href="tel:+96179083906" style="color: inherit; text-decoration: none;"><span>+961 79 083 906</span></a>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-clock"></i>
+                        <span>24/7 Global Response</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Mozuk Marine. All Rights Reserved.</p>
+                <p>Marine Environmental Engineering & BWTS Solutions</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Background Canvas & JS -->
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const particles = [];
+        for (let i = 0; i < 40; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.7,
+                vy: (Math.random() - 0.5) * 0.7,
+                radius: Math.random() * 2 + 1
+            });
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, width, height);
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            const color = isLight ? 'rgba(0, 102, 204, 0.35)' : 'rgba(0, 242, 254, 0.35)';
+            const lineColor = isLight ? 'rgba(0, 102, 204, 0.07)' : 'rgba(0, 242, 254, 0.07)';
+
+            particles.forEach((p, idx) => {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > width) p.vx *= -1;
+                if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+
+                for (let j = idx + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p2.x - p.x, p2.y - p.y);
+                    if (dist < 130) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = lineColor;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            });
+
+            requestAnimationFrame(drawParticles);
+        }
+        drawParticles();
+
+        // Services Category Tabs
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                btn.classList.add('active');
+                const targetTab = btn.getAttribute('data-tab');
+                const activePanel = document.getElementById(targetTab);
+                if (activePanel) {
+                    activePanel.classList.add('active');
+                }
+            });
+        });
+
+        // Multilingual Translation Engine
+        const i18nData = {
+            en: {
+                nav_home: "Home",
+                nav_services: "Services",
+                nav_about: "About Us",
+                nav_contact: "Contact",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> Request Quote',
+                sec_capabilities: '<i class="fa-solid fa-gears"></i> Core Capabilities',
+                sec_title: 'Our Engineering <span class="text-gradient">Services</span>',
+                sec_subtitle: "Select a service category below to explore our specialized marine engineering solutions for vessels worldwide.",
+                tab_bwts: '<i class="fa-solid fa-anchor"></i> BWTS Services',
+                tab_elec: '<i class="fa-solid fa-bolt"></i> Electrical Services',
+                tab_digital: '<i class="fa-solid fa-laptop-code"></i> Digitalization of Technical Documents',
+                bwts_c1_title: "BWTS Installation",
+                bwts_c1_desc: "Turnkey retrofit and newbuild installation of top-tier Ballast Water Treatment Systems customized to your vessel layout.",
+                bwts_c1_btn: 'Request Installation Quote <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c2_title: "Maintenance & Repair",
+                bwts_c2_desc: "Scheduled overhauls, sensor calibration, UV lamp replacements, filter maintenance, and emergency troubleshooting for all major brands.",
+                bwts_c2_btn: 'Schedule Maintenance <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c3_title: "Commissioning & Testing",
+                bwts_c3_desc: "Rigorous operational testing, biological sampling validation, and commissioning to guarantee compliance with international standards.",
+                bwts_c3_btn: 'Book Commissioning <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c4_title: "Spare Parts & Support",
+                bwts_c4_desc: "Rapid sourcing and dispatch of genuine OEM spare parts, valves, sensors, and 24/7 technical helpdesk assistance.",
+                bwts_c4_btn: 'Order Spare Parts <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c5_title: "Crew Training",
+                bwts_c5_desc: "Hands-on operational and safety training programs empowering your marine officers and engineers with full BWTS mastery.",
+                bwts_c5_btn: 'Enquire Training <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c6_title: "Documentation Updates",
+                bwts_c6_desc: "Digitization of technical schematics, CAD updates, and Ballast Water Management Plan (BWMP) revisions according to IMO regulations.",
+                bwts_c6_btn: 'Update Documentation <i class="fa-solid fa-arrow-right"></i>',
+                elec_badge: '<i class="fa-solid fa-bolt-lightning"></i> Engine Room Power & Automation',
+                elec_title: "Custom Electrical Solutions",
+                elec_desc: "Turnkey power generation, main switchboard (MSB) maintenance, automated alarm monitoring systems (AMS), and motor drive solutions engineered for heavy-duty marine operation.",
+                elec_spec1_title: "Switchboard & PMS",
+                elec_spec1_desc: "Load sharing, breaker calibration, generator sync.",
+                elec_spec2_title: "AMS & Automation",
+                elec_spec2_desc: "PLC programming, engine alarm panel loops.",
+                elec_spec3_title: "VFD Motor Drives",
+                elec_spec3_desc: "Energy-efficient pump starters & motor rewinding.",
+                elec_spec4_title: "Emergency Shutdown",
+                elec_spec4_desc: "ESD safety loops & 24V DC battery restoration.",
+                elec_feat1_title: "Main Switchboard (MSB) & Power Management",
+                elec_feat1_desc: "Precision overhaul of generator breaker panels, busbar insulation testing, automatic power restoration, and primary distribution protection.",
+                elec_feat2_title: "Engine Room Automation & Monitoring (AMS)",
+                elec_feat2_desc: "Custom PLC automation, exhaust temperature sensor loops, tank level gauging, and high-temperature shutdown interlocks.",
+                elec_feat3_title: "Variable Frequency Drives (VFD) & Heavy Motors",
+                elec_feat3_desc: "Custom VFD panel retrofits for sea water cooling pumps, ballast pumps, and engine room ventilation fans to reduce power consumption.",
+                digital_badge: '<i class="fa-solid fa-folder-tree"></i> Complete Vessel Paperless Transformation',
+                digital_title: "Digitalization of Technical Documents",
+                digital_desc: "We deliver a full end-to-end solution to convert paper datasheets, engineering drawings, P&IDs, deck & engine manuals, and classification documents into a dynamic digital repository, accessible directly on dedicated onboard computer and tablet interfaces.",
+                digital_spec1_title: "Datasheet & Drawing Digitization",
+                digital_spec1_desc: "High-resolution scanning, OCR, and indexing of vessel schematics & manuals.",
+                digital_spec2_title: "Interactive Tablet & PC Software",
+                digital_spec2_desc: "Custom intuitive interface for instantaneous search and field access across all decks.",
+                digital_spec3_title: "Equipment & Tag Linking",
+                digital_spec3_desc: "Direct cross-referencing between machinery tags, deck systems, and spare parts.",
+                digital_spec4_title: "Turnkey Onboard Deployment",
+                digital_spec4_desc: "Hardware & software setup for offline marine tablets & workstations.",
+                digital_feat1_title: "End-to-End Technical Document Archiving",
+                digital_feat1_desc: "We digitize legacy paper archives, maker manuals, wiring diagrams, P&ID drawings, and safety certs into searchable, high-clarity digital formats tailored for shipboard crews.",
+                digital_feat2_title: "Custom Computer & Tablet Software Interface",
+                digital_feat2_desc: "Crew members and engineers gain instant access to technical documentation anywhere on board using ruggedized tablets or workstation software with instant key-phrase searching.",
+                digital_feat3_title: "Smart Equipment Cross-Referencing & Maintenance Logs",
+                digital_feat3_desc: "Connect vessel equipment serial numbers, deck machinery, and engine components directly to OEM datasheets, maintenance schedules, and spare part breakdown diagrams.",
+                cta_title: "Ready to Upgrade or Service Your BWTS?",
+                cta_desc: "Get in touch with our engineering team for a custom quote, technical audit, or urgent service request.",
+                cta_btn: '<i class="fa-solid fa-paper-plane"></i> Request a Quote Now',
+                bwts_slider_title: "Certified Service & Support for Leading Manufacturers",
+                footer_desc: "Mozuk Marine is a premier marine engineering service provider specializing in Ballast Water Treatment Systems (BWTS) installation, maintenance, and compliance.",
+                footer_quick_links: "Quick Links",
+                footer_contact_info: "Contact Support"
+            },
+            es: {
+                nav_home: "Inicio",
+                nav_services: "Servicios",
+                nav_about: "Nosotros",
+                nav_contact: "Contacto",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> Solicitar Cotización',
+                sec_capabilities: '<i class="fa-solid fa-gears"></i> Capacidades Principales',
+                sec_title: 'Nuestros Servicios de <span class="text-gradient">Ingeniería</span>',
+                sec_subtitle: "Seleccione una categoría a continuación para explorar nuestras soluciones marítimas especializadas.",
+                tab_bwts: '<i class="fa-solid fa-anchor"></i> Servicios BWTS',
+                tab_elec: '<i class="fa-solid fa-bolt"></i> Servicios Eléctricos',
+                tab_digital: '<i class="fa-solid fa-laptop-code"></i> Digitalización de Documentos Técnicos',
+                bwts_c1_title: "Instalación BWTS",
+                bwts_c1_desc: "Instalación llave en mano y retrofit de sistemas de tratamiento de agua de lastre de primer nivel adaptados a la distribución de su buque.",
+                bwts_c1_btn: 'Cotizar Instalación <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c2_title: "Mantenimiento y Reparación",
+                bwts_c2_desc: "Revisiones programadas, calibración de sensores, reemplazo de lámparas UV, mantenimiento de filtros y reparación de emergencias para las principales marcas.",
+                bwts_c2_btn: 'Programar Mantenimiento <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c3_title: "Puesta en Servicio y Pruebas",
+                bwts_c3_desc: "Pruebas operativas rigurosas, validación de muestreo biológico y puesta en marcha para garantizar el cumplimiento internacional total.",
+                bwts_c3_btn: 'Reservar Puesta en Servicio <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c4_title: "Repuestos y Soporte",
+                bwts_c4_desc: "Suministro y despacho rápido de repuestos originales OEM, válvulas, sensores y asistencia técnica las 24 horas.",
+                bwts_c4_btn: 'Pedir Repuestos <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c5_title: "Capacitación de la Tripulación",
+                bwts_c5_desc: "Programas de capacitación práctica y de seguridad para capacitar a sus oficiales e ingenieros marinos en el dominio completo de sistemas BWTS.",
+                bwts_c5_btn: 'Consultar Capacitación <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c6_title: "Actualización de Documentación",
+                bwts_c6_desc: "Digitalización de esquemas técnicos, actualizaciones de CAD y revisiones del Plan de Gestión de Agua de Lastre (BWMP) según las regulaciones de la OMI.",
+                bwts_c6_btn: 'Actualizar Documentación <i class="fa-solid fa-arrow-right"></i>',
+                elec_badge: '<i class="fa-solid fa-bolt-lightning"></i> Energía & Automatización Sala de Máquinas',
+                elec_title: "Soluciones Eléctricas A Medida",
+                elec_desc: "Generación de energía llave en mano, mantenimiento de cuadros principales (MSB), sistemas de alarma y monitoreo automatizados (AMS) y variadores de frecuencia para operaciones marinas pesadas.",
+                cta_title: "¿Listo para Garantizar el Cumplimiento de su Buque?",
+                cta_desc: "Contáctenos hoy para consultas técnicas, cotizaciones de mantenimiento o servicio de emergencia.",
+                cta_btn: '<i class="fa-solid fa-paper-plane"></i> Solicitar Cotización',
+                bwts_slider_title: "Servicio y Soporte Certificado para los Principales Fabricantes",
+                footer_desc: "Mozuk Marine es un proveedor líder de servicios de ingeniería naval especializado en la instalación, mantenimiento y cumplimiento de BWTS.",
+                footer_quick_links: "Enlaces Rápidos",
+                footer_contact_info: "Soporte y Contacto"
+            },
+            fr: {
+                nav_home: "Accueil",
+                nav_services: "Services",
+                nav_about: "À Propos",
+                nav_contact: "Contact",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> Demander un Devis',
+                sec_capabilities: '<i class="fa-solid fa-gears"></i> Capacités Principales',
+                sec_title: 'Nos Services d'<span class="text-gradient">Ingénierie</span>',
+                sec_subtitle: "Sélectionnez une catégorie ci-dessous pour explorer nos solutions maritimes spécialisées.",
+                tab_bwts: '<i class="fa-solid fa-anchor"></i> Services BWTS',
+                tab_elec: '<i class="fa-solid fa-bolt"></i> Services Électriques',
+                tab_digital: '<i class="fa-solid fa-laptop-code"></i> Numérisation de Documents Techniques',
+                bwts_c1_title: "Installation BWTS",
+                bwts_c1_desc: "Installation retrofit clé en main de systèmes de traitement des eaux de ballast de premier ordre adaptés à votre navire.",
+                bwts_c1_btn: 'Demander un Devis d'Installation <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c2_title: "Maintenance & Réparation",
+                bwts_c2_desc: "Révisions programmées, étalonnage de capteurs, remplacement de lampes UV, entretien des filtres et dépannage d'urgence.",
+                bwts_c2_btn: 'Planifier la Maintenance <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c3_title: "Mise en Service & Essais",
+                bwts_c3_desc: "Essais opérationnels rigoureux, validation de l'échantillonnage biologique et mise en service conforme aux normes internationales.",
+                bwts_c3_btn: 'Réserver la Mise en Service <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c4_title: "Pièces de Rechange & Support",
+                bwts_c4_desc: "Approvisionnement rapide et expédition de pièces de rechange OEM d'origine, vannes, capteurs et assistance 24/7.",
+                bwts_c4_btn: 'Commander des Pièces <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c5_title: "Formation de l'Équipage",
+                bwts_c5_desc: "Programmes de formation pratique et de sécurité permettant à vos officiers et mécaniciens de maîtriser les systèmes BWTS.",
+                bwts_c5_btn: 'Se Renseigner sur la Formation <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c6_title: "Mise à Jour de Documentation",
+                bwts_c6_desc: "Numérisation de schémas techniques, mises à jour CAD et révisions du plan de gestion des eaux de ballast (BWMP).",
+                bwts_c6_btn: 'Mettre à Jour la Documentation <i class="fa-solid fa-arrow-right"></i>',
+                cta_title: "Prêt à Assurer la Conformité de Votre Navire ?",
+                cta_desc: "Contactez notre équipe d'ingénieurs maritimes dès aujourd'hui pour toute consultation ou demande d'intervention.",
+                cta_btn: '<i class="fa-solid fa-paper-plane"></i> Demander un Devis',
+                bwts_slider_title: "Service & Support Certifiés pour les Plus Grands Fabricants",
+                footer_desc: "Mozuk Marine est un prestataire de services d'ingénierie maritime spécialisé dans l'installation, la maintenance et la conformité des systèmes BWTS.",
+                footer_quick_links: "Liens Rapides",
+                footer_contact_info: "Support & Contact"
+            },
+            ar: {
+                nav_home: "الرئيسية",
+                nav_services: "الخدمات",
+                nav_about: "من نحن",
+                nav_contact: "تواصل معنا",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> طلب عرض سعر',
+                sec_capabilities: '<i class="fa-solid fa-gears"></i> الإمكانيات الأساسية',
+                sec_title: 'خدماتنا <span class="text-gradient">الهندسية</span>',
+                sec_subtitle: "اختر فئة الخدمات أدناه لاستكشاف حلولنا البحرية المتخصصة للسفن عالمياً.",
+                tab_bwts: '<i class="fa-solid fa-anchor"></i> خدمات BWTS',
+                tab_elec: '<i class="fa-solid fa-bolt"></i> الخدمات الكهربائية',
+                tab_digital: '<i class="fa-solid fa-laptop-code"></i> رقمنة المستندات الفنية',
+                bwts_c1_title: "تركيب أنظمة BWTS",
+                bwts_c1_desc: "تركيب وتحديث شامل لأنظمة معالجة مياه التوازن المتقدمة المخصصة لهيكل وسعة سفينتك.",
+                bwts_c1_btn: 'طلب عرض سعر للتركيب <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c2_title: "الصيانة والإصلاح",
+                bwts_c2_desc: "عمرة دورية، معايرة الحساسات، استبدال مصابيح UV، صيانة الفلاتر والإصلاحات العاجلة لكافة الماركات العالمية.",
+                bwts_c2_btn: 'جدولة الصيانة <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c3_title: "التكليف والاختبارات",
+                bwts_c3_btn: 'حجز التكليف والاعتماد <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c4_title: "قطع الغيار والدعم",
+                bwts_c4_btn: 'طلب قطع غيار <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c5_title: "تدريب الطاقم",
+                bwts_c5_btn: 'الاستفسار عن التدريب <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c6_title: "تحديث الوثائق والمخططات",
+                bwts_c6_btn: 'تحديث الوثائق <i class="fa-solid fa-arrow-right"></i>',
+                cta_title: "جاهز لضمان الامتثال الكامل لسفينتك؟",
+                cta_desc: "تواصل مع فريق المهندسين البحريين لدينا اليوم للحصول على الاستشارات الفنية، عروض الصيانة، أو الدعم الطارئ.",
+                cta_btn: '<i class="fa-solid fa-paper-plane"></i> طلب عرض سعر',
+                bwts_slider_title: "خدمة ودعم معتمد لكبرى الشركات المصنعة عالمياً",
+                footer_desc: "موزوك مارين هي مزود خدمات هندسية بحرية رائد متخصص في تركيب وصيانة وامتثال أنظمة معالجة مياه التوازن (BWTS).",
+                footer_quick_links: "روابط سريعة",
+                footer_contact_info: "الدعم والتواصل"
+            },
+            bg: {
+                nav_home: "Начало",
+                nav_services: "Услуги",
+                nav_about: "За нас",
+                nav_contact: "Контакти",
+                nav_quote: '<i class="fa-solid fa-paper-plane"></i> Поискайте оферта',
+                sec_capabilities: '<i class="fa-solid fa-gears"></i> Основни Възможности',
+                sec_title: 'Нашите Инженерни <span class="text-gradient">Услуги</span>',
+                sec_subtitle: "Изберете категория по-долу, за да разгледате нашите специализирани решения.",
+                tab_bwts: '<i class="fa-solid fa-anchor"></i> BWTS Услуги',
+                tab_elec: '<i class="fa-solid fa-bolt"></i> Електрически Услуги',
+                tab_digital: '<i class="fa-solid fa-laptop-code"></i> Дигитализация на Документи',
+                bwts_c1_title: "Монтаж на BWTS",
+                bwts_c1_desc: "Цялостен монтаж и преустройство на висок клас системи за третиране на баластни води.",
+                bwts_c1_btn: 'Оферта за Монтаж <i class="fa-solid fa-arrow-right"></i>',
+                bwts_c2_title: "Поддръжка и Ремонт",
+                bwts_c2_desc: "Планови ремонти, калибриране на сензори, подмяна на UV лампи, филтри и спешна диагностика.",
+                bwts_c2_btn: 'Заяви Поддръжка <i class="fa-solid fa-arrow-right"></i>',
+                cta_title: "Готови ли сте да гарантирате съответствието на вашия кораб?",
+                cta_desc: "Свържете се с нашите инженерни специалисти днес за консултации, оферти за поддръжка или спешни ремонти.",
+                cta_btn: '<i class="fa-solid fa-paper-plane"></i> Поискайте Оферта',
+                bwts_slider_title: "Сертифицирано Обслужване и Поддръжка за Водещи Производители",
+                footer_desc: "Мозук Марин е водещ доставчик на морски инженерни услуги, специализиран в монтажа, поддръжката и съответствието на BWTS.",
+                footer_quick_links: "Бързи Връзки",
+                footer_contact_info: "Поддръжка и Контакти"
+            }
+        };
+
+        function setLanguage(lang) {
+            if (!i18nData[lang]) lang = 'en';
+            localStorage.setItem('mozuk_lang', lang);
+
+            document.documentElement.setAttribute('lang', lang);
+            if (lang === 'ar') {
+                document.documentElement.setAttribute('dir', 'rtl');
+            } else {
+                document.documentElement.setAttribute('dir', 'ltr');
+            }
+
+            const codes = { en: 'EN', es: 'ES', fr: 'FR', ar: 'AR', bg: 'BG' };
+            const codeEl = document.getElementById('current-lang');
+            if (codeEl) codeEl.textContent = codes[lang];
+
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                if (opt.getAttribute('data-lang') === lang) {
+                    opt.classList.add('active');
+                } else {
+                    opt.classList.remove('active');
+                }
+            });
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18nData[lang] && i18nData[lang][key]) {
+                    el.innerHTML = i18nData[lang][key];
+                }
+            });
+        }
+
+        const langBtn = document.getElementById('lang-btn');
+        const langDropdown = document.getElementById('lang-dropdown');
+
+        if (langBtn && langDropdown) {
+            langBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                langDropdown.classList.toggle('active');
+            });
+
+            document.addEventListener('click', () => {
+                langDropdown.classList.remove('active');
+            });
+
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                opt.addEventListener('click', () => {
+                    const selectedLang = opt.getAttribute('data-lang');
+                    setLanguage(selectedLang);
+                    langDropdown.classList.remove('active');
+                });
+            });
+        }
+
+        // Initialize saved language
+        const savedLang = localStorage.getItem('mozuk_lang') || 'en';
+        setLanguage(savedLang);
+
+        // ===== THEME SWITCHER CONTROLLER =====
+        function setTheme(theme) {
+            if (theme !== 'light' && theme !== 'dark') theme = 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('mozuk_theme', theme);
+            
+            const themeIcon = document.getElementById('theme-icon');
+            if (themeIcon) {
+                if (theme === 'light') {
+                    themeIcon.className = 'fa-solid fa-moon';
+                } else {
+                    themeIcon.className = 'fa-solid fa-sun';
+                }
+            }
+        }
+
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                setTheme(newTheme);
+            });
+        }
+
+        const initialTheme = localStorage.getItem('mozuk_theme') || 'light';
+        setTheme(initialTheme);
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        if (menuToggle && navMenu) {
+            menuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+
+</html>

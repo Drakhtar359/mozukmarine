@@ -2,6 +2,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "routes": [
+    { "src": "/services", "dest": "/services/index.html" },
     { "src": "/about-us", "dest": "/about-us/index.html" },
     { "src": "/contact", "dest": "/contact/index.html" }
   ]
