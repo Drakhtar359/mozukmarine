@@ -104,34 +104,10 @@
             --shadow-card: 0 12px 28px rgba(15, 23, 42, 0.06);
         }
 
-        /* ===== MAIN PAGE MATCHING HOVER & TACTILE INTERACTION OVERRIDES ===== */
+        /* ===== TASTE & ACCESSIBILITY OVERRIDES ===== */
         *:focus-visible {
             outline: 2px solid var(--color-primary);
             outline-offset: 3px;
-        }
-
-        /* Physical Tactile Press Feedback (Emil Kowalski Spring Response) */
-        button:active, 
-        .btn:active, 
-        .btn-primary:active, 
-        .btn-secondary:active, 
-        .btn-nav-cta:active, 
-        .tab-btn:active, 
-        .lang-btn:active, 
-        .theme-toggle-btn:active, 
-        .nav-link:active,
-        .service-card:active,
-        .value-card:active,
-        .contact-card:active,
-        .stat-card:active,
-        .pillar-card:active,
-        .workflow-step:active,
-        .founder-card:active,
-        .story-image-wrapper:active,
-        .btn-direct-email:active,
-        .btn-cta-action:active {
-            transform: translateY(1px) scale(0.975) !important;
-            transition: transform var(--dur-instant) var(--ease-spring-snappy) !important;
         }
 
         /* Typography & Tracking Refinements */
@@ -887,6 +863,77 @@
             box-shadow: var(--shadow-glow);
             transition: transform 0.4s ease;
             overflow: hidden;
+        }
+
+        .founder-info h2 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0.6rem 0 0.2rem;
+        }
+
+        .founder-info h3 {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.3rem;
+        }
+
+        .founder-role {
+            color: var(--color-accent);
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .founder-info p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-size: 1.02rem;
+            line-height: 1.65;
+        }
+
+        .founder-quote {
+            background: rgba(0, 242, 254, 0.06);
+            border-left: 3px solid var(--color-accent);
+            padding: 1.2rem 1.6rem;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            font-style: italic;
+            color: var(--text-main);
+            margin-top: 1.5rem;
+            font-size: 1.02rem;
+        }
+
+        [dir="rtl"] .founder-quote {
+            border-left: none;
+            border-right: 3px solid var(--color-accent);
+            border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+        }
+
+        .founder-direct-contact {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 0.6rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            width: 100%;
+        }
+
+        .founder-contact-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
         }
 
         .btn-direct-email {

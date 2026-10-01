@@ -104,27 +104,10 @@
             --shadow-card: 0 12px 28px rgba(15, 23, 42, 0.06);
         }
 
-        /* ===== TASTE & TACTILE INTERACTION OVERRIDES ===== */
+        /* ===== TASTE & ACCESSIBILITY OVERRIDES ===== */
         *:focus-visible {
             outline: 2px solid var(--color-primary);
             outline-offset: 3px;
-        }
-
-        /* Physical Tactile Press Feedback (Emil Kowalski Spring Response) */
-        button:active, 
-        .btn:active, 
-        .btn-primary:active, 
-        .btn-secondary:active, 
-        .btn-nav-cta:active, 
-        .tab-btn:active, 
-        .lang-btn:active, 
-        .theme-toggle-btn:active, 
-        .nav-link:active,
-        .service-card:active,
-        .value-card:active,
-        .contact-card:active {
-            transform: translateY(1px) scale(0.975) !important;
-            transition: transform var(--dur-instant) var(--ease-spring-snappy) !important;
         }
 
         /* Typography & Tracking Refinements */
