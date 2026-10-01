@@ -727,12 +727,6 @@
             transition: opacity 0.3s ease;
         }
 
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--color-glass-border-hover);
-            box-shadow: var(--shadow-glow);
-        }
-
         .stat-card:hover::before {
             opacity: 1;
         }
@@ -895,87 +889,12 @@
             overflow: hidden;
         }
 
-        .founder-avatar-icon:hover {
-            transform: scale(1.05);
-        }
-
-        .founder-info h2 {
-            font-family: var(--font-heading);
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin: 0.6rem 0 0.2rem;
-        }
-
-        .founder-info h3 {
-            font-family: var(--font-heading);
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 0.3rem;
-        }
-
-        .founder-role {
-            color: var(--color-accent);
-            font-weight: 700;
-            font-size: 0.95rem;
-            margin-bottom: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .founder-info p {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            font-size: 1.02rem;
-            line-height: 1.65;
-        }
-
-        .founder-quote {
-            background: rgba(0, 242, 254, 0.06);
-            border-left: 3px solid var(--color-accent);
-            padding: 1.2rem 1.6rem;
-            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-            font-style: italic;
-            color: var(--text-main);
-            margin-top: 1.5rem;
-            font-size: 1.02rem;
-        }
-
-        [dir="rtl"] .founder-quote {
-            border-left: none;
-            border-right: 3px solid var(--color-accent);
-            border-radius: var(--radius-sm) 0 0 var(--radius-sm);
-        }
-
-        .founder-direct-contact {
-            grid-column: 1 / -1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            gap: 0.6rem;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            width: 100%;
-        }
-
-        .founder-contact-label {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-        }
-
         .btn-direct-email {
             display: inline-flex;
             align-items: center;
             gap: 0.6rem;
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.12), rgba(58, 123, 213, 0.22));
-            border: 1px solid var(--color-glass-border-hover);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--color-glass-border);
             color: var(--text-main);
             padding: 0.75rem 1.6rem;
             border-radius: var(--radius-full);
@@ -983,8 +902,7 @@
             font-size: 1rem;
             text-decoration: none;
             backdrop-filter: var(--glass-blur);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.1);
+            transition: all 0.25s var(--transition-smooth);
         }
 
         .btn-direct-email i {
@@ -992,11 +910,10 @@
         }
 
         .btn-direct-email:hover {
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.25), rgba(58, 123, 213, 0.35));
+            background: rgba(0, 242, 254, 0.1);
             border-color: var(--color-primary);
-            box-shadow: var(--shadow-glow);
-            transform: translateY(-2px);
-            color: #ffffff;
+            transform: translateY(-3px);
+            color: var(--color-primary);
         }
 
         /* ===== PILLARS / VALUES SECTION ===== */
@@ -1190,8 +1107,8 @@
         }
 
         .btn-cta-action:hover, .btn-cta-action:visited:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 35px rgba(0, 242, 254, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 242, 254, 0.5);
             color: #000;
         }
 
