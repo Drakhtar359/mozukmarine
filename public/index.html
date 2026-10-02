@@ -39,10 +39,10 @@
             --transition-tactile: transform var(--dur-instant) var(--ease-spring-tactile), background-color var(--dur-snappy) ease, border-color var(--dur-snappy) ease, box-shadow var(--dur-snappy) ease;
 
             /* Color Palette - Cyber Marine Dark Mode */
-            --color-bg: #050b14;
-            --color-bg-alt: #0a1322;
-            --color-surface: rgba(13, 25, 44, 0.75);
-            --color-surface-hover: rgba(20, 38, 66, 0.9);
+            --color-bg: #000000;
+            --color-bg-alt: #0a0a0a;
+            --color-surface: rgba(18, 18, 18, 0.75);
+            --color-surface-hover: rgba(28, 28, 28, 0.9);
             --color-glass-border: rgba(255, 255, 255, 0.08);
             --color-glass-border-hover: rgba(40, 173, 164, 0.35);
             
@@ -518,7 +518,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(5, 11, 20, 0.75);
+            background: rgba(10, 10, 10, 0.75);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
             border-bottom: 1px solid rgba(255, 255, 255, 0.06);
@@ -526,7 +526,7 @@
         }
 
         .header-nav.scrolled {
-            background: rgba(5, 11, 20, 0.92);
+            background: rgba(10, 10, 10, 0.92);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             border-bottom-color: var(--color-glass-border);
         }
@@ -670,7 +670,7 @@
             position: absolute;
             top: calc(100% + 8px);
             right: 0;
-            background: rgba(10, 19, 34, 0.95);
+            background: rgba(15, 15, 15, 0.95);
             border: 1px solid var(--color-glass-border-hover);
             border-radius: var(--radius-md);
             padding: 0.5rem;
@@ -795,7 +795,7 @@
             padding: 1rem 2.2rem;
             border-radius: var(--radius-full);
             background: var(--color-primary);
-            color: #050b14;
+            color: #000000;
             font-weight: 700;
             font-size: 1.05rem;
             text-decoration: none;
@@ -806,7 +806,7 @@
         .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 35px rgba(40, 173, 164, 0.5);
-            color: #050b14;
+            color: #000000;
         }
 
         .btn-secondary {
@@ -912,7 +912,7 @@
 
         .tab-btn.active {
             background: var(--color-primary);
-            color: #050b14;
+            color: #000000;
             border-color: transparent;
             box-shadow: 0 6px 25px rgba(40, 173, 164, 0.4);
             font-weight: 700;
@@ -993,7 +993,7 @@
         }
 
         .elec-spec-box {
-            background: rgba(5, 11, 20, 0.6);
+            background: rgba(10, 10, 10, 0.6);
             border: 1px solid var(--color-glass-border);
             border-radius: var(--radius-md);
             padding: 1.25rem;
@@ -1158,7 +1158,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #050b14;
+            color: #000000;
             font-size: 1.35rem;
             box-shadow: 0 8px 20px rgba(40, 173, 164, 0.4);
             margin-top: -42px;
@@ -1253,7 +1253,7 @@
             position: absolute;
             bottom: -25px;
             right: -25px;
-            background: rgba(10, 19, 34, 0.9);
+            background: rgba(15, 15, 15, 0.9);
             border: 1px solid var(--color-glass-border);
             backdrop-filter: var(--glass-blur);
             padding: 1.25rem 1.5rem;
@@ -1424,7 +1424,7 @@
 
         /* ===== FOOTER ===== */
         .footer {
-            background: #03070d;
+            background: #050505;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
             padding: 3rem 0 2rem;
             margin-top: var(--spacing-2xl);
@@ -1567,7 +1567,7 @@
                 top: 80px;
                 left: 0;
                 width: 100%;
-                background: rgba(5, 11, 20, 0.95);
+                background: rgba(10, 10, 10, 0.95);
                 backdrop-filter: var(--glass-blur);
                 flex-direction: column;
                 padding: 2rem;
@@ -1623,7 +1623,7 @@
             position: relative;
             width: 100%;
             padding: 1.5rem 0;
-            background: rgba(10, 19, 34, 0.4);
+            background: rgba(15, 15, 15, 0.4);
             border-radius: var(--radius-md);
             border: 1px solid var(--color-glass-border);
             backdrop-filter: var(--glass-blur);
@@ -1644,12 +1644,12 @@
 
         .logo-slider::before {
             left: 0;
-            background: linear-gradient(to right, #050b14, transparent);
+            background: linear-gradient(to right, #000000, transparent);
         }
 
         .logo-slider::after {
             right: 0;
-            background: linear-gradient(to left, #050b14, transparent);
+            background: linear-gradient(to left, #000000, transparent);
         }
 
         .logo-track {
@@ -1770,9 +1770,7 @@
     <main class="container">
         <!-- Blueprint Cover Section (Full screen blank area showing diagram) -->
         <section class="blueprint-cover-section" id="blueprint-cover" style="height: 100vh; pointer-events: none;">
-            <div class="badge blueprint-overlay-badge" id="blueprint-title" data-i18n="hero_badge">
-                <i class="fa-solid fa-shield-halved"></i> Pioneering BWTS Solutions
-            </div>
+            
             <div class="scroll-indicator" id="scroll-prompt">
                 <span>Scroll Down</span>
                 <i class="fa-solid fa-chevron-down"></i>
@@ -2445,7 +2443,7 @@
                 tankFill: isLight ? 'rgba(40, 173, 164, 0.08)' : 'rgba(40, 173, 164, 0.055)',
                 tankWaterFill: isLight ? 'rgba(44, 100, 152, 0.45)' : 'rgba(40, 173, 164, 0.25)',
                 tankText: isLight ? '#003380' : 'rgba(40, 173, 164, 0.45)',
-                modeBoxBg: isLight ? 'rgba(255, 255, 255, 0.95)' : 'rgba(5, 11, 20, 0.8)',
+                modeBoxBg: isLight ? 'rgba(255, 255, 255, 0.95)' : 'rgba(10, 10, 10, 0.8)',
                 modeBoxBorder: isLight ? 'rgba(40, 173, 164, 0.7)' : 'rgba(40, 173, 164, 0.25)',
                 modeBoxProgress: isLight ? 'rgba(40, 173, 164, 0.25)' : 'rgba(40, 173, 164, 0.15)',
                 modeBoxText: isLight ? '#003380' : '#28ada4',
@@ -3110,7 +3108,7 @@
                 
                 const waveGradient = ctx.createLinearGradient(0, height - wave.heightOffset - wave.amp, 0, height);
                 waveGradient.addColorStop(0, wave.color);
-                waveGradient.addColorStop(1, theme.isLight ? 'rgba(248, 250, 252, 0)' : 'rgba(5, 11, 20, 0)');
+                waveGradient.addColorStop(1, theme.isLight ? 'rgba(248, 250, 252, 0)' : 'rgba(10, 10, 10, 0)');
                 
                 ctx.fillStyle = waveGradient;
                 ctx.fill();
