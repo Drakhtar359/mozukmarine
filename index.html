@@ -153,7 +153,7 @@
         }
 
         /* Snappy Card Transitions */
-        .service-card, .value-card, .timeline-content, .elec-spec-box, .contact-card {
+        .service-card, .value-card, .timeline-content, .elec-visual-card, .elec-spec-box, .elec-feature-card, .contact-card {
             transition: transform var(--dur-snappy) var(--ease-spring-snappy),
                         border-color var(--dur-snappy) var(--ease-spring-snappy),
                         background-color var(--dur-snappy) var(--ease-spring-snappy),
@@ -161,7 +161,7 @@
             will-change: transform, border-color, box-shadow;
         }
 
-        .service-card:hover, .value-card:hover, .timeline-content:hover, .contact-card:hover {
+        .service-card:hover, .value-card:hover, .timeline-content:hover, .elec-visual-card:hover, .elec-spec-box:hover, .elec-feature-card:hover, .contact-card:hover {
             transform: translateY(-4px);
             border-color: var(--color-glass-border-hover);
         }
@@ -997,12 +997,6 @@
             border: 1px solid var(--color-glass-border);
             border-radius: var(--radius-md);
             padding: 1.25rem;
-            transition: all 0.3s ease;
-        }
-
-        .elec-spec-box:hover {
-            border-color: var(--color-accent);
-            transform: translateY(-3px);
         }
 
         .elec-spec-box i {
@@ -1038,17 +1032,10 @@
             border-radius: var(--radius-md);
             padding: 1.5rem;
             backdrop-filter: var(--glass-blur);
-            transition: all 0.3s var(--transition-smooth);
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
-        }
-
-        .elec-feature-card:hover {
-            border-color: var(--color-primary);
-            transform: translateX(8px);
-            box-shadow: 0 10px 30px rgba(40, 173, 164, 0.15);
         }
 
         .elec-feature-header {
@@ -2150,7 +2137,7 @@
 
                         <div class="elec-feature-card">
                             <div class="elec-feature-header">
-                                <i class="fa-solid fa-laptop-mobile"></i>
+                                <i class="fa-solid fa-desktop"></i>
                                 <h4 data-i18n="digital_feat2_title">Custom Computer & Tablet Software Interface</h4>
                             </div>
                             <p data-i18n="digital_feat2_desc">Crew members and engineers gain instant access to technical documentation anywhere on board using ruggedized tablets or workstation software with instant key-phrase searching.</p>
