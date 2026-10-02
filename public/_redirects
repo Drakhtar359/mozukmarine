@@ -1,4 +1,6 @@
 # Clean URLs and redirects
+/home.html        /              301
+/home             /              301
 /services.html    /#services     301
 /services         /#services     301
 /contact.html     /#contact-us   301

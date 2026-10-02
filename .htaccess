@@ -2,6 +2,9 @@
   RewriteEngine On
   RewriteBase /
 
+  # Redirect /home to /
+  RewriteRule ^home/?$ / [R=301,L]
+
   # Redirect /services to /#services
   RewriteRule ^services/?$ /#services [R=301,L]
 
